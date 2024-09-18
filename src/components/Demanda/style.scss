@@ -1,0 +1,28 @@
+.demanda_card{
+    border:solid 1px #008080;
+    margin: 8px;
+    padding: 8px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    p{
+        margin: 4px;
+        span{
+            font-weight: bold;
+        }
+    }
+
+    select{
+        border:solid 1px #008080;
+        margin: 8px;
+        padding: 8px;
+        cursor: pointer;
+    }
+}
+
+.arquivo{
+    display: flex;
+    flex-direction: column;
+}

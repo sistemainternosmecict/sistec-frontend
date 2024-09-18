@@ -1,0 +1,15 @@
+nav{
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #008080;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ul{
+        list-style: none;
+    }
+}

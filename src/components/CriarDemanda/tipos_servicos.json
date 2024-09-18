@@ -1,0 +1,149 @@
+[
+    {
+        "etiqueta":"PC Daten Desktop",
+        "servicos":[
+            { 
+                "cod":"[CEP]", 
+                "opc":"Cabo de Energia PC", 
+                "incidentes":["Não liga"] 
+            },
+            { 
+                "cod":"[CEM]", 
+                "opc":"Cabo de Energia Monitor", 
+                "incidentes":["Não liga"]
+            },
+            { 
+                "cod":"[MON]", 
+                "opc":"Monitor", 
+                "incidentes":["Não liga"]
+            },
+            { 
+                "cod":"[MOU]", 
+                "opc":"Mouse", 
+                "incidentes":["Não liga", "Botão defeituoso"]
+            },
+            { 
+                "cod":"[PDD]", 
+                "opc":"PC Daten", 
+                "incidentes":[
+                    "Não liga", 
+                    "Travando",
+                    "Liga mas sem sinal na tela",
+                    "Com senha desconhecida",
+                    "Instalar Office",
+                    "Instalar TIX",
+                    "Sem internet",
+                    "Outro"
+                ]
+            },
+            { 
+                "cod":"[TEC]", 
+                "opc":"Teclado", 
+                "incidentes":["Não liga", "Tecla defeituosa"]
+            }
+        ]
+    },
+    {
+        "etiqueta":"Chromebook",
+        "servicos":[
+            { "cod":"[CBP]", "opc":"Chromebook Professor", "incidentes":[
+                "Não liga",
+                "Travando",
+                "Liga mas sem sinal na tela",
+                "Com senha desconhecida",
+                "Instalar TIX",
+                "Sem internet",
+                "Outro"
+            ]  },
+            { "cod":"[CBA]", "opc":"Chromebook de Aluno", "incidentes":[
+                "Não liga",
+                "Travando",
+                "Liga mas sem sinal na tela",
+                "Com senha desconhecida",
+                "Sem internet",
+                "Outro"
+                ]  },
+            { "cod":"[EDC]", "opc":"EduCharge Chromebook", "incidentes":[
+                "Não liga",
+                "Não passa carga",
+                "Porta não fecha/abre",
+                "Tomada inadequada",
+                "Outro"
+            ]  }
+        ]
+    },
+    {
+        "etiqueta":"TV 75\"",
+        "servicos":[
+            { "cod":"[CTV]", "opc":"Cabo de Energia TV 75\"", "incidentes":["Defeituoso"]  },
+            { "cod":"[STV]", "opc":"Suporte TV 75\" Samsung", "incidentes":[
+                "Defeituoso"
+            ]  },
+            { "cod":"[TVS]", "opc":"TV Interativa 75\" Samsung", "incidentes":[
+                "Não liga",
+                "Travando",
+                "Liga mas sem sinal na tela",
+                "Não conecta",
+                "Outro"
+            ]} 
+        ]
+    },
+    {
+        "etiqueta":"Outros dispositivos",
+        "servicos":[
+            { "cod":"[IMP]", "opc":"Impressora", "incidentes":[
+                "Não liga",
+                "Travando",
+                "Papel atolado",
+                "Abastecer toner",
+                "Abastecer papel",
+                "Desconectada",
+                "Configuração",
+                "Outro"
+            ]  },
+            { "cod":"[I3D]", "opc":"Impressora 3D", "incidentes":[
+                "Não liga",
+                "Liga mas não imprime",
+                "Outro"
+            ]  },
+            { "cod":"[EDN]", "opc":"EducaNave Cittius", "incidentes":[
+                "Não liga",
+                "Travando",
+                "Liga mas sem sinal na tela",
+                "Tela defeituosa",
+                "Com senha desconhecida",
+                "Desconectada",
+                "Outro"
+            ]  },
+            { "cod":"[NPS]", "opc":"Notebook Professor Samsung", "incidentes":[
+                "Não liga",
+                "Travando",
+                "Liga mas sem sinal na tela",
+                "Com senha desconhecida",
+                "Instalar Office",
+                "Instalar TIX",
+                "Sem internet",
+                "Outro"
+            ] }
+        ]
+    },
+    {
+        "etiqueta":"Rede",
+        "servicos":[
+            { "cod":"[WIF]", "opc":"Wifi", "incidentes":[
+                "Não conecta",
+                "Não credenciado na rede",
+                "Outro"
+            ]  },
+            { "cod":"[WEB]", "opc":"Rede", "incidentes":[
+                "Não conecta",
+                "Não credenciado na rede",
+                "Outro"
+            ]  },
+            { "cod":"[EMI]", "opc":"Email institucional", "incidentes":[
+                "Não possuo",
+                "Redefinir senha"
+            ]  }
+        ]
+    }
+]

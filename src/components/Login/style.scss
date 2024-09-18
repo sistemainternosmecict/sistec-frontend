@@ -1,0 +1,22 @@
+$cor_principal: #008080;
+
+form {
+    // border: solid 1px $cor_principal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 240px;
+
+    input{
+        border: solid 1px $cor_principal;
+        margin: 4px;
+        padding: 8px;
+        user-select: auto;
+        cursor: pointer;
+    }
+
+    p{
+        font-size: 14px;
+    }
+}

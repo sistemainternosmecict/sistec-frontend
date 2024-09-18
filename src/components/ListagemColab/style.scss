@@ -1,0 +1,39 @@
+$max-width: 450px;
+
+ul#colabs{
+    width: 100%;
+    list-style: none;
+    z-index: -1;
+    align-self: center;
+    justify-self: center;
+    
+    @media screen and (max-width: 500px) {
+        left: 0;
+    }
+
+    li{
+        margin: 8px 0;
+
+        .colab_card{
+            width: 100%;
+            max-width: $max-width;
+            padding: 4px;
+            border:solid 1px #008080;
+
+            p.ativo_sim{
+                color: green;
+            }
+            p.ativo_nao{
+                color: red;
+            }
+
+            button.btn_ativar{
+                color: green;
+            }
+            button.btn_desativar{
+                color: red;
+            }
+        }
+    }
+
+}
