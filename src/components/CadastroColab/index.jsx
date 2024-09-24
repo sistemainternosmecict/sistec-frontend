@@ -46,7 +46,7 @@ export default function CadastroColab(){
     const [msg,setMessage] = useState("")
     return (
         <>  
-            <form onSubmit={(e) => cadastrar(e, hostUrl, setMessage)}>
+            <form id="reg_colab" onSubmit={(e) => cadastrar(e, hostUrl, setMessage)}>
                 <h1>Registro de</h1>
                 <h1>Colaborador</h1>
                 <input type="text" placeholder="Nome do Colaborador (*)"/>

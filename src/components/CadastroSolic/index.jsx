@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { HostContext } from "../../HostContext";
+import './style.scss';
 
 async function EnviarRegistro(dados, host, setMessage){
     const route = "/api/usuarios/solicitantes/registrar"
@@ -45,7 +46,7 @@ export default function CadastroSolic(){
     return (
         <>
             {/* <p>Cadastro de solicitantes</p> */}
-            <form onSubmit={(e) => cadastrar(e, hostUrl, setMessage)}>
+            <form id="reg_solic" onSubmit={(e) => cadastrar(e, hostUrl, setMessage)}>
                 <h1>Registro de</h1>
                 <h1>Solicitante</h1>
                 <input type="text" placeholder="Nome do solicitante (*)"/>

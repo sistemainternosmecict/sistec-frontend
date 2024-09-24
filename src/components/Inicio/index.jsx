@@ -1,4 +1,4 @@
-import CriarDemanda from "../CriarDemanda";
+import CriarDemanda from "../FormExterno";
 import './style.scss';
 
 export default function Inicio({ setPgInicial }){

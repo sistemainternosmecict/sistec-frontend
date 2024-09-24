@@ -26,7 +26,7 @@ export default function ListagemArquivo(){
             <ul id="demandas">
                 {(demandas) ? demandas.map((demanda, index) => (
                     <li key={index}>
-                        {((demanda.status === 5) || (demanda.status === 6)) 
+                        {((demanda.status > 3)) 
                         ? <Demanda demanda={demanda} />
                         :<></>}
                     </li>

@@ -1,26 +1,25 @@
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext, useEffect } from "react";
 import { HostContext } from "../../HostContext";
-// import './style.scss';
-import Demanda from '../Demanda'
+import Demanda from '../Demanda';
 
 async function obter_demandas(host){
-    const route = "/api/demandas/listar"
+    const route = "/api/demandas/listar";
     const result = await fetch(host+route);
     const retorno = await result.json();
-    return retorno
+    return retorno;
 }
 
 async function fetchData(hostUrl, setDemandas) {
-    const data = await obter_demandas(hostUrl)
-    setDemandas(data.demandas)
+    const data = await obter_demandas(hostUrl);
+    setDemandas(data.demandas);
 }
 
 export default function ListagemAtendimento(){
-    const [demandas, setDemandas] = useState([])
-    const { hostUrl } = useContext(HostContext)
+    const [demandas, setDemandas] = useState([]);
+    const { hostUrl } = useContext(HostContext);
 
     useEffect(() => {
-        fetchData(hostUrl, setDemandas)
+        fetchData(hostUrl, setDemandas);
     }, [hostUrl])
 
     return (
@@ -28,7 +27,7 @@ export default function ListagemAtendimento(){
             <ul id="demandas">
                 {(demandas) ? demandas.map((demanda, index) => (
                     <li key={index}>
-                        {((demanda.status !== 1) && (demanda.status !== 5) && (demanda.status !== 6)) ? 
+                        {((demanda.status === 2) || (demanda.status === 3)) ? 
                         <Demanda demanda={demanda} func={fetchData} setDemandas={setDemandas}/>
                         :<></>}
                     </li>
