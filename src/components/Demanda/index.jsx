@@ -45,7 +45,11 @@ async function atualizar_status(protocolo, status_str, host, func, setDemandas, 
         "dem_status": status,
         "dem_dt_final": (status == 4 || status == 5 || status == 6) ? dataFormatada : null,
         "dem_tempo_finalizacao": (status == 4 || status == 5 || status == 6) ? diff.dias : null,
-        "dem_atendido_por": (status == 4 || status == 5 || status == 6) ? demanda.direcionamento : null
+        "dem_atendido_por": (status == 4 || status == 5 || status == 6) ? demanda.direcionamento : null,
+    }
+    
+    if((status == 2) || (status == 3)){
+        dados.dem_dt_atendimento = dataFormatada
     }
 
     const route = "/api/demandas/atualizar"
