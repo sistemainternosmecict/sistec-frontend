@@ -6,6 +6,8 @@ export default function Solicitante({ solicitante }){
             <p><span>Sala: </span> { solicitante.solic_sala } </p>
             <p><span>Email: </span> { solicitante.solic_email } </p>
             <p><span>Telefone: </span> { solicitante.solic_telefone } </p>
+
+            <button>Editar solicitante</button>
         </div>
     )
 }

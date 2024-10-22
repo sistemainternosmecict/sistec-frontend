@@ -65,7 +65,11 @@ function criarDemanda(e, host, setMessage, servicoSelecionado){
     e.preventDefault()
     const fields = e.target.elements
     const descricao_escrita = (fields.descricao) ? fields.descricao.value : "S/D"
-    const desc = fields.disp.value + fields.disp.options[fields.disp.selectedIndex].text + " -> " + fields.incidente.value + " (" + descricao_escrita + ")."
+    let desc = descricao_escrita
+    if(servicoSelecionado.servico != "[OUT]"){
+        desc = fields.disp.value + fields.disp.options[fields.disp.selectedIndex].text + " -> " + fields.incidente.value + " (" + descricao_escrita + ")."
+    }
+
     const local = fields.dem_local.value
     const sala = fields.dem_sala.value
     const demanda = {
@@ -79,7 +83,6 @@ function criarDemanda(e, host, setMessage, servicoSelecionado){
         status: (Number(servicoSelecionado.tipo) === 2) ? 4 : 1
     }
 
-    // console.log(demanda)
 
     if((!isNaN(demanda.solicitante)) && (demanda.local !== "-") && (demanda.descricao !== "Preset:-")){
         registrar_demanda(demanda, host, setMessage)
@@ -101,10 +104,16 @@ function obter_sala(e, set){
 function obter_servico(e, setServico, setIncidentes){
     e.preventDefault()
     if(e.target.value !== "-"){
+        let incidentes = undefined
         const inc_string = e.target.selectedOptions[0].dataset.inc
-        const incidentes = inc_string.split(",")
-        setServico({selecionado:true, servico:e.target.value, default: '-', tipo:e.target.selectedOptions[0].dataset.tipo}) 
-        setIncidentes(incidentes)
+        if(e.target.value !== "[OUT]"){
+            incidentes = inc_string.split(",")
+            setServico({selecionado:true, servico:e.target.value, default: '-', tipo:e.target.selectedOptions[0].dataset.tipo}) 
+            setIncidentes(incidentes)
+        } else { 
+            setServico({selecionado:true, servico:e.target.value, default: '-', tipo:"1"})
+            setIncidentes(["Outro"])
+        }
     }
 }
 
@@ -283,7 +292,7 @@ export default function CriarDemanda(){
                 </select>
                 : <></>}
 
-                {(servicoSelecionado.selecionado == true) ?
+                {(servicoSelecionado.selecionado == true && servicoSelecionado.servico != "[OUT]") ?
                     <select name="incidente" defaultValue={incidenteSelecionado.default} onChange={(e) => obter_incidente(e, setIncidenteSelecionado)}>
                         <option value="-">Selecione o tipo de incidente</option>
                         {incidentes.map( (inc, idx_inc) => {
@@ -291,14 +300,12 @@ export default function CriarDemanda(){
                         })}
                     </select> : <></>}
 
+                {(incidenteSelecionado.incidente == "Outro" && servicoSelecionado.servico != "[OUT]") ? <textarea name="descricao" placeholder="Por favor, descreva brevemente o problema ocorrido com suas palavras."></textarea> : (servicoSelecionado.servico == "[OUT]") ? <textarea name="descricao" placeholder="Por favor, descreva brevemente o problema ocorrido com suas palavras."></textarea> : <></>}
                 
-                {(incidenteSelecionado.incidente == "Outro") ? <textarea name="descricao" placeholder="Por favor, descreva brevemente o problema ocorrido com suas palavras."></textarea> : <></>}
-
-                
-                {(unidadeSelecionada.selecionada === true && servicoSelecionado.selecionado && incidenteSelecionado.selecionado)
+                {(unidadeSelecionada.selecionada && servicoSelecionado.selecionado)
                 ? 
                 <>
-                {(servicoSelecionado.servico !== undefined) ? adicionar_botoes(empresas, servicoSelecionado) : <></>}
+                {(servicoSelecionado.servico != undefined) ? adicionar_botoes(empresas, servicoSelecionado) : <></>}
                 </>
                 : <>
                     

@@ -270,7 +270,6 @@ export default function Demanda({ demanda, func, setDemandas }){
                         </> : <></>}
                     </>
                     : <></>}
-
         </div> : <></>}
         
     </>)

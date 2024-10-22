@@ -69,17 +69,15 @@ function criarDemanda(e, host, setMessage){
     const local = "SMECICT"
     const sala = fields.dem_sala.value
     const demanda = {
-        solicitante: Number(fields.solicitante.value),
+        solicitante: fields.solicitante.value,
         direcionamento: 0,
         descricao: desc,
         local: local,
         sala: sala,
-        tipo: (!isNaN(Number(fields[0].value))) ? Number(fields[0].value) : 0,
+        tipo: (local == 'SMECICT') ? 1 : 2,
         nvl_prioridade: 0,
         status: 1
     }
-
-    // console.log(demanda)
 
     if((!isNaN(demanda.solicitante)) && (demanda.local !== "-") && (demanda.descricao !== "Preset:-")){
         registrar_demanda(demanda, host, setMessage)
@@ -123,7 +121,7 @@ function adicionar_botoes(){
     return <input type="submit" value="Registrar" />
 }
 
-export default function CriarDemanda(){
+export default function CriarDemanda({ usuario }){
     const { hostUrl } = useContext(HostContext)
     const [salas, setSalas] = useState([])
     const [solicitantes, setSolicitantes] = useState([])
@@ -133,7 +131,7 @@ export default function CriarDemanda(){
     const [empresas, setEmpresas] = useState([])
     const [incidentes, setIncidentes] = useState(undefined)
     const [unidadeSelecionada, setUnidadeSelecionada] = useState({'selecionada':true, 'unidade':"SMECICT"})
-    const [salaSelecionada, setSalaSelecionada] = useState({'selecionada':false, 'sala':undefined, 'default':'-'})
+    const [salaSelecionada, setSalaSelecionada] = useState({'selecionada':false, 'sala':undefined, 'default':usuario.sala})
     const [servicoSelecionado, setServicoSelecionado] = useState({'selecionado':false, 'servico':undefined, 'default':'-', 'tipo':undefined})
     const [incidenteSelecionado, setIncidenteSelecionado] = useState({'incidente':undefined, 'selecionado':false, 'default':'-'})
     const [descricao, setDescricao] = useState(false)
@@ -158,14 +156,14 @@ export default function CriarDemanda(){
         setEmpresas(empresas_json)
     }, [])
 
-    useEffect(() => {
-        const inputSala = document.getElementsByName("dem_sala")[0]
-        setSalaSelecionada({'selecionada':false, 'sala':undefined, 'default':'-'})
-        if(inputSala){
-            inputSala.value = "-"
-        }
-        setDescricao(false)
-    }, [unidadeSelecionada])
+    // useEffect(() => {
+    //     const inputSala = document.getElementsByName("dem_sala")[0]
+    //     setSalaSelecionada({'selecionada':false, 'sala':undefined, 'default':usuario.solic_sala})
+    //     if(inputSala){
+    //         inputSala.value = "-"
+    //     }
+    //     setDescricao(false)
+    // }, [unidadeSelecionada])
 
     useEffect(() => {
         const inputServico = document.getElementsByName("disp")[0]
@@ -184,6 +182,10 @@ export default function CriarDemanda(){
         }
     }, [servicoSelecionado])
 
+    useEffect(() => {
+        setSalaSelecionada({'selecionada':true, 'sala':usuario.solic_sala, 'default':usuario.solic_sala})
+    }, [usuario])
+
     return (
         <>
             {(msg === undefined) ?
@@ -191,49 +193,10 @@ export default function CriarDemanda(){
                 <h2>Abrir nova</h2>
                 <h2>Demanda</h2>
 
-                {/* <select name="dem_local" defaultValue="-" onChange={(e) => obter_local(e, setUnidadeSelecionada)}>
-                    <option value="-" disabled>Selecione a unidade</option>
-                    <option value="SMECICT">SMECICT</option>
-                    {escolas.map( (escola, idx) => <option value={escola.dc + " " + escola.nome} key={idx}>{escola.dc + " " + escola.nome}</option>)}
-                </select> */}
-
-                {(unidadeSelecionada.selecionada == true) ?
-                <select name="dem_sala" defaultValue={salaSelecionada.default} onClick={(e) => obter_sala(e, setSalaSelecionada)}>
-                    <option value="-" disabled>Selecione a sala</option>
-                    {(unidadeSelecionada.unidade == "SMECICT")
-                        ? salas.map( sala => <option key={sala} value={sala}>Sala {sala}</option>)
-                        : <>
-                        <option value="Laboratório de informática">Laboratório de informática</option>
-                        <option value="Secretaria da unidade">Secretaria da unidade</option>
-                        <option value="Direção">Direção</option>
-                        <option value="Sala de recursos">Sala de recursos</option>
-                        <option value="Sala do PAE">Sala do PAE</option>
-                        <option value="Sala dos professores">Sala dos professores</option>
-                        <option value="Auditório">Auditório</option>
-                        </>}
-                </select>
-                : <>
-                </>}
-
-                {(salaSelecionada.selecionada == true) 
-                ? <select name="solicitante" defaultValue="-">
-                    <option value="-" disabled>Quem está solicitando?</option>
-                    {solicitantes.map( (solic, idx) => {
-                        if(unidadeSelecionada.unidade == "SMECICT"){
-                            if(solic.solic_sala == salaSelecionada.sala){
-                                return <option key={idx} value={solic.solic_id}>{solic.solic_nome}</option>
-                            }
-                        } else {
-                            if(solic.solic_sala == "24"){
-                                return <option key={idx} value={solic.solic_id}>{solic.solic_nome}</option>
-                            }
-                        }
-                        })}
-                </select> 
-                : <></>}
-
-                {(salaSelecionada.selecionada == true)
-                ? <select name="disp" defaultValue={servicoSelecionado.default} onClick={(e) => obter_servico(e, setServicoSelecionado, setIncidentes)}>
+                <input type="text" name="dem_sala" hidden defaultValue={usuario.solic_sala}/>
+                <input type="text" name="solicitante" hidden defaultValue={usuario.solic_id}/>
+                
+                <select name="disp" defaultValue={servicoSelecionado.default} onClick={(e) => obter_servico(e, setServicoSelecionado, setIncidentes)}>
                     <option value="-">Selecione o tipo de serviço</option>
                     {
                         servicos.map( (servico, idx_ser) => {
@@ -244,7 +207,6 @@ export default function CriarDemanda(){
                     }
                     {/* <option value="[OUT]">Outro</option> */}
                 </select>
-                : <></>}
 
                 {(servicoSelecionado.selecionado == true) ?
                     <select name="incidente" defaultValue={incidenteSelecionado.default} onChange={(e) => obter_incidente(e, setIncidenteSelecionado)}>

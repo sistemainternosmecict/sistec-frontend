@@ -8,15 +8,36 @@ form#login {
     width: 100%;
     max-width: 240px;
 
-    input{
-        border: solid 1px $cor_principal;
-        margin: 4px;
-        padding: 8px;
-        user-select: auto;
-        cursor: pointer;
+    h2{
+        color: #008080;
+        font-family: sans-serif;
+        letter-spacing: 4px;
     }
+    
+    div{
+        margin: 32px;
+        border: solid 2px #008080;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 
+        h3{
+            text-align: center;
+        }
+
+        input{
+            border: solid 1px $cor_principal;
+            margin: 4px;
+            padding: 8px;
+            user-select: auto;
+            cursor: pointer;
+        }
+    
+    }
+    
     p{
         font-size: 14px;
+        text-align: center;
     }
 }

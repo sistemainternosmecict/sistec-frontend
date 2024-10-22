@@ -68,7 +68,6 @@ function Home({ usuario, setLoggedIn, setUsuario }) {
       <>
         <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage}/>
         {get_page(page, usuario, setPage)} 
-        
       </>
     )
   }

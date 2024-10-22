@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { HostContext } from '../../HostContext';
 import './style.scss';
 
-const login = async (e, host, setUsuario, setLoggedIn, setMessage) => {
+const login = async (e, host, setUsuario, setLoggedIn, setMessage, setTipo) => {
   e.preventDefault()
   const route = "/api/usuarios/auth/login";
   const fields = e.target.elements;
@@ -14,26 +14,31 @@ const login = async (e, host, setUsuario, setLoggedIn, setMessage) => {
   const result = await fetch(host+route, options);
   const retorno = await result.json();
   const usuario = retorno['usuario_dict'];
+  const tipo = retorno['tipo']
 
   setMessage(retorno.msg);
 
   if(retorno.auth){
     setUsuario(usuario);
     setLoggedIn(true);
+    setTipo(tipo);
   };
 }
 
-export default function Login({ setUsuario,  setLoggedIn }) {
+export default function Login({ setUsuario,  setLoggedIn, setTipo }) {
     const [msg, setMessage] = useState("")
     const { hostUrl } = useContext(HostContext)
 
     return (
       <>
-        <form id='login' onSubmit={(e) => login(e, hostUrl, setUsuario, setLoggedIn, setMessage)}>
-          <h2>LOGIN</h2>
-          <input type="text" name="colab_nome_usuario" id="colab_nome_usuario" autoComplete='username' />
-          <input type="password" name="colab_senha" id="colab_senha" autoComplete='current-password' />
-          <input type="submit" value="Entrar" />
+        <form id='login' onSubmit={(e) => login(e, hostUrl, setUsuario, setLoggedIn, setMessage, setTipo)}>
+          <h2>SISTEC</h2>
+          <p>Sistema Interno de Suporte Tecnológico versão 1.2</p>
+          <div>
+            <input type="text" name="colab_nome_usuario" id="colab_nome_usuario" autoComplete='username' placeholder='Nome de usuário' />
+            <input type="password" name="colab_senha" id="colab_senha" autoComplete='current-password' placeholder='Senha'/>
+            <input type="submit" value="Entrar" />
+          </div>
           <p>
             {msg}
           </p>
