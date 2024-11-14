@@ -26,5 +26,6 @@ div#btn_menu{
 
 section#main_listagem{
     width: 100%;
-    margin-top: 128px;
+    top: 128px;
+    height: calc(100vh - 320px);
 }

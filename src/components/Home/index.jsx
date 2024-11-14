@@ -1,22 +1,23 @@
 import { useState, useContext } from "react";
 import ButtonBase from "../ButtonBase";
 import Nav from "../Nav";
-import CadastroColab from "../CadastroColab";
+import CadastroUsuario from "../CadastroUsuario";
 import ListagemColab from "../ListagemColab";
-import CadastroSolic from "../CadastroSolic";
+import CadastroSolic from "../CadastroUsuario";
 import ListagemSolic from "../ListagemSolic";
 import CriarDemanda from "../CriarDemanda";
 import ListagemEntrada from "../ListagemEntrada";
 import ListagemAtendimento from "../ListaAtendimento";
 import ListagemArquivo from "../ListaArquivo";
 import { HostContext } from "../../HostContext";
+import PropTypes from 'prop-types';
 import './style.scss';
 
 function get_page(page_number, usuario, setPage){
     switch(page_number){
         case 1:
             return <section id="main_cadastro">
-                <CadastroColab/>
+                <CadastroUsuario/>
                 </section>
         case 2:
             return <section id="main_listagem">
@@ -48,13 +49,13 @@ function get_page(page_number, usuario, setPage){
             </section>
         default:
             return <div id="btn_menu">
-                <ButtonBase text="Registrar colaborador" func={{setPage}} page_number={1}/>
-                <ButtonBase text="Listar colaboradores" func={{setPage}} page_number={2}/>
-                <ButtonBase text="Registrar Solicitante" func={{setPage}} page_number={3}/>
-                <ButtonBase text="Listar solicitantes" func={{setPage}} page_number={4}/>
-                <ButtonBase text="Registrar demanda" func={{setPage}} page_number={5}/>
-                <ButtonBase text="Lista de entrada" func={{setPage}} page_number={6}/>
-                <ButtonBase text="Lista de atendimento" func={{setPage}} page_number={7}/>
+                <ButtonBase text="Registrar usuarios" func={{setPage}} page_number={1}/>
+                <ButtonBase text="Listar usuarios" func={{setPage}} page_number={2}/>
+                {/* <ButtonBase text="Registrar Solicitante" func={{setPage}} page_number={3}/>
+                <ButtonBase text="Listar solicitantes" func={{setPage}} page_number={4}/> */}
+                <ButtonBase text="Registrar nova demanda" func={{setPage}} page_number={5}/>
+                <ButtonBase text="Entrada" func={{setPage}} page_number={6}/>
+                <ButtonBase text="Atendimento" func={{setPage}} page_number={7}/>
                 <ButtonBase text="Arquivo de demandas" func={{setPage}} page_number={8}/>
             </div>
     }
@@ -70,6 +71,12 @@ function Home({ usuario, setLoggedIn, setUsuario }) {
         {get_page(page, usuario, setPage)} 
       </>
     )
+  }
+
+  Home.propTypes = {
+    usuario: PropTypes.object,
+    setLoggedIn: PropTypes.func,
+    setUsuario: PropTypes.func,
   }
   
   export default Home

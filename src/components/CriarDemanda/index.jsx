@@ -188,15 +188,15 @@ export default function CriarDemanda(){
         obter_solicitantes(hostUrl, setSolicitantes)
     }, [hostUrl])
 
-    useEffect(() => {
-        let salas_temp = []
-        solicitantes.forEach( solic => {
-            if(!salas_temp.includes(solic.solic_sala)){
-                salas_temp.push(solic.solic_sala)
-            }
-        })
-        setSalas(salas_temp)
-    }, [solicitantes])
+    // useEffect(() => {
+    //     let salas_temp = []
+    //     solicitantes.forEach( solic => {
+    //         if(!salas_temp.includes(solic.solic_sala)){
+    //             salas_temp.push(solic.solic_sala)
+    //         }
+    //     })
+    //     setSalas(salas_temp)
+    // }, [solicitantes])
 
     useEffect(() => {
         setEscolas(escolas_json)

@@ -140,15 +140,15 @@ export default function CriarDemanda({ usuario }){
         obter_solicitantes(hostUrl, setSolicitantes)
     }, [hostUrl])
 
-    useEffect(() => {
-        let salas_temp = []
-        solicitantes.forEach( solic => {
-            if(!salas_temp.includes(solic.solic_sala)){
-                salas_temp.push(solic.solic_sala)
-            }
-        })
-        setSalas(salas_temp)
-    }, [solicitantes])
+    // useEffect(() => {
+    //     let salas_temp = []
+    //     solicitantes.forEach( solic => {
+    //         if(!salas_temp.includes(solic.usuario_sala)){
+    //             salas_temp.push(solic.usuario_sala)
+    //         }
+    //     })
+    //     setSalas(salas_temp)
+    // }, [solicitantes])
 
     useEffect(() => {
         setEscolas(escolas_json)
@@ -183,7 +183,7 @@ export default function CriarDemanda({ usuario }){
     }, [servicoSelecionado])
 
     useEffect(() => {
-        setSalaSelecionada({'selecionada':true, 'sala':usuario.solic_sala, 'default':usuario.solic_sala})
+        setSalaSelecionada({'selecionada':true, 'sala':usuario.usuario_sala, 'default':usuario.usuario_sala})
     }, [usuario])
 
     return (

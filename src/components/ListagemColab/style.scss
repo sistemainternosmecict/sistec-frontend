@@ -1,25 +1,54 @@
 $max-width: 450px;
 
-ul#colabs{
+form#busca_usuarios{
     width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #008080;
+    padding: 8px;
+    position: fixed;
+    top:80px;
+    left: 0;
+
+    input#busca_termo{
+        border: solid 1px #008080;
+        padding: 8px;
+        width: 100%;
+        max-width: 350px;
+        outline: none;
+    }
+
+    button{
+        margin: 0;
+        color: #008080;
+    }
+}
+
+ul#colabs{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1400px;
     list-style: none;
     z-index: -1;
     align-self: center;
     justify-self: center;
-    
-    @media screen and (max-width: 500px) {
-        left: 0;
-    }
+    user-select: none;
 
+    
     li{
         margin: 8px 0;
-
+        
         .colab_card{
-            width: 100%;
-            max-width: $max-width;
-            padding: 4px;
+            padding: 8px;
             border:solid 1px #008080;
+            background-color: rgb(199, 255, 172);
+            border-radius: 4px;
 
+            span{
+                font-weight: bold;
+            }
+            
             p.ativo_sim{
                 color: green;
             }
@@ -34,6 +63,35 @@ ul#colabs{
                 color: red;
             }
         }
+
+        .inativo{
+            background-color: rgb(255, 151, 151);
+            color: rgb(156, 10, 10);
+            position: relative;
+
+            div.plaquinha{
+                position: absolute;
+                bottom: 8px;
+                right: 8px;
+
+                p{
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+            }
+        }
+        
+        @media screen and (min-width: 500px) {
+            margin: 4px;
+            flex: $max-width 0 1;
+        }
     }
+
+    @media screen and (min-width: 500px) {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
 
 }
