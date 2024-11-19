@@ -6,10 +6,82 @@ nav{
     width: 100%;
     background-color: #008080;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
-    ul{
-        list-style: none;
+    div{
+        display: flex;
+        align-items: center;
+        color: white;
     }
+
+    div.usuario{
+        display: flex;
+        align-items: center;
+        color: white;
+        
+        div.userWrapp {
+            border: solid 1px #0a4747;
+            padding: 4px 8px;
+            // border-radius: 8px;
+        }
+        
+        p.acesso {
+            background-color: #0f4646;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+    }
+
+    button{
+        width: 100px;
+        color: #008080;
+    }
+}
+
+div.slideMenu {
+    // display: none;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 420px;
+    height: 100vh;
+    background-color: #008080;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 16px black;
+    transform: translateX(0);
+    transition: all .4s ease-in-out;
+    z-index: 1;
+
+    h1{
+        margin: 32px 0;
+        color: white;
+        font-weight: 200;
+    }
+
+    ul > li {
+        display: flex;
+        flex-direction: column;
+
+        button {
+            cursor: pointer;
+        }
+    }
+
+    button.fechar {
+        position: absolute;
+        top: 10px;
+        right: -25px;
+        font-size: 24px;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+    }
+}
+
+div.fechado {
+    transform: translateX(-445px);
 }

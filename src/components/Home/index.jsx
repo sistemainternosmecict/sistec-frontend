@@ -1,74 +1,59 @@
-import { useState, useContext } from "react";
-import ButtonBase from "../ButtonBase";
-import Nav from "../Nav";
-import CadastroUsuario from "../CadastroUsuario";
-import ListagemColab from "../ListagemColab";
-import CadastroSolic from "../CadastroUsuario";
-import ListagemSolic from "../ListagemSolic";
-import CriarDemanda from "../CriarDemanda";
-import ListagemEntrada from "../ListagemEntrada";
-import ListagemAtendimento from "../ListaAtendimento";
-import ListagemArquivo from "../ListaArquivo";
-import { HostContext } from "../../HostContext";
 import PropTypes from 'prop-types';
+import { useState, useContext } from "react";
+import { HostContext } from "../../HostContext";
+import AreaDeUsuarios from "../areaDeUsuarios";
+import Nav from "../Nav";
 import './style.scss';
 
-function get_page(page_number, usuario, setPage){
+function get_page(page_number){
     switch(page_number){
         case 1:
             return <section id="main_cadastro">
-                <CadastroUsuario/>
+                <AreaDeUsuarios />
                 </section>
         case 2:
             return <section id="main_listagem">
-                <ListagemColab/>
+                {/* <ListagemColab/> */}
                 </section>
         case 3:
             return <section id="main_cadastro">
-                <CadastroSolic/>
+                {/* <CadastroSolic/> */}
                 </section>
         case 4:
             return <section id="main_listagem">
-                <ListagemSolic />
+                {/* <ListagemSolic /> */}
                 </section>
         case 5:
             return <section id="main_cadastro">
-                <CriarDemanda/>
+                {/* <CriarDemanda/> */}
             </section>
         case 6:
             return <section id="main_listagem">
-                <ListagemEntrada/>
+                {/* <ListagemEntrada/> */}
             </section>
         case 7:
             return <section id="main_listagem">
-                <ListagemAtendimento/>
+                {/* <ListagemAtendimento/> */}
             </section>
         case 8:
             return <section id="main_listagem">
-                <ListagemArquivo/>
+                {/* <ListagemArquivo/> */}
             </section>
         default:
             return <div id="btn_menu">
-                <ButtonBase text="Registrar usuarios" func={{setPage}} page_number={1}/>
-                <ButtonBase text="Listar usuarios" func={{setPage}} page_number={2}/>
-                {/* <ButtonBase text="Registrar Solicitante" func={{setPage}} page_number={3}/>
-                <ButtonBase text="Listar solicitantes" func={{setPage}} page_number={4}/> */}
-                <ButtonBase text="Registrar nova demanda" func={{setPage}} page_number={5}/>
-                <ButtonBase text="Entrada" func={{setPage}} page_number={6}/>
-                <ButtonBase text="Atendimento" func={{setPage}} page_number={7}/>
-                <ButtonBase text="Arquivo de demandas" func={{setPage}} page_number={8}/>
+                <p>Bem vindo ao Sistec</p>
             </div>
     }
 }
 
 function Home({ usuario, setLoggedIn, setUsuario }) {
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState({pageN: 0, pageT: "Inicio"})
     const { hostUrl } = useContext(HostContext)
   
     return (
       <>
-        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage}/>
-        {get_page(page, usuario, setPage)} 
+        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario}/>
+        {get_page(page.pageN)} 
       </>
     )
   }

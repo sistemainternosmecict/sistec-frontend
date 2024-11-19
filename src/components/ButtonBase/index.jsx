@@ -1,9 +1,9 @@
 import './style.scss';
 
-function ButtonBase({ text, func, page_number }){
+function ButtonBase({ text, func }){
     return (
         <>
-            <button onClick={() => func.setPage(page_number)}>{text}</button>
+            <button onClick={() => func.setMenuOpen(true)}>{text}</button>
         </>
     )
 }

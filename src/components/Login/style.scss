@@ -6,21 +6,22 @@ form#login {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 240px;
+    max-width: 360px;
 
     h2{
         color: #008080;
-        font-family: sans-serif;
+        // font-family: sans-serif;
         letter-spacing: 4px;
     }
     
-    div{
+    div.caixa{
         margin: 32px;
         border: solid 2px #008080;
         padding: 8px;
         display: flex;
         align-items: center;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #008080;
 
         h3{
             text-align: center;
@@ -39,5 +40,21 @@ form#login {
     p{
         font-size: 14px;
         text-align: center;
+        width: 100%;
+    }
+
+    p.ver{
+        color: gray;
+    }
+
+    button.cadastro{
+        border: none;
+        color: #008080;
+        padding: 0;
+        margin: 0;
+        height: 0;
+        font-weight: bold;
+        background-color: transparent;
+        transition: all .4s linear;
     }
 }

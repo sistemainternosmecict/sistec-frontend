@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { HostContext } from '../../HostContext';
-import CadastroUsuario from '../CadastroUsuario';
+import CadastroUsuario from '../areaDeUsuarios/CadastroUsuario';
 import './style.scss';
 
 const login = async (e, host, setUsuario, setLoggedIn, setMessage, setTipo) => {
@@ -33,15 +33,16 @@ export default function Login({ setUsuario,  setLoggedIn }) {
       <>
         {(cadastrado) ?
         <form id='login' onSubmit={(e) => login(e, hostUrl, setUsuario, setLoggedIn, setMessage)}>
-          <h2>SISTEC</h2>
-          <p>Sistema Interno de Suporte Tecnológico versão 1.2</p>
-          <div>
+          <h2>Sistec</h2>
+          <p>Sistema Interno de Suporte Tecnológico</p>
+          <p className='ver'>v1.2</p>
+          <div className='caixa'>
             <input type="text" name="usuario_matricula" id="usuario_matricula" placeholder='Matrícula (sem dígito)' autoComplete='username'/>
             <input type="password" name="usuario_senha" id="usuario_senha" autoComplete='current-password' placeholder='Senha'/>
             <input type="submit" value="Entrar" />
           </div>
           <p>Ainda não possui um cadastro?</p>
-          <button onClick={(e) => {
+          <button className='cadastro' onClick={(e) => {
             e.preventDefault()
             setCadastrado(false)}}>Cadastre-se</button>
           <p>
