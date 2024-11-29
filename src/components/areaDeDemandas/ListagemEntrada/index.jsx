@@ -1,38 +1,25 @@
-import { useState, useContext, useEffect } from "react"
-import { HostContext } from "../../../HostContext";
-import './style.scss';
-import Demanda from '../Demanda'
+import { useState } from 'react'
+import Demanda from '../DemandaNovo'
+import PropTypes from 'prop-types'
 
-async function obter_demandas(host){
-    const route = "/api/demandas/listar"
-    const result = await fetch(host+route);
-    const retorno = await result.json();
-    return retorno
-}
-
-async function fetchData(hostUrl, setDemandas) {
-    const data = await obter_demandas(hostUrl)
-    setDemandas(data.demandas)
-}
-
-export default function ListagemEntrada(){
-    const [demandas, setDemandas] = useState([])
-    const { hostUrl } = useContext(HostContext)
-
-    useEffect(() => {
-        fetchData(hostUrl, setDemandas)
-    }, [hostUrl])
-
+function ListagemEntrada({ demandas }){
+    const [ordenacao, setOrdenacao] = useState("protocolo")
+    
     return (
         <>
             <ul id="demandas">
-                {(demandas) ? demandas.map((demanda, index) => (
+                {(demandas.length > 0) ? demandas.map((demanda, index) => (
                     <li key={index}>
-                        {(demanda.status === 1) ?
-                        <Demanda demanda={demanda} func={fetchData} setDemandas={setDemandas}/> : <></>}
+                        <Demanda demanda={demanda} />
                     </li>
-                )) : <p>Não há demandas cadastradas!</p>}
+                )) : <p>Buscando demandas...</p>}
             </ul>
         </>
     )
 }
+
+ListagemEntrada.propTypes = {
+    demandas: PropTypes.arrayOf(PropTypes.object)
+}
+
+export default ListagemEntrada

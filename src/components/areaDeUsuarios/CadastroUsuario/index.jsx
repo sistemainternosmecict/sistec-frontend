@@ -79,7 +79,7 @@ function cadastrar(e, host, setMessage, setRegistrando, tipoDeArea){
                 usuario_email: fields.email.value,
                 usuario_telefone: Number(fields.telefone.value),
                 usuario_senha: fields.senha1.value,
-                usuario_tipo: 1,
+                usuario_tipo: 10,
                 usuario_ativo: false
             }
     

@@ -1,39 +1,32 @@
 $cor_principal: #008080;
 
 form#reg_demanda {
+    margin-top: 64px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    max-width: 240px;
 
-    img.logo{
-        width: 100%;
-        max-width: 310px;
-        margin-top: 16px;
-    }
-
-    h2.titulo{
-        width: 100%;
-        text-align: center;
-        color: $cor_principal;
-        margin: 16px 0;
+    input{
+        border: solid 1px $cor_principal;
+        margin: 4px;
+        padding: 8px;
+        user-select: auto;
+        cursor: pointer;
     }
 
     p{
-        font-size: 16px;
+        font-size: 14px;
     }
     
-    select, textarea, input{
-        background-color: transparent;
-        height: 50px;
+    select, textarea{
         margin: 4px;
         border: solid 1px #008080;
         padding: 8px;
         width: 100%;
         cursor: pointer;
     }
-
     textarea{
         height: 100px;
     }
@@ -42,9 +35,7 @@ form#reg_demanda {
         cursor: pointer;
         width: 100%;
         transition: all .1s ease-in-out;
-        background-color: #008080;
-        color: white;
-        
+
         &:hover{
             background-color: #008080;
             color: white;

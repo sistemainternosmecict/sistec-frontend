@@ -4,7 +4,6 @@ import { HostContext } from "../../../HostContext";
 import escolas_json from './escolas.json';
 import servicos_json from './tipos_servicos.json';
 import empresas_json from './empresas.json';
-import logoSistec from '../../../assets/logo_sistec.png'
 import './style.scss'
 
 async function atualizar_status(protocolo, status_str, host, func, setDemandas, demanda) {
@@ -249,9 +248,8 @@ function CriarDemanda({ usuario }){
         <>
             {(msg === undefined) ?
             <form id="reg_demanda" onSubmit={(e) => criarDemanda(e, hostUrl, setMessage, servicoSelecionado)}>
-                <img className='logo' src={logoSistec} alt="Logo do sistec" />
-                <h2 className='titulo'>Novo chamado</h2>
-                {/* <h2>Demanda</h2> */}
+                <h2>Abrir nova</h2>
+                <h2>Demanda</h2>
 
                 <input name='dem_local' ref={localInputRef} type="hidden" defaultValue={unidadeSelecionada.unidade}/>
                 {/* <input name='' type='hidden'/> */}
@@ -302,7 +300,7 @@ function CriarDemanda({ usuario }){
                 </>}*/}
 
                 {(salaSelecionada.selecionada == true)
-                ? <select name="disp" defaultValue={servicoSelecionado.default} onChange={(e) => obter_servico(e, setServicoSelecionado, setIncidentes)}>
+                ? <select name="disp" defaultValue={servicoSelecionado.default} onClick={(e) => obter_servico(e, setServicoSelecionado, setIncidentes)}>
                     <option value="-">Selecione o tipo de serviço</option>
                     {
                         servicos.map( (servico, idx_ser) => {

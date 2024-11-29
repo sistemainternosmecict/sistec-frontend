@@ -1,8 +1,8 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { HostProvider } from './HostContext'
 import Login from "./components/Login"
 import Home from "./components/Home"
-// import CriarDemanda from './components/FormExterno'
+import CriarDemanda from './components/areaDeDemandas/CriarDemanda'
 import './App.scss';
 
 function resolve_user_type( data ){
@@ -15,7 +15,7 @@ function resolve_user_type( data ){
       } else {
         return "usuario inativo"
       }
-    case 2:
+    case 10:
       if(data.usuario.usuario_ativo){
         return <div className='wrapper'>
           <CriarDemanda usuario={data.usuario}/>
@@ -31,7 +31,7 @@ function resolve_user_type( data ){
 }
 
 function App() {
-  const [pgInicial, setPgInicial] = useState(true)
+  // const [pgInicial, setPgInicial] = useState(true)
   const [loggedIn, setLoggedIn] = useState(false)
   const [usuario, setUsuario] = useState({})
 

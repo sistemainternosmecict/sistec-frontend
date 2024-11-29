@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useContext } from "react";
 import { HostContext } from "../../HostContext";
 import AreaDeUsuarios from "../areaDeUsuarios";
+import AreaDeDemandas from '../areaDeDemandas';
 import Nav from "../Nav";
 import './style.scss';
 
@@ -12,8 +13,8 @@ function get_page(page_number){
                 <AreaDeUsuarios />
                 </section>
         case 2:
-            return <section id="main_listagem">
-                {/* <ListagemColab/> */}
+            return <section id="main_cadastro">
+                <AreaDeDemandas />
                 </section>
         case 3:
             return <section id="main_cadastro">

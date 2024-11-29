@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react';
 import { HostContext } from '../../HostContext';
 import CadastroUsuario from '../areaDeUsuarios/CadastroUsuario';
+import logoSistec from '../../assets/logo_sistec.png'
+import logoSub from '../../assets/preto_logoSub.png'
 import './style.scss';
 
 const login = async (e, host, setUsuario, setLoggedIn, setMessage, setTipo) => {
@@ -32,15 +34,18 @@ export default function Login({ setUsuario,  setLoggedIn }) {
     return (
       <>
         {(cadastrado) ?
-        <form id='login' onSubmit={(e) => login(e, hostUrl, setUsuario, setLoggedIn, setMessage)}>
-          <h2>Sistec</h2>
-          <p>Sistema Interno de Suporte Tecnológico</p>
-          <p className='ver'>v1.2</p>
-          <div className='caixa'>
-            <input type="text" name="usuario_matricula" id="usuario_matricula" placeholder='Matrícula (sem dígito)' autoComplete='username'/>
-            <input type="password" name="usuario_senha" id="usuario_senha" autoComplete='current-password' placeholder='Senha'/>
-            <input type="submit" value="Entrar" />
-          </div>
+        <>
+          <form id='login' onSubmit={(e) => login(e, hostUrl, setUsuario, setLoggedIn, setMessage)}>
+            {/* <h2>Sistec</h2>
+            <p>Sistema Interno de Suporte Tecnológico</p> */}
+            <img className='logoSistec' src={logoSistec} alt="logo do sistema sistec"/>
+          <p className='ver'>versão 1.3-alpha</p>
+            <div className='caixa'>
+              <input type="text" name="usuario_matricula" id="usuario_matricula" placeholder='Matrícula' autoComplete='username'/>
+              <input type="password" name="usuario_senha" id="usuario_senha" autoComplete='current-password' placeholder='Senha'/>
+              <input type="submit" value="Entrar" />
+            </div>
+          </form> 
           <p>Ainda não possui um cadastro?</p>
           <button className='cadastro' onClick={(e) => {
             e.preventDefault()
@@ -48,7 +53,9 @@ export default function Login({ setUsuario,  setLoggedIn }) {
           <p>
             {msg}
           </p>
-        </form> : <CadastroUsuario />}
+          <img className='logoSub' src={logoSub} alt="logo da subsecretaria de tecnologia" />
+        </>
+        : <CadastroUsuario tipoDeArea="externa" />}
       </>
     )
   }

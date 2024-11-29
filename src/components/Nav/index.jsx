@@ -35,9 +35,9 @@ function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario }){
                 <h1>SISTEC</h1>
                 <ul>
                     <li>
-                        <button onClick={() => setPage({pageN: 0, pageT: "Inicio"})}>Inicio</button>
-                        <button onClick={() => setPage({pageN: 1, pageT: "Área de Usuários"})}>Usuários</button>
-                        <button onClick={() => setPage({pageN: 2, pageT: "Área de Demandas"})}>Demandas</button>
+                        <button onClick={() => {setPage({pageN: 0, pageT: "Inicio"}); setMenuOpen(false)}}>Inicio</button>
+                        <button onClick={() => {setPage({pageN: 1, pageT: "Área de Usuários"}), setMenuOpen(false)}}>Usuários</button>
+                        <button onClick={() => {setPage({pageN: 2, pageT: "Área de Demandas"}), setMenuOpen(false)}}>Demandas</button>
                         
                     </li>
                 </ul>
