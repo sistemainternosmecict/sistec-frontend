@@ -18,7 +18,7 @@ function resolve_user_type( data ){
     case 10:
       if(data.usuario.usuario_ativo){
         return <div className='wrapper'>
-          <CriarDemanda usuario={data.usuario}/>
+          <CriarDemanda usuario={data.usuario} setLoggedIn={data.setLoggedIn} setUsuario={data.setUsuario}/>
         </div>
       } else {
         return "usuario inativo"

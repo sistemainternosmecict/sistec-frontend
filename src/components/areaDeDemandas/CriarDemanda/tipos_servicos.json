@@ -1,10 +1,10 @@
 [
     {
-        "etiqueta": "PC Daten Desktop",
-        "servicos": [
+        "label": "PC Daten Desktop",
+        "options": [
             {
                 "cod": "[CEP]",
-                "opc": "Cabo de Energia PC",
+                "label": "Cabo de Energia PC",
                 "incidentes": [
                     "Defeituoso",
                     "Outro"
@@ -13,7 +13,7 @@
             },
             {
                 "cod": "[CEM]",
-                "opc": "Cabo de Energia Monitor",
+                "label": "Cabo de Energia Monitor",
                 "incidentes": [
                     "Defeituoso",
                     "Outro"
@@ -22,7 +22,7 @@
             },
             {
                 "cod": "[MON]",
-                "opc": "Monitor",
+                "label": "Monitor",
                 "incidentes": [
                     "Não liga",
                     "Outro"
@@ -31,7 +31,7 @@
             },
             {
                 "cod": "[MOU]",
-                "opc": "Mouse",
+                "label": "Mouse",
                 "incidentes": [
                     "Não liga",
                     "Botão defeituoso",
@@ -41,7 +41,7 @@
             },
             {
                 "cod": "[PDD]",
-                "opc": "PC Daten",
+                "label": "PC Daten",
                 "incidentes": [
                     "Não liga",
                     "Travando",
@@ -56,7 +56,7 @@
             },
             {
                 "cod": "[TEC]",
-                "opc": "Teclado",
+                "label": "Teclado",
                 "incidentes": [
                     "Não liga",
                     "Tecla defeituosa",
@@ -67,11 +67,11 @@
         ]
     },
     {
-        "etiqueta": "Chromebooks",
-        "servicos": [
+        "label": "Chromebooks",
+        "options": [
             {
                 "cod": "[CBP]",
-                "opc": "Chromebook Professor",
+                "label": "Chromebook Professor",
                 "incidentes": [
                     "Credenciamento",
                     "Não liga",
@@ -85,7 +85,7 @@
             },
             {
                 "cod": "[CBA]",
-                "opc": "Chromebook de Aluno",
+                "label": "Chromebook de Aluno",
                 "incidentes": [
                     "Credenciamento",
                     "Não liga",
@@ -98,7 +98,7 @@
             },
             {
                 "cod": "[EDC]",
-                "opc": "EduCharge Chromebook",
+                "label": "EduCharge Chromebook",
                 "incidentes": [
                     "Não liga",
                     "Não passa carga",
@@ -111,11 +111,11 @@
         ]
     },
     {
-        "etiqueta": "TV 75\" Samsung Flip",
-        "servicos": [
+        "label": "TV 75\" Samsung Flip",
+        "options": [
             {
                 "cod": "[CTV]",
-                "opc": "Cabo de Energia TV 75\"",
+                "label": "Cabo de Energia TV 75\"",
                 "incidentes": [
                     "Defeituoso",
                     "Outro"
@@ -124,7 +124,7 @@
             },
             {
                 "cod": "[STV]",
-                "opc": "Suporte TV 75\"",
+                "label": "Suporte TV 75\"",
                 "incidentes": [
                     "Defeituoso",
                     "Outro"
@@ -133,7 +133,7 @@
             },
             {
                 "cod": "[TVS]",
-                "opc": "TV Interativa 75\"",
+                "label": "TV Interativa 75\"",
                 "incidentes": [
                     "Não liga",
                     "Travando",
@@ -146,11 +146,11 @@
         ]
     },
     {
-        "etiqueta": "Internet e rede",
-        "servicos": [
+        "label": "Internet e rede",
+        "options": [
             {
                 "cod": "[WFG]",
-                "opc": "Wifi Gerenciável",
+                "label": "Wifi Gerenciável",
                 "incidentes": [
                     "Não conecta",
                     "Pedido de acesso",
@@ -160,7 +160,7 @@
             },
             {
                 "cod": "[WFC]",
-                "opc": "Wifi Comum",
+                "label": "Wifi Comum",
                 "incidentes": [
                     "Não conecta",
                     "Outro"
@@ -169,7 +169,7 @@
             },
             {
                 "cod": "[WEB]",
-                "opc": "Rede",
+                "label": "Rede",
                 "incidentes": [
                     "Não conecta",
                     "Pedido de acesso",
@@ -179,7 +179,7 @@
             },
             {
                 "cod": "[WEG]",
-                "opc": "Rede gerenciável",
+                "label": "Rede gerenciável",
                 "incidentes": [
                     "Não conecta",
                     "Pedido de acesso",
@@ -189,7 +189,7 @@
             },
             {
                 "cod": "[EMI]",
-                "opc": "Email institucional",
+                "label": "Email institucional",
                 "incidentes": [
                     "Não possuo",
                     "Redefinir senha",
@@ -200,11 +200,11 @@
         ]
     },
     {
-        "etiqueta": "Segurança eletrônica",
-        "servicos": [
+        "label": "Segurança eletrônica",
+        "options": [
             {
                 "cod": "[ALM]",
-                "opc": "Alarme de segurança",
+                "label": "Alarme de segurança",
                 "incidentes": [
                     "Instalação",
                     "Manutenção",
@@ -214,7 +214,7 @@
             },
             {
                 "cod": "[CAM]",
-                "opc": "Câmera de segurança",
+                "label": "Câmera de segurança",
                 "incidentes": [
                     "Instalação",
                     "Manutenção",
@@ -224,7 +224,7 @@
             },
             {
                 "cod": "[ITF]",
-                "opc": "Interfone",
+                "label": "Interfone",
                 "incidentes": [
                     "Instalação",
                     "Manutenção",
@@ -235,11 +235,11 @@
         ]
     },
     {
-        "etiqueta": "Outros dispositivos",
-        "servicos": [
+        "label": "Outros dispositivos",
+        "options": [
             {
                 "cod": "[IMP]",
-                "opc": "Impressora patrimônio",
+                "label": "Impressora patrimônio",
                 "incidentes": [
                     "Não liga",
                     "Travando",
@@ -254,7 +254,7 @@
             },
             {
                 "cod": "[IMA]",
-                "opc": "Impressora alugadas",
+                "label": "Impressora alugadas",
                 "incidentes": [
                     "Não liga",
                     "Travando",
@@ -269,7 +269,7 @@
             },
             {
                 "cod": "[I3D]",
-                "opc": "Impressora 3D",
+                "label": "Impressora 3D",
                 "incidentes": [
                     "Não liga",
                     "Liga mas não imprime",
@@ -279,7 +279,7 @@
             },
             {
                 "cod": "[EDN]",
-                "opc": "EducaNave Cittius",
+                "label": "EducaNave Cittius",
                 "incidentes": [
                     "Não liga",
                     "Travando",
@@ -293,7 +293,7 @@
             },
             {
                 "cod": "[CDR]",
-                "opc": "Code Robotics",
+                "label": "Code Robotics",
                 "incidentes": [
                     "Não funciona",
                     "Outro"
@@ -302,7 +302,7 @@
             },
             {
                 "cod": "[NPS]",
-                "opc": "Notebook Samsung book",
+                "label": "Notebook Samsung book",
                 "incidentes": [
                     "Não liga",
                     "Travando",

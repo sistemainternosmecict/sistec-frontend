@@ -32,6 +32,15 @@ form#reg_demanda {
         padding: 8px;
         width: 100%;
         cursor: pointer;
+        border-radius: 4px;
+    }
+
+    select.collapse{
+        border: solid 1px #008080;
+
+        option.opcao{
+            border: solid 1px #008080;
+        }
     }
 
     textarea{
@@ -39,15 +48,116 @@ form#reg_demanda {
     }
 
     input[type="submit"]{
+        margin-top: 16px;
         cursor: pointer;
         width: 100%;
+        max-width: 150px;
         transition: all .1s ease-in-out;
-        background-color: #008080;
+        background-color: #095b5b;
+        border: double 4px white;
         color: white;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 2px;
         
         &:hover{
             background-color: #008080;
             color: white;
+        }
+    }
+
+    div.container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        
+        button {
+            background-color: transparent;
+            margin: 2px;
+            border-radius: 4px;
+            width: inherit;
+            // outline: none;
+
+        }
+        
+        button.btnToggle {
+            width: inherit;
+            background-color: #008080;
+            color: white;
+            border: double 4px white;
+        }
+        
+        div.subContainer {
+            width: inherit;
+            display: none;
+            flex-direction: inherit;
+            flex-grow: 1;
+            margin-left: 16px;
+            
+            button.btnToggleBaixo{
+                border: double 4px white;
+                background-color: #59e7e7;
+                &:hover{
+                    color: #008080;
+                }
+            }
+            
+            div.containerBaixo {
+                display: flex;
+                flex-direction: inherit;
+                align-items: inherit;
+                flex-grow: 1;
+
+                div.sublist {
+                    display: none;
+                    flex-direction: column;
+                    background-color: white;
+
+                    svg{
+                        transform-origin: center;
+                        transform: scaleY(-1) scale(1.5);
+                        fill: #008080;
+
+                    }
+                }
+
+                div.containerAberto{
+                    margin-left: 32px;
+                    display: flex;
+                }
+                
+                button.btnSelect {
+                    &:hover{
+                        color: #008080;
+                    }
+                }
+                
+                div.subContainerOrg{
+                    flex-direction: row;
+
+                    svg{
+                        transform-origin: center;
+                        transform: scaleY(-1) scale(1.5);
+                        fill: #095b5b;
+                    }
+
+    
+                    button{
+                        &:hover{
+                            background-color: #008080;
+                            color: white;
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+
+        div.containerAberto{
+            display: inherit;
         }
     }
 }
@@ -82,4 +192,26 @@ button#btnTerceirizada{
             fill: white;
         }
     }
+}
+
+button.sairForm{
+    background-color: #008080;
+    color: white;
+    margin: 16px;
+    width: 100%;
+    max-width: 100px;
+    height: 50px;
+    position: fixed;
+    bottom: 64px;
+    border-radius:4px;
+    position: fixed;
+    right: 0;
+}
+
+.collapsed{
+    display: none;
+}
+
+.container{
+    width: 100%;
 }
