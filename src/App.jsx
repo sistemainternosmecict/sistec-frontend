@@ -24,7 +24,7 @@ function resolve_user_type( data ){
         return "usuario inativo"
       }
     default:
-        return <div className='wrapper'>
+        return <div className='wrapper_login'>
           <Login setUsuario={data.setUsuario} setLoggedIn={data.setLoggedIn}/>
         </div>
   }

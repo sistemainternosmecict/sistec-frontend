@@ -4,36 +4,35 @@ ul#usuarios{
     width: 100%;
     list-style: none;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-end;
     margin-bottom: 128px;
 
     li{
-        width: inherit;
-
+        flex: 400px 2 0;
+        
         div.usuario_card{
             width: inherit;
-            // max-width: $max-width;
             padding: 8px;
             border:solid 1px #008080;
-            margin: 8px 0;
+            margin: 8px;
             position: relative;
-
+            min-height: 400px;
+            height: auto;
+            
+            
             p{
+                font-size: 16px;
                 margin: 8px;
+                text-align: left;
             }
 
             button.btn_card {
                 cursor: pointer;
             }
 
-            p.labelDesativado{
-                position: absolute;
-                top: 0;
-                right:0;
-                font-weight: 800;
-                color: red;
-            }
+            
         }
 
         div.usuario_card_edicao{
@@ -98,8 +97,11 @@ ul#usuarios{
         div.usuario_card_edicao_alert{
             background-color: rgb(255, 160, 52);
             text-align: center;
+            height: calc(50vh);
+            display: grid;
+            place-content: center;
         }
-
+        
         div.ativo{
             background-color: #72e2e2;
             border: solid 1px #008080;
@@ -108,6 +110,16 @@ ul#usuarios{
         div.inativo{
             background-color: rgb(247, 128, 128);
             border: solid 1px red;
+
+            p.labelDesativado{
+                width: 200px;
+                text-align: right;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                font-weight: 800;
+                color: red;
+            }
         }
     }
 
@@ -118,12 +130,10 @@ div.busca {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    // max-width: 500px;
 
     input[type="text"] {
         height: 40px;
         padding: 8px;
-        // max-width: 500px;
         flex-grow: 1;
         outline: none;
         border: solid 1px #008080;

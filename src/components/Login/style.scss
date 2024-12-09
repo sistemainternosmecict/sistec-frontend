@@ -1,7 +1,7 @@
 $cor_principal: #008080;
 
 form#login {
-    height: 400px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -92,4 +92,5 @@ img.logoSub{
     margin-top: 128px;
     width: 100%;
     max-width: calc(300px/1.5);
+    align-self: center;
 }

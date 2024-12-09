@@ -1,0 +1,22 @@
+[
+    {
+        "nome":"Recepção",
+        "salas":[9]
+    },
+    {
+        "nome":"Técnica especializada",
+        "salas":[10, 11]
+    },
+    {
+        "nome":"Coordenação pedagógica",
+        "salas":[13]
+    },
+    {
+        "nome":"Financeiro",
+        "salas":[18]
+    },
+    {
+        "nome":"Tecnologia",
+        "salas":[24]
+    }
+]

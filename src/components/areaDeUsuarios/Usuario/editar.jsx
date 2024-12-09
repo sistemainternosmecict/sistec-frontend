@@ -30,7 +30,8 @@ function prepararAtualizacao(e, setConfirmado, setDadosParaEnvio, ativadoEstado)
         usuario_sala: campos.usuario_sala.value,
         usuario_email: campos.usuario_email.value,
         usuario_telefone: Number(campos.usuario_telefone.value),
-        usuario_ativo: ativadoEstado
+        usuario_ativo: ativadoEstado,
+        usuario_vinculo: campos.usuario_vinculo.value
     }
 
     setConfirmado(false)
@@ -93,7 +94,11 @@ function Editar({ usuario, setEditar, setUsuarioLocal, setProcessando }){
                             <input type="text" name='usuario_telefone' defaultValue={usuario.usuario_telefone} />
                         </div>
                         <div className="blocBox">
-                            <label htmlFor="usuario_telefone">Usuário está ativo?</label>
+                            <label htmlFor="usuario_vinculo">Vinculo:</label>
+                            <input type="text" name='usuario_vinculo' defaultValue={usuario.usuario_vinculo} />
+                        </div>
+                        <div className="blocBox">
+                            <label htmlFor="ativo">Usuário está ativo?</label>
                             <button onClick={(e) => {
                                 e.preventDefault()
                                 setAtivadoEstado(!ativadoEstado)

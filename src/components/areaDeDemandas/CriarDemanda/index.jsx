@@ -146,30 +146,9 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
                 <input name='dem_local' ref={localInputRef} type="hidden" defaultValue={unidadeSelecionada.unidade}/>
 
                 <Listagem servicos={servicos} setServicoSelecionado={setServicoSelecionado} />
-
-                {(unidadeSelecionada.selecionada == true && !unidadeSelecionada.unidade.includes("SMECICT")) ?
-                <select name="dem_sala" defaultValue={salaSelecionada.default} onClick={(e) => obter_sala(e, setSalaSelecionada)}>
-                    <option value="-" disabled>Selecione a sala</option>
-                    {(unidadeSelecionada.unidade == "SMECICT")
-                        ? salas.map( sala => <option key={sala} value={sala}>Sala {sala}</option>)
-                        : <>
-                        <option value="Laboratório de informática">Laboratório de informática</option>
-                        <option value="Secretaria da unidade">Secretaria da unidade</option>
-                        <option value="Direção">Direção</option>
-                        <option value="Sala de recursos">Sala de recursos</option>
-                        <option value="Sala do PAE">Sala do PAE</option>
-                        <option value="Sala dos professores">Sala dos professores</option>
-                        <option value="Auditório">Auditório</option>
-                        </>}
-                </select>
-                : <>
-                    <input type="hidden" name='dem_sala' defaultValue={usuario.usuario_sala} />
-                </>}
                 
                 <input type="hidden" name='solicitante' defaultValue={usuario.usuario_id} />
 
-                {/* {(incidenteSelecionado.incidente == "Outro" && servicoSelecionado.servico != "[OUT]") ? <textarea name="descricao" placeholder="Por favor, descreva brevemente o problema ocorrido com suas palavras."></textarea> : (servicoSelecionado.servico == "[OUT]") ? <textarea name="descricao" placeholder="Por favor, descreva brevemente o problema ocorrido com suas palavras."></textarea> : <></>} */}
-                
                 {(unidadeSelecionada.selecionada && servicoSelecionado.selecionado)
                 ? 
                 <>

@@ -21,6 +21,7 @@ function Usuario({ usuario }){
                 <p><span>CPF: </span> { usuarioLocal.usuario_cpf } </p>
                 <p><span>Email: </span> { usuarioLocal.usuario_email } </p>
                 <p><span>Telefone: </span> { usuarioLocal.usuario_telefone } </p>
+                <p><span>Vinculo: </span> { usuarioLocal.usuario_vinculo } </p>
                 <button onClick={() => setEditar(true)} className='btn_card'>Editar usuario</button>
                 {(usuarioLocal.usuario_ativo) ? "" : <p className='labelDesativado'>Usuário desativado</p>}
                 </> : <>Processando...</>}
