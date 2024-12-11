@@ -46,6 +46,65 @@ async function EnviarRegistro(dados, host, setMessage, tipoDeArea){
         
 }
 
+function setOptions( localTipo ) {
+    switch(localTipo){
+        case "Secretaria de Educação":
+            return <>
+                <option value="Administrativo">Administrativo</option>
+                <option value="Politicas Publicas">Politicas Publicas</option>
+                <option value="Estatística">Estatística</option>
+                <option value="Nutrição">Nutrição</option>
+                <option value="Financeiro">Financeiro</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Coordenação Pedagógica">Coordenação Pedagógica</option>
+                <option value="Inspeção Escolar">Inspeção Escolar</option>
+                <option value="Psicologia Educacional">Psicologia Educacional</option>
+                <option value="Senso Escolar">Senso Escolar</option>
+                <option value="Programas">Programas</option>
+                <option value="Projetos e Eventos">Projetos e Eventos</option>
+                <option value="Literatura">Literatura</option>
+                <option value="Arquivo">Arquivo</option>
+                <option value="Patrimônio">Patrimônio</option>
+                <option value="Técnica Especializada">Técnica Especializada</option>
+                <option value="Gabinete do(a) Secretário(a)">Gabinete do(a) Secretário(a)</option>
+            </>
+        case "Subsecretaria de Tecnologia":
+            return <>
+                <option value="CPD">CPD</option>
+                <option value="Inovação">Inovação</option>
+                <option value="TI Educacional">TI Educacional</option>
+            </>
+        case "Subsecretaria de Inclusão":
+            return <>
+                <option value="Diretoria de Inclusão">Diretoria de Inclusão</option>
+                <option value="CAIE">CAIE</option>
+            </>
+        case "Subsecretaria de Educação":
+            return <>
+                <option value="Pedagógico">Pedagógico</option>
+            </>
+        case "Subsecretaria de Infraestrutura da Educação":
+            return <>
+                <option value="Projeto arquitetônicos">Projeto arquitetônicos</option>
+                <option value="Manutenção">Manutenção</option>
+            </>
+        case "Subsecretaria de Cultura":
+            return <>
+                <option value="Casa de Cultura">Casa de Cultura</option>
+                <option value="Teatro Mário Lago">Teatro Mário Lago</option>
+                <option value="Templo do Rock">Templo do Rock</option>
+                <option value="Museu Arqueológico Sambaqui da Beirada">Museu Arqueológico Sambaqui da Beirada</option>
+            </>
+        case "ue":
+            return <>
+                <option value="Administrativo">Administrativo</option>
+                <option value="Pedagógico">Pedagógico</option>
+            </>
+        default:
+            return ""
+    }
+}
+
 function validarMatricula(e, host, setMatriculaValidade){
     e.preventDefault()
     const dados = {
@@ -63,7 +122,7 @@ function cadastrar(e, host, setMessage, setRegistrando, tipoDeArea){
     if(fields.matricula.value !== "" 
         && fields.nome.value !== "" 
         && fields.matricula.value !== "" 
-        && fields.local.value !== "-" 
+        && fields.local_tipo.value !== "-" 
         && fields.sala.value !== "" 
         && fields.email.value !== ""
         && fields.telefone.value !== ""){
@@ -71,7 +130,8 @@ function cadastrar(e, host, setMessage, setRegistrando, tipoDeArea){
             const usuarioData = {
                 usuario_matricula: fields.matricula.value,
                 usuario_nome: fields.nome.value,
-                usuario_setor: fields.local.value,
+                usuario_local: (fields.local_tipo.value != "ue") ? fields.local_tipo.value : fields.local.value,
+                usuario_setor: fields.setor.value,
                 usuario_cargo: fields.cargo.value,
                 usuario_funcao: fields.funcao.value,
                 usuario_sala: fields.sala.value,
@@ -105,6 +165,9 @@ function CadastroUsuario({ tipoDeArea }){
     const [msg,setMessage] = useState("")
     const [matriculaValidada, setMatriculaValidade] = useState({'validada': false, 'matricula':undefined, 'msg':undefined, 'dados':{}})
     const [registrando, setRegistrando] = useState(false)
+    const [localTipo, setLocalTipo] = useState(undefined)
+    const [local, setLocal] = useState(undefined)
+
 
     return (
         <div className="wrapper">
@@ -131,10 +194,41 @@ function CadastroUsuario({ tipoDeArea }){
                 {(matriculaValidada.validada) ?
                 <div className="cadastroCompleto">
                     <p className="placa">Matrícula encontrada! Complete seu cadastro.</p>
+                    <input type="text" value={matriculaValidada.matricula} disabled/>
                     <input type="hidden" name="matricula" value={matriculaValidada.matricula}/>
-                    <input type="text" name="local" placeholder="Local de Trabalho" value={matriculaValidada.dados.local_de_trabalho} disabled/>
                     <input type="text" name="cargo" placeholder="Cargo" value={matriculaValidada.dados.cargo} disabled/>
                     <input type="text" name="nome" placeholder="Nome completo" value={matriculaValidada.dados.nome} onChange={(e)=> setMatriculaValidade({...matriculaValidada, dados: {...matriculaValidada.dados, nome: e.target.value}})} required/>
+                    
+                    <select name="local_tipo" id="local_tipo" defaultValue="-" onChange={(e)=> setLocalTipo(e.target.value)}>
+                        <option value="-" disabled>Tipo de Unidade Administrativa</option>
+                        <option value="Secretaria de Educação">Secretaria de Educação</option>
+                        <option value="Subsecretaria de Cultura">Subsecretaria de Cultura</option>
+                        <option value="Subsecretaria de Educação">Subsecretaria de Educação</option>
+                        <option value="Subsecretaria de Inclusão">Subsecretaria de Inclusão</option>
+                        <option value="Subsecretaria de Infraestrutura da Educação">Subsecretaria de Infraestrutura da Educação</option>
+                        <option value="Subsecretaria de Tecnologia">Subsecretaria de Tecnologia</option>
+                        <option value="ue">Unidade Escolar</option>
+                    </select>
+                    
+                    {(localTipo == "ue")
+                    ? 
+                    <select name="local" id="local" onChange={(e)=> setLocal(e.target.value)} defaultValue="-">
+                        <option value="-" disabled>Unidade</option>
+                        <option value="E.M. Osiris Palmier da Veiga">E.M. Osiris Palmier da Veiga</option>
+                        <option value="E.M. Ismênia de Barros Barroso">E.M. Ismênia de Barros Barroso</option>
+                        <option value="E.M. Padre Manuel">E.M. Padre Manuel</option>
+                    </select>
+                    : <>
+                    </>
+                    }
+
+                    {(localTipo) ?
+                    <select name="setor" id="setor" defaultValue="-">
+                        <option value="-" disabled>Setor</option>
+                        {setOptions(localTipo)}
+                    </select>
+                    : ""}
+
                     <input type="text" name="funcao" placeholder="Função" required/>
                     <input type="text" name="sala" placeholder="Sala" required/>
                     <input type="text" name="cpf" placeholder="CPF" required/>
