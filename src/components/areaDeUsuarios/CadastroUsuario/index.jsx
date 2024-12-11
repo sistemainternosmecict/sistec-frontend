@@ -141,9 +141,11 @@ function cadastrar(e, host, setMessage, setRegistrando, tipoDeArea){
                 usuario_senha: fields.senha1.value,
                 usuario_tipo: 10,
                 usuario_ativo: false,
-                usuario_vinculo: "Prefeitura Municipal de Saquarema"
+                usuario_vinculo: "Prefeitura Municipal de Saquarema",
+                usuario_situacao_rh: fields.situacaoRh.value
             }
     
+            // console.log(usuarioData)
             EnviarRegistro(usuarioData, host, setMessage, tipoDeArea)
             fields_array.forEach( field => {
                 if(field.type !== "submit"){
@@ -166,8 +168,6 @@ function CadastroUsuario({ tipoDeArea }){
     const [matriculaValidada, setMatriculaValidade] = useState({'validada': false, 'matricula':undefined, 'msg':undefined, 'dados':{}})
     const [registrando, setRegistrando] = useState(false)
     const [localTipo, setLocalTipo] = useState(undefined)
-    const [local, setLocal] = useState(undefined)
-
 
     return (
         <div className="wrapper">
@@ -193,10 +193,14 @@ function CadastroUsuario({ tipoDeArea }){
             <form id="reg_solic" onSubmit={(e) => cadastrar(e, hostUrl, setMessage, setRegistrando, tipoDeArea)}>
                 {(matriculaValidada.validada) ?
                 <div className="cadastroCompleto">
+                    <input type="hidden" name="situacaoRh" value={matriculaValidada.dados.local_de_trabalho}/>
+                    <input type="hidden" name="matricula" value={matriculaValidada.matricula}/>
+                    
                     <p className="placa">Matrícula encontrada! Complete seu cadastro.</p>
                     <input type="text" value={matriculaValidada.matricula} disabled/>
-                    <input type="hidden" name="matricula" value={matriculaValidada.matricula}/>
                     <input type="text" name="cargo" placeholder="Cargo" value={matriculaValidada.dados.cargo} disabled/>
+                    {(tipoDeArea == "interna" && matriculaValidada.validada)?
+                    <input type="text" name="situacaoRhVisivel" value={`Situação RH: ${matriculaValidada.dados.local_de_trabalho}`} disabled/>:<></>}
                     <input type="text" name="nome" placeholder="Nome completo" value={matriculaValidada.dados.nome} onChange={(e)=> setMatriculaValidade({...matriculaValidada, dados: {...matriculaValidada.dados, nome: e.target.value}})} required/>
                     
                     <select name="local_tipo" id="local_tipo" defaultValue="-" onChange={(e)=> setLocalTipo(e.target.value)}>
@@ -212,7 +216,7 @@ function CadastroUsuario({ tipoDeArea }){
                     
                     {(localTipo == "ue")
                     ? 
-                    <select name="local" id="local" onChange={(e)=> setLocal(e.target.value)} defaultValue="-">
+                    <select name="local" id="local" defaultValue="-">
                         <option value="-" disabled>Unidade</option>
                         <option value="E.M. Osiris Palmier da Veiga">E.M. Osiris Palmier da Veiga</option>
                         <option value="E.M. Ismênia de Barros Barroso">E.M. Ismênia de Barros Barroso</option>
