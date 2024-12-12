@@ -51,7 +51,6 @@ async function fetchAtualizar( host, dados, setUsuarios ){
       };
     const result = await fetch(host+route, options);
     const retorno = await result.json();
-    console.log(retorno)
     if(retorno.atualizado){
         fetchData(host, setUsuarios)
     }
@@ -59,6 +58,7 @@ async function fetchAtualizar( host, dados, setUsuarios ){
 
 function registrarMudancas( hostUrl, setUsuarios ){
     const campos = document.querySelectorAll(".campo")
+    console.log(campos)
     const dados = {
         usuario_matricula: campos[0].value,
         usuario_cpf: Number(campos[1].value),
@@ -72,9 +72,9 @@ function registrarMudancas( hostUrl, setUsuarios ){
         usuario_email: campos[9].value,
         usuario_telefone: Number(campos[10].value),
         usuario_situacao_rh: campos[11].value,
-        usuario_ativo: Boolean(campos[12].value),
-        usuario_tipo: Number(campos[13].value),
-        usuario_id: Number(campos[14].value)
+        usuario_tipo: Number(campos[12].value),
+        usuario_id: Number(campos[13].value),
+        usuario_ativo: Boolean(Number(campos[14].value)),
     }
 
     fetchAtualizar( hostUrl, dados, setUsuarios )
@@ -192,7 +192,6 @@ function AreaDeUsuarios() {
                                     <p><span>Email:</span> <input className='campo' type="text" defaultValue={usuarioModal.usuario_email} /></p>
                                     <p><span>Telefone:</span> <input className='campo' type="text" defaultValue={usuarioModal.usuario_telefone} /></p>
                                     <p><span>Situação RH:</span> <input className='campo' type="text" defaultValue={usuarioModal.usuario_situacao_rh} disabled/></p>
-                                    <input className='campo' type="hidden" defaultValue={usuarioModal.usuario_ativo} />
                                     <p><span>Nível de acesso:</span> 
                                     <select className="campo" defaultValue={usuarioModal.usuario_tipo}>
                                         <option value="10">Sem acesso</option>
@@ -207,7 +206,12 @@ function AreaDeUsuarios() {
                                     </select>
                                     <input className='campo' type="hidden" defaultValue={usuarioModal.usuario_id} />
                                     </p>
-                                    <p><span>Usuário ativo:</span> <button>{(usuarioModal.usuario_ativo) ? "Desativar" : "Ativar"}</button></p>
+                                    <p><span>Usuário ativo:</span> 
+                                    <select className='campo' defaultValue={Number(usuarioModal.usuario_ativo)}>
+                                        <option value="1">Ativo</option>
+                                        <option value="0">Inativo</option>
+                                    </select>
+                                    </p>
                                 </div>
                                 <button className='btnEditar' onClick={() => {
                                     registrarMudancas(hostUrl, setUsuarios)
