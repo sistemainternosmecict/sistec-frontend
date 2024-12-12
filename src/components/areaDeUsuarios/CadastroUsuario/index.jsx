@@ -22,7 +22,7 @@ async function buscarMatricula(dados, host, matriculaValidacao){
     }
 }
 
-async function EnviarRegistro(dados, host, setMessage, tipoDeArea){
+async function EnviarRegistro(dados, host, setMessage, tipoDeArea, setRegistrando){
     const route = "/api/usuarios/registrar"
     const options = {
       method: "POST",
@@ -42,6 +42,10 @@ async function EnviarRegistro(dados, host, setMessage, tipoDeArea){
         setTimeout(() =>{
             window.location.reload();
         }, 2000);
+    } else {
+        setTimeout(()=> {
+            setRegistrando(false)
+        }, 2000)
     }
         
 }
@@ -51,22 +55,22 @@ function setOptions( localTipo ) {
         case "Secretaria de Educação":
             return <>
                 <option value="Administrativo">Administrativo</option>
-                <option value="Politicas Publicas">Politicas Publicas</option>
-                <option value="Estatística">Estatística</option>
-                <option value="Nutrição">Nutrição</option>
-                <option value="Financeiro">Financeiro</option>
-                <option value="Transporte">Transporte</option>
-                <option value="Coordenação Pedagógica">Coordenação Pedagógica</option>
-                <option value="Inspeção Escolar">Inspeção Escolar</option>
-                <option value="Psicologia Educacional">Psicologia Educacional</option>
-                <option value="Senso Escolar">Senso Escolar</option>
-                <option value="Programas">Programas</option>
-                <option value="Projetos e Eventos">Projetos e Eventos</option>
-                <option value="Literatura">Literatura</option>
                 <option value="Arquivo">Arquivo</option>
-                <option value="Patrimônio">Patrimônio</option>
-                <option value="Técnica Especializada">Técnica Especializada</option>
+                <option value="Coordenação Pedagógica">Coordenação Pedagógica</option>
+                <option value="Estatística">Estatística</option>
+                <option value="Financeiro">Financeiro</option>
                 <option value="Gabinete do(a) Secretário(a)">Gabinete do(a) Secretário(a)</option>
+                <option value="Inspeção Escolar">Inspeção Escolar</option>
+                <option value="Literatura">Literatura</option>
+                <option value="Nutrição">Nutrição</option>
+                <option value="Patrimônio">Patrimônio</option>
+                <option value="Projetos e Eventos">Projetos e Eventos</option>
+                <option value="Programas">Programas</option>
+                <option value="Politicas Publicas">Politicas Publicas</option>
+                <option value="Psicologia Educacional">Psicologia Educacional</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Técnica Especializada">Técnica Especializada</option>
+                <option value="Senso Escolar">Senso Escolar</option>
             </>
         case "Subsecretaria de Tecnologia":
             return <>
@@ -85,15 +89,15 @@ function setOptions( localTipo ) {
             </>
         case "Subsecretaria de Infraestrutura da Educação":
             return <>
-                <option value="Projeto arquitetônicos">Projeto arquitetônicos</option>
                 <option value="Manutenção">Manutenção</option>
+                <option value="Projeto arquitetônicos">Projeto arquitetônicos</option>
             </>
         case "Subsecretaria de Cultura":
             return <>
                 <option value="Casa de Cultura">Casa de Cultura</option>
+                <option value="Museu Arqueológico Sambaqui da Beirada">Museu Arqueológico Sambaqui da Beirada</option>
                 <option value="Teatro Mário Lago">Teatro Mário Lago</option>
                 <option value="Templo do Rock">Templo do Rock</option>
-                <option value="Museu Arqueológico Sambaqui da Beirada">Museu Arqueológico Sambaqui da Beirada</option>
             </>
         case "ue":
             return <>
@@ -146,7 +150,7 @@ function cadastrar(e, host, setMessage, setRegistrando, tipoDeArea){
             }
     
             // console.log(usuarioData)
-            EnviarRegistro(usuarioData, host, setMessage, tipoDeArea)
+            EnviarRegistro(usuarioData, host, setMessage, tipoDeArea, setRegistrando)
             fields_array.forEach( field => {
                 if(field.type !== "submit"){
                     field.value = "";

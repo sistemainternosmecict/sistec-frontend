@@ -1,150 +1,42 @@
-$max-width: 450px;
-
-ul#usuarios{
+table#usuarios{
     width: 100%;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    margin-bottom: 128px;
+    border: solid 1px #008080;
+    border-collapse: collapse;
+    
+    thead{
+        background-color: #008080;
+    }
 
-    li{
-        flex: 400px 2 0;
+    tr{
+        height: 24px;
+        cursor: pointer;
         
-        div.usuario_card{
-            width: inherit;
-            padding: 8px;
-            border:solid 1px #008080;
-            margin: 8px;
-            position: relative;
-            min-height: 400px;
-            height: auto;
-            
-            
-            p{
-                font-size: 16px;
-                margin: 8px;
-                text-align: left;
-            }
-
-            button.btn_card {
-                cursor: pointer;
-            }
-
-            
-        }
-
-        div.usuario_card_edicao{
-            // background-color: #008080;
-            // color: white;
-            // color: #008080;
-            width: inherit;
-            padding: 8px;
-
-            form {
-                input {
-                    width: 100%;
-                    border: solid 1px #008080;
-                    margin: 4px;
-                    padding: 8px;
-                    outline: none;
-                }
-
-                div.blocs{
-                    margin-left: 8px;
-                    div.blocBox {
-                        // border: solid 1px #008080;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-
-                        label {
-                            flex-basis: 100px;
-                            flex-grow: 1;
-                        }
-
-                        input {
-                            flex-grow: 1;
-                            // max-width: 400px;
-                        }
-                    }
-
-                    button{
-                        margin: 4px;
-                    }
-                }
-
-                div.btnBox{
-                    display: flex;
-                    align-items: center;
-
-                    input[type="submit"]{
-                        cursor: pointer;
-                        // max-width: 100px;
-                        height: 40px;
-
-                        &:hover {
-                            background-color: #2eb1b1;
-                            color: white;
-                        }
-                    }
-                }
-
-            }
-        }
-
-        div.usuario_card_edicao_alert{
-            background-color: rgb(255, 160, 52);
-            text-align: center;
-            height: calc(50vh);
-            display: grid;
-            place-content: center;
+        td{
+            padding: 4px;
+            height: inherit;
         }
         
-        div.ativo{
-            background-color: #72e2e2;
-            border: solid 1px #008080;
-        }
+        
+    }
+    
+    tr.usuarioAtivo{
+        background-color: #90eeee;
 
-        div.inativo{
-            background-color: rgb(247, 128, 128);
-            border: solid 1px red;
-
-            p.labelDesativado{
-                width: 200px;
-                text-align: right;
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                font-weight: 800;
-                color: red;
-            }
+        &:hover{
+            background-color: #008080;
+            color: white;
         }
     }
+    
+    tr.usuarioInativo{
+        background-color: #f89999;
 
-}
-
-div.busca {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    input[type="text"] {
-        height: 40px;
-        padding: 8px;
-        flex-grow: 1;
-        outline: none;
-        border: solid 1px #008080;
-    }
-
-    button {
-        height: 40px;
-        margin-right:0;
+        &:hover{
+            background-color: #008080;
+            color: white;
+        }
     }
 }
-
 
 div.aviso{
     display: flex;

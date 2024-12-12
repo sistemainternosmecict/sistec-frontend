@@ -5,7 +5,7 @@
     font-style: normal;
 }
 
-body {
+body, html {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -19,6 +19,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        position: relative;
     }
 
     div.wrapper_login{
