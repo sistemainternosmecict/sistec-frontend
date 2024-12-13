@@ -1,6 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 import { HostContext } from '../../HostContext';
 import ListagemEntrada from './ListagemEntrada';
+import CriarDemanda from './CriarDemanda';
+import PropTypes from 'prop-types'
 import './style.scss'
 
 async function obter_demandas(host){
@@ -10,19 +12,21 @@ async function obter_demandas(host){
     return retorno
 }
 
-function carregarSecao( pg, demandas ) {
+function carregarSecao( pg, demandas, data ) {
     switch(pg){
         // case 1:
         //     return <CadastroUsuario tipoDeArea={tipoDeArea} />
         // case 2:
         //     return <NiveisDeAcesso />
+        case 3:
+            return <CriarDemanda usuario={data.usuario} setLoggedIn={data.setLoggedIn} setUsuario={data.setUsuario}/>
         default:
             return <ListagemEntrada demandas={demandas} />
             // return <ListagemDemandas demandas={demandas} />
     }
 }
 
-function AreaDeDemandas() {
+function AreaDeDemandas({ data }) {
     const tipoDeArea = "interna"
     const [pagina, setPagina] = useState(0)
     const { hostUrl } = useContext(HostContext)
@@ -30,8 +34,8 @@ function AreaDeDemandas() {
 
     useEffect(() => {
         async function fetchData() {
-            const data = await obter_demandas(hostUrl)
-            setDemandas(data.demandas || [])
+            const data_temp = await obter_demandas(hostUrl)
+            setDemandas(data_temp.demandas || [])
         }
         fetchData()
     }, [hostUrl])
@@ -48,10 +52,14 @@ function AreaDeDemandas() {
                 </div>
             </aside>
             <main>
-                {carregarSecao(pagina, demandas)}
+                {carregarSecao(pagina, demandas, data)}
             </main>
         </section>
     )
+}
+
+AreaDeDemandas.propTypes = {
+    data: PropTypes.object
 }
 
 export default AreaDeDemandas;
