@@ -6,7 +6,7 @@ import AreaDeDemandas from '../areaDeDemandas';
 import Nav from "../Nav";
 import './style.scss';
 
-function get_page(page_number){
+function get_page(page_number, data){
     switch(page_number){
         case 1:
             return <section id="main_cadastro">
@@ -14,7 +14,7 @@ function get_page(page_number){
                 </section>
         case 2:
             return <section id="main_cadastro">
-                <AreaDeDemandas />
+                <AreaDeDemandas data={data} />
                 </section>
         case 3:
             return <section id="main_cadastro">
@@ -54,7 +54,7 @@ function Home({ usuario, setLoggedIn, setUsuario }) {
     return (
       <>
         <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario}/>
-        {get_page(page.pageN)} 
+        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario})} 
       </>
     )
   }

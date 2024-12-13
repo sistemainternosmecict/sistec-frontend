@@ -1,5 +1,10 @@
 $cor_principal: #008080;
 
+div.demandaInterna{
+    width: 100%;
+    max-width: 500px;
+}
+    
 form#reg_demanda {
     display: flex;
     flex-direction: column;
@@ -78,8 +83,6 @@ form#reg_demanda {
             margin: 2px;
             border-radius: 4px;
             width: inherit;
-            // outline: none;
-
         }
         
         button.btnToggle {
@@ -161,6 +164,7 @@ form#reg_demanda {
         }
     }
 }
+
 
 div#protocolo{
     margin-top: 32px;

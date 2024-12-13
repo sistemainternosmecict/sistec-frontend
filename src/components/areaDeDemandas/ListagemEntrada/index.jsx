@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Demanda from '../DemandaNovo'
 import PropTypes from 'prop-types'
+import "./style.scss"
 
 function ListagemEntrada({ demandas }){
     const [ordenacao, setOrdenacao] = useState("protocolo")

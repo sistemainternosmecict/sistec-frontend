@@ -1,11 +1,18 @@
 div.demanda{
     border: solid 1px #008080;
-    margin: 8px;
     padding: 8px;
-
+    display: flex;
+    cursor: pointer;
+    
     p {
+        // margin: 8px;
         span{
             font-weight: bold;
         }
+    }
+
+    &:hover{
+        background-color: #008080;
+        color: white;
     }
 }

@@ -1,0 +1,42 @@
+[
+    {
+        "nivel":10,
+        "nome":"Sem acesso"
+    },
+    {
+        "nivel":9,
+        "nome":"PJC/PNC"
+    },
+    {
+        "nivel":8,
+        "nome":"Estagiário"
+    },
+    {
+        "nivel":7,
+        "nome":"Diretor"
+    },
+    {
+        "nivel":6,
+        "nome":"Agente tec"
+    },
+    {
+        "nivel":5,
+        "nome":"Relatórios"
+    },
+    {
+        "nivel":4,
+        "nome":"Unidade"
+    },
+    {
+        "nivel":3,
+        "nome":"CPD"
+    },
+    {
+        "nivel":2,
+        "nome":"Admin"
+    },
+    {
+        "nivel":1,
+        "nome":"Root"
+    },
+]

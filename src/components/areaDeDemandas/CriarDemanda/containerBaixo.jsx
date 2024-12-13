@@ -44,7 +44,6 @@ function ContainerBaixo({ dados, idx, setServicoSelecionado, abertoContainer, su
             } else {
                 setAberto(false)
             }
-            console.log(subIdControler.subIdAberto)
         }
 
     }, [subIdControler, idx])

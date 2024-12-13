@@ -20,7 +20,7 @@ async function obter_usuarios(host, set){
     const route = "/api/usuarios/listar"
     const result = await fetch(host+route);
     const retorno = await result.json();
-    set(retorno.solics);
+    set(retorno.usuarios);
 }
 
 async function registrar_demanda( demanda, host, setMessage ){
@@ -38,7 +38,7 @@ async function registrar_demanda( demanda, host, setMessage ){
     }
 }
 
-function criarDemanda(e, host, setMessage, servicoSelecionado, incidenteSelecionado){
+function criarDemanda(e, host, setMessage, servicoSelecionado, usuario){
     e.preventDefault()
     const fields = e.target.elements
     const descricao_escrita = (fields.descricao) ? fields.descricao.value : "S/D"
@@ -50,7 +50,7 @@ function criarDemanda(e, host, setMessage, servicoSelecionado, incidenteSelecion
     const local = fields.dem_local.value
     const sala = fields.dem_sala.value
     const demanda = {
-        solicitante: Number(fields.solicitante.value),
+        solicitante: (isNaN(Number(fields.solicitante.value))) ? fields.solicitante.value : Number(fields.solicitante.value),
         direcionamento: 0,
         descricao: desc,
         local: local,
@@ -60,21 +60,10 @@ function criarDemanda(e, host, setMessage, servicoSelecionado, incidenteSelecion
         status: (Number(servicoSelecionado.tipo) === 2) ? 4 : 1
     }
 
-
-    if((!isNaN(demanda.solicitante)) && (demanda.local !== "-") && (demanda.descricao !== "Preset:-")){
-        registrar_demanda(demanda, host, setMessage)
-        // console.log(demanda)
-    }
+    registrar_demanda(demanda, host, setMessage)
 }
 
-function obter_sala(e, set){
-    e.preventDefault()
-    if(e.target.value !== "-"){
-        set({selecionada:true, sala:e.target.value, default: '-'})
-    }
-}
-
-function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
+function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
     const { hostUrl } = useContext(HostContext)
     const [salas, setSalas] = useState([])
     const [solicitantes, setSolicitantes] = useState([])
@@ -86,23 +75,12 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
     const [unidadeSelecionada] = useState({'selecionada':true, 'unidade':usuario.usuario_setor})
     const [salaSelecionada, setSalaSelecionada] = useState({'selecionada':false, 'sala':undefined, 'default':'-'})
     const [servicoSelecionado, setServicoSelecionado] = useState({'selecionado':false, 'servico':undefined, 'default':'-', 'tipo':undefined, 'incidente':undefined})
-    // const [incidenteSelecionado, setIncidenteSelecionado] = useState({'incidente':undefined, 'selecionado':false, 'default':'-'})
     const [descricao, setDescricao] = useState(false)
     const localInputRef = useRef(null)
 
     useEffect(()=> {
         obter_usuarios(hostUrl, setSolicitantes)
     }, [hostUrl])
-
-    // useEffect(() => {
-    //     let salas_temp = []
-    //     solicitantes.forEach( solic => {
-    //         if(!salas_temp.includes(solic.solic_sala)){
-    //             salas_temp.push(solic.solic_sala)
-    //         }
-    //     })
-    //     setSalas(salas_temp)
-    // }, [solicitantes])
 
     useEffect(() => {
         setEscolas(escolas_json)
@@ -111,22 +89,12 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
     }, [])
 
     useEffect(() => {
-        // const inputSala = document.getElementsByName("dem_sala")[0]
-        // setSalaSelecionada({'selecionada':false, 'sala':undefined, 'default':'-'})
-        // if(inputSala){
-        //     inputSala.value = "-"
-        // }
-
         if(localInputRef.current){
-            // console.log(localInputRef)
-            // setUnidadeSelecionada({'selecionada':true, 'unidade':localInputRef.current.defaultValue})
             setSalaSelecionada({'selecionada':true, 'sala':usuario.usuario_sala, 'default':'-'})
         }
 
-        // if(unidadeSelecionada.unidade == "SMECICT"){
-        // }
         setDescricao(false)
-    }, [localInputRef.current, usuario])
+    }, [localInputRef, usuario])
 
     useEffect(() => {
         const inputServico = document.getElementsByName("disp")[0]
@@ -138,16 +106,30 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
     }, [salaSelecionada])
 
     return (
-        <>
+        <div className={(tipoDeArea == "interna") ? "demandaInterna" : ""}>
             {(msg === undefined) ?
-            <form id="reg_demanda" onSubmit={(e) => criarDemanda(e, hostUrl, setMessage, servicoSelecionado)}>
-                <img className='logo' src={logoSistec} alt="Logo do sistec" />
-                <h2 className='titulo'>Novo chamado</h2>
-                <input name='dem_local' ref={localInputRef} type="hidden" defaultValue={unidadeSelecionada.unidade}/>
+            <form id="reg_demanda" onSubmit={(e) => criarDemanda(e, hostUrl, setMessage, servicoSelecionado, usuario)}>
+                {(tipoDeArea == "interna") ?
+                <>
+                    <h2 className='titulo'>Nova demanda</h2>
+                    <input name="dem_local" placeholder='Local' /> 
+                    <input name="dem_sala" placeholder='Sala' /> 
+                    {/* <input name='solicitante' type="text" placeholder='Solicitante' /> */}
+                    <select name="solicitante" id="solicitante" defaultValue="-">
+                        <option value="-" disabled>Solicitante</option>
+                        {solicitantes.map( (usuario, idx) => {
+                            return <option key={idx} value={usuario.usuario_id}>{"ID: " + usuario.usuario_id + " - " + usuario.usuario_nome}</option>
+                        })}
+                    </select>
+                </>
+                : <>
+                    <img className='logo' src={logoSistec} alt="Logo do sistec" />
+                    <h2 className='titulo'>Nova demanda</h2>
+                    <input name='dem_local' ref={localInputRef} type="hidden" defaultValue={unidadeSelecionada.unidade}/>
+                    <input type="hidden" name='solicitante' defaultValue={usuario.usuario_id} />
+                </>}
 
                 <Listagem servicos={servicos} setServicoSelecionado={setServicoSelecionado} />
-                
-                <input type="hidden" name='solicitante' defaultValue={usuario.usuario_id} />
 
                 {(unidadeSelecionada.selecionada && servicoSelecionado.selecionado)
                 ? 
@@ -159,8 +141,8 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
                 </>
                 }
 
-                
-                <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button>
+                {(tipoDeArea != "interna") ?
+                <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button> : <></>}
             </form> : <div id="protocolo">
                 <p>
                 Demanda inserida! Protocolo de demanda número <strong>{msg}</strong> gerado com sucesso!
@@ -168,18 +150,20 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
                 <button onClick={() => {
                     setMessage(undefined)
                     }}>Criar outra demanda</button>
-                <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button>
+                {(tipoDeArea != "interna") ?
+                <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button> : <></>}
                 </div>}
 
                
-        </>
+        </div>
     )
 }
 
 CriarDemanda.propTypes = {
     usuario: PropTypes.object,
     setLoggedIn: PropTypes.func,
-    setUsuario: PropTypes.func
+    setUsuario: PropTypes.func,
+    tipoDeArea: PropTypes.string
 }
 
 export default CriarDemanda;

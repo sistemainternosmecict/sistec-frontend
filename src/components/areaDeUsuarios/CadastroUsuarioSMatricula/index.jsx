@@ -57,7 +57,7 @@ function cadastrar(e, host, setMessage, setRegistrando){
                 usuario_situacao_rh: "Sem registro"
             }
 
-            // console.log(usuarioData)
+            console.log(usuarioData)
     
             EnviarRegistro(usuarioData, host, setMessage, setRegistrando)
             fields_array.forEach( field => {
