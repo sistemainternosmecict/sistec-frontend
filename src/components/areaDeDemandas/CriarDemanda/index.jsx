@@ -38,7 +38,7 @@ async function registrar_demanda( demanda, host, setMessage ){
     }
 }
 
-function criarDemanda(e, host, setMessage, servicoSelecionado, usuario){
+function criarDemanda(e, host, setMessage, servicoSelecionado){
     e.preventDefault()
     const fields = e.target.elements
     const descricao_escrita = (fields.descricao) ? fields.descricao.value : "S/D"
@@ -141,7 +141,8 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
                 </>
                 }
 
-                {(tipoDeArea != "interna") ?
+=======
+                {(tipoDeArea != "interna")?
                 <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button> : <></>}
             </form> : <div id="protocolo">
                 <p>
