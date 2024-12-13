@@ -31,9 +31,8 @@ async function EnviarRegistro(dados, host, setMessage, tipoDeArea, setRegistrand
     };
     const result = await fetch(host+route, options);
     const retorno = await result.json();
-    if(retorno.msg){
+    if(retorno.msg != null){
         setMessage(retorno.msg)
-
     } else {
         setMessage("Cadastro realizado!")
     }
@@ -120,7 +119,14 @@ function validarMatricula(e, host, setMatriculaValidade){
 function cadastrar(e, host, setMessage, setRegistrando, tipoDeArea){
     e.preventDefault()
     setRegistrando(true)
+    
     const fields = e.target.elements
+    const emailPattern = /^[^@]+@smec\.saquarema\.rj\.gov\.br$/
+    if (!emailPattern.test(fields.email.value)) {
+      setRegistrando(false)
+      setMessage("O email deve ser um email institucional.")
+      return
+    }
     const fields_array = Array.from(fields)
     const senhas_iguais = fields.senha1.value === fields.senha2.value
     if(fields.matricula.value !== "" 
@@ -148,8 +154,7 @@ function cadastrar(e, host, setMessage, setRegistrando, tipoDeArea){
                 usuario_vinculo: "Prefeitura Municipal de Saquarema",
                 usuario_situacao_rh: fields.situacaoRh.value
             }
-    
-            // console.log(usuarioData)
+
             EnviarRegistro(usuarioData, host, setMessage, tipoDeArea, setRegistrando)
             fields_array.forEach( field => {
                 if(field.type !== "submit"){

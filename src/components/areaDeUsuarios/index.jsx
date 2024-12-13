@@ -58,7 +58,6 @@ async function fetchAtualizar( host, dados, setUsuarios ){
 
 function registrarMudancas( hostUrl, setUsuarios ){
     const campos = document.querySelectorAll(".campo")
-    console.log(campos)
     const dados = {
         usuario_matricula: campos[0].value,
         usuario_cpf: Number(campos[1].value),
@@ -82,7 +81,9 @@ function registrarMudancas( hostUrl, setUsuarios ){
 
 async function fetchData(hostUrl, setUsuarios) {
     const data = await obter_usuarios(hostUrl)
-    setUsuarios(data.usuarios || [])
+    if(data.usuarios){
+        setUsuarios(data.usuarios)
+    }
 }
 
 function AreaDeUsuarios() {
@@ -94,6 +95,10 @@ function AreaDeUsuarios() {
     const [usuarioModal, setUsuarioModal] = useState(undefined)
     const [modalAberto, setModalAberto] = useState(false)
     const [editando, setEditando] = useState(false)
+
+    useEffect(() => {
+        fetchData(hostUrl, setUsuarios)
+    }, [hostUrl])
 
     useEffect(() => {
         if(usuarios.length > 0){
@@ -120,10 +125,6 @@ function AreaDeUsuarios() {
             blocs.current = listao
         }
     }, [usuarios])
-
-    useEffect(() => {
-        fetchData(hostUrl, setUsuarios)
-    }, [hostUrl])
     
     return (
         <>
@@ -146,7 +147,7 @@ function AreaDeUsuarios() {
                     </div>
                 </aside>
                 <main>
-                    {carregarSecao(pagina, tipoDeArea, blocs)}
+                {carregarSecao(pagina, tipoDeArea, blocs)}
                 {(modalAberto) ? <section className='modal'>
                     <div className="display">
                     {(!editando) ?
