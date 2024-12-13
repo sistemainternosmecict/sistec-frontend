@@ -12,14 +12,15 @@ async function obter_demandas(host){
     return retorno
 }
 
-function carregarSecao( pg, demandas, data ) {
+function carregarSecao( pg, demandas, data, tipoDeArea ) {
+    data.tipoDeArea = tipoDeArea
     switch(pg){
         // case 1:
         //     return <CadastroUsuario tipoDeArea={tipoDeArea} />
         // case 2:
         //     return <NiveisDeAcesso />
         case 3:
-            return <CriarDemanda usuario={data.usuario} setLoggedIn={data.setLoggedIn} setUsuario={data.setUsuario}/>
+            return <CriarDemanda usuario={data.usuario} setLoggedIn={data.setLoggedIn} setUsuario={data.setUsuario} tipoDeArea={data.tipoDeArea}/>
         default:
             return <ListagemEntrada demandas={demandas} />
             // return <ListagemDemandas demandas={demandas} />
@@ -52,7 +53,7 @@ function AreaDeDemandas({ data }) {
                 </div>
             </aside>
             <main>
-                {carregarSecao(pagina, demandas, data)}
+                {carregarSecao(pagina, demandas, data, tipoDeArea)}
             </main>
         </section>
     )

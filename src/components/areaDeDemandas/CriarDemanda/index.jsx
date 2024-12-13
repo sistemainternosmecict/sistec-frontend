@@ -38,7 +38,7 @@ async function registrar_demanda( demanda, host, setMessage ){
     }
 }
 
-function criarDemanda(e, host, setMessage, servicoSelecionado, incidenteSelecionado){
+function criarDemanda(e, host, setMessage, servicoSelecionado){
     e.preventDefault()
     const fields = e.target.elements
     const descricao_escrita = (fields.descricao) ? fields.descricao.value : "S/D"
@@ -63,18 +63,10 @@ function criarDemanda(e, host, setMessage, servicoSelecionado, incidenteSelecion
 
     if((!isNaN(demanda.solicitante)) && (demanda.local !== "-") && (demanda.descricao !== "Preset:-")){
         registrar_demanda(demanda, host, setMessage)
-        // console.log(demanda)
     }
 }
 
-function obter_sala(e, set){
-    e.preventDefault()
-    if(e.target.value !== "-"){
-        set({selecionada:true, sala:e.target.value, default: '-'})
-    }
-}
-
-function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
+function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
     const { hostUrl } = useContext(HostContext)
     const [salas, setSalas] = useState([])
     const [solicitantes, setSolicitantes] = useState([])
@@ -86,23 +78,12 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
     const [unidadeSelecionada] = useState({'selecionada':true, 'unidade':usuario.usuario_setor})
     const [salaSelecionada, setSalaSelecionada] = useState({'selecionada':false, 'sala':undefined, 'default':'-'})
     const [servicoSelecionado, setServicoSelecionado] = useState({'selecionado':false, 'servico':undefined, 'default':'-', 'tipo':undefined, 'incidente':undefined})
-    // const [incidenteSelecionado, setIncidenteSelecionado] = useState({'incidente':undefined, 'selecionado':false, 'default':'-'})
     const [descricao, setDescricao] = useState(false)
     const localInputRef = useRef(null)
 
     useEffect(()=> {
         obter_usuarios(hostUrl, setSolicitantes)
     }, [hostUrl])
-
-    // useEffect(() => {
-    //     let salas_temp = []
-    //     solicitantes.forEach( solic => {
-    //         if(!salas_temp.includes(solic.solic_sala)){
-    //             salas_temp.push(solic.solic_sala)
-    //         }
-    //     })
-    //     setSalas(salas_temp)
-    // }, [solicitantes])
 
     useEffect(() => {
         setEscolas(escolas_json)
@@ -111,22 +92,12 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
     }, [])
 
     useEffect(() => {
-        // const inputSala = document.getElementsByName("dem_sala")[0]
-        // setSalaSelecionada({'selecionada':false, 'sala':undefined, 'default':'-'})
-        // if(inputSala){
-        //     inputSala.value = "-"
-        // }
-
         if(localInputRef.current){
-            // console.log(localInputRef)
-            // setUnidadeSelecionada({'selecionada':true, 'unidade':localInputRef.current.defaultValue})
             setSalaSelecionada({'selecionada':true, 'sala':usuario.usuario_sala, 'default':'-'})
         }
 
-        // if(unidadeSelecionada.unidade == "SMECICT"){
-        // }
         setDescricao(false)
-    }, [localInputRef.current, usuario])
+    }, [localInputRef, usuario])
 
     useEffect(() => {
         const inputServico = document.getElementsByName("disp")[0]
@@ -138,7 +109,7 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
     }, [salaSelecionada])
 
     return (
-        <>
+        <div className={(tipoDeArea == "interna") ? "demandaInterna" : ""}>
             {(msg === undefined) ?
             <form id="reg_demanda" onSubmit={(e) => criarDemanda(e, hostUrl, setMessage, servicoSelecionado)}>
                 <img className='logo' src={logoSistec} alt="Logo do sistec" />
@@ -159,8 +130,8 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
                 </>
                 }
 
-                
-                <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button>
+                {(tipoDeArea != "interna")?
+                <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button> : <></>}
             </form> : <div id="protocolo">
                 <p>
                 Demanda inserida! Protocolo de demanda número <strong>{msg}</strong> gerado com sucesso!
@@ -172,14 +143,15 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario }){
                 </div>}
 
                
-        </>
+        </div>
     )
 }
 
 CriarDemanda.propTypes = {
     usuario: PropTypes.object,
     setLoggedIn: PropTypes.func,
-    setUsuario: PropTypes.func
+    setUsuario: PropTypes.func,
+    tipoDeArea: PropTypes.string
 }
 
 export default CriarDemanda;
