@@ -140,8 +140,6 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
                     
                 </>
                 }
-
-=======
                 {(tipoDeArea != "interna")?
                 <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button> : <></>}
             </form> : <div id="protocolo">
