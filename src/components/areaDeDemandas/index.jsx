@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { HostContext } from '../../HostContext';
 import ListagemEntrada from './ListagemEntrada';
 import CriarDemanda from './CriarDemanda';
+import ModalDemanda from './ModalDemanda';
 import PropTypes from 'prop-types'
 import './style.scss'
 
@@ -12,7 +13,12 @@ async function obter_demandas(host){
     return retorno
 }
 
-function carregarSecao( pg, demandas, data, tipoDeArea ) {
+async function fetchData( setDemandas, hostUrl ) {
+    const data_temp = await obter_demandas(hostUrl)
+    setDemandas(data_temp.demandas || [])
+}
+
+function carregarSecao( pg, demandas, data, tipoDeArea, ticketControl ) {
     data.tipoDeArea = tipoDeArea
     switch(pg){
         // case 1:
@@ -21,8 +27,10 @@ function carregarSecao( pg, demandas, data, tipoDeArea ) {
         //     return <NiveisDeAcesso />
         case 3:
             return <CriarDemanda usuario={data.usuario} setLoggedIn={data.setLoggedIn} setUsuario={data.setUsuario} tipoDeArea={data.tipoDeArea}/>
+        case 4:
+            return <ModalDemanda demanda={ticketControl.selectedTicket} fetchData={ticketControl.fetchData} setDemandas={ticketControl.setDemandas} />
         default:
-            return <ListagemEntrada demandas={demandas} />
+            return <ListagemEntrada demandas={demandas} ticketControl={ticketControl}/>
             // return <ListagemDemandas demandas={demandas} />
     }
 }
@@ -32,28 +40,27 @@ function AreaDeDemandas({ data }) {
     const [pagina, setPagina] = useState(0)
     const { hostUrl } = useContext(HostContext)
     const [demandas, setDemandas] = useState([])
+    const [selectedTicket, setSelectedTicket] = useState({ticket: undefined})
+
+    const ticketControl = {selectedTicket, setSelectedTicket, setPagina, fetchData, setDemandas}
 
     useEffect(() => {
-        async function fetchData() {
-            const data_temp = await obter_demandas(hostUrl)
-            setDemandas(data_temp.demandas || [])
-        }
-        fetchData()
+        fetchData( setDemandas, hostUrl )
     }, [hostUrl])
     
     return (
         <section>
             <aside className='menuAreaDemandas'>
                 <div className="btnGroup">
-                    <button onClick={() => setPagina(0)}>Entrada</button>
-                    <button onClick={() => setPagina(1)}>Atendimento</button>
-                    <button onClick={() => setPagina(2)}>Arquivo</button>
+                    <button onClick={() => setPagina(0)}>Listagem</button>
+                    {/* <button onClick={() => setPagina(1)}>Atendimento</button>
+                    <button onClick={() => setPagina(2)}>Arquivo</button> */}
                     <button onClick={() => setPagina(3)}>Criar demanda</button>
                     {/* <button onClick={() => setPagina(2)}>Níveis de acesso</button> */}
                 </div>
             </aside>
             <main>
-                {carregarSecao(pagina, demandas, data, tipoDeArea)}
+                {carregarSecao(pagina, demandas, data, tipoDeArea, ticketControl)}
             </main>
         </section>
     )

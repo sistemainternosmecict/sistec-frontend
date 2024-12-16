@@ -3,7 +3,7 @@ import Demanda from '../DemandaNovo'
 import PropTypes from 'prop-types'
 import "./style.scss"
 
-function ListagemEntrada({ demandas }){
+function ListagemEntrada({ demandas, ticketControl }){
     const [ordenacao, setOrdenacao] = useState("protocolo")
     
     return (
@@ -11,7 +11,7 @@ function ListagemEntrada({ demandas }){
             <ul id="demandas">
                 {(demandas.length > 0) ? demandas.map((demanda, index) => (
                     <li key={index}>
-                        <Demanda demanda={demanda} />
+                        <Demanda demanda={demanda} ticketControl={ticketControl} />
                     </li>
                 )) : <p>Buscando demandas...</p>}
             </ul>
@@ -20,7 +20,8 @@ function ListagemEntrada({ demandas }){
 }
 
 ListagemEntrada.propTypes = {
-    demandas: PropTypes.arrayOf(PropTypes.object)
+    demandas: PropTypes.arrayOf(PropTypes.object),
+    ticketControl: PropTypes.object
 }
 
 export default ListagemEntrada

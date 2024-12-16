@@ -20,9 +20,12 @@ function getStatus( status ){
     }
 }
 
-function Demanda({ demanda }){
+function Demanda({ demanda, ticketControl }){
     return (
-        <div className="demanda">
+        <div className="demanda" onClick={() => {
+            ticketControl.setSelectedTicket(demanda)
+            ticketControl.setPagina(4)
+            }}>
             <p><span>Protocolo:</span> {demanda.protocolo}</p>
             <p><span>Data:</span> {demanda.dt_entrada}</p>
             <p><span>Status:</span> {getStatus(demanda.status)}</p>
@@ -31,7 +34,8 @@ function Demanda({ demanda }){
 }
 
 Demanda.propTypes = {
-    demanda: PropTypes.object
+    demanda: PropTypes.object,
+    ticketControl: PropTypes.object
 }
 
 export default Demanda;
