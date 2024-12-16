@@ -24,4 +24,21 @@ section {
         height: calc(100vh - 90px);
         overflow-y: scroll;
     }
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+
+        aside.menuAreaDemandas {
+            margin-top: 32px;
+            border: none;
+            width: 100%;
+
+            div.btnGroup {
+                button {
+                    width: inherit;
+                }
+            }
+        }
+    }
 }

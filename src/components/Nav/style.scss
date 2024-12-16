@@ -13,6 +13,8 @@ nav{
         display: flex;
         align-items: center;
         color: white;
+
+        
     }
 
     div.usuario{
@@ -31,7 +33,15 @@ nav{
             padding: 4px 8px;
             border-radius: 4px;
             margin-left: 8px;
+
         }
+
+        @media screen and (max-width: 600px) {
+            div.userWrapp {
+                display: none;
+            }
+        }
+
     }
 
     button{
@@ -45,7 +55,7 @@ div.slideMenu {
     position: fixed;
     top: 0px;
     left: 0;
-    width: 420px;
+    width: 400px;
     height: 100vh;
     background-color: #008080;
     padding: 20px;
@@ -79,6 +89,17 @@ div.slideMenu {
         height: 50px;
         width: 50px;
         cursor: pointer;
+    }
+
+    @media screen and (max-width: 600px) {
+        width: 100vw;
+
+        button.fechar {
+            top: auto;
+            left: auto;
+            // bottom: 10vh;
+            right:0;
+        }
     }
 }
 

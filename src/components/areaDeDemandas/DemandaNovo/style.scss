@@ -6,7 +6,6 @@ div.demanda{
     height: 40px;
     
     p {
-        // margin: 8px;
         span{
             font-weight: bold;
         }
@@ -15,5 +14,18 @@ div.demanda{
     &:hover{
         background-color: #008080;
         color: white;
+    }
+
+    @media screen and (max-width: 990px) {
+        height: 100%;
+    }
+
+    @media screen and (max-width: 900px) {
+        height: 100%;
+        flex-direction: column;
+    }
+
+    @media screen and (max-width: 600px) {
+        height: 100%;
     }
 }
