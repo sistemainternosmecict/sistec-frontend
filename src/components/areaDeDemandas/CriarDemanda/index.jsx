@@ -41,7 +41,7 @@ async function registrar_demanda( demanda, host, setMessage ){
 function criarDemanda(e, host, setMessage, servicoSelecionado){
     e.preventDefault()
     const fields = e.target.elements
-    const descricao_escrita = (fields.descricao) ? fields.descricao.value : "S/D"
+    const descricao_escrita = (fields.descricaoSolicitante) ? fields.descricaoSolicitante.value : "S/D"
     let desc = descricao_escrita
     if(servicoSelecionado.servico != "[OUT]"){
         desc = servicoSelecionado.servico + " -> " + servicoSelecionado.incidente + " (" + descricao_escrita + ")."
@@ -60,6 +60,7 @@ function criarDemanda(e, host, setMessage, servicoSelecionado){
         status: (Number(servicoSelecionado.tipo) === 2) ? 4 : 1
     }
 
+    // console.log(demanda)
     registrar_demanda(demanda, host, setMessage)
 }
 
@@ -130,16 +131,12 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
                 </>}
 
                 <Listagem servicos={servicos} setServicoSelecionado={setServicoSelecionado} />
+                <textarea name="descricaoSolicitante" placeholder='Descrição do incidente (Opcional)'></textarea>
 
                 {(unidadeSelecionada.selecionada && servicoSelecionado.selecionado)
-                ? 
-                <>
+                ? <>
                 {(servicoSelecionado.servico != undefined) ? <input type="submit" value="Registrar" /> : <></>}
-                </>
-                : <>
-                    
-                </>
-                }
+                </> : <></>}
                 {(tipoDeArea != "interna")?
                 <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button> : <></>}
             </form> : <div id="protocolo">
