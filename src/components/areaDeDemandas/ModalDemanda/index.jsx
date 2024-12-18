@@ -88,6 +88,10 @@ function extrairConteudoEntreParenteses(texto) {
     return match ? match[1] : null;
 }
 
+function finalizarDemanda( demanda ){
+    console.log(demanda)
+}
+
 function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
     const { hostUrl } = useContext(HostContext)
     const [usuarios, setUsuarios] = useState([])
@@ -189,7 +193,7 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
                         </> : <></>}
     
                         <div>
-                            <select className='dropDownActions' defaultValue={(demanda.dem_prioridade) ? demanda.dem_prioridade : 0}>
+                            <select className='dropDownActions' defaultValue={(demanda.nvl_prioridade) ? demanda.nvl_prioridade : 0}>
                                 <option value={0} disabled>NP</option>
                                 <option value={3}>3</option>
                                 <option value={2}>2</option>
@@ -212,16 +216,14 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
                             </select>
                         </div>
     
-                        <textarea className='dropDownActions' placeholder='Observações de atendimento...'>
-    
-                        </textarea>
+                        <textarea className='dropDownActions' placeholder='Observações de atendimento...' defaultValue={(demanda.observacoes != "") ? demanda.observacoes : ""}></textarea>
     
                         {(tipoDeServico == 1)
                         ?    <div className='btnHolder'>
                         <button onClick={() => {
                             salvar(dadosParaAtualizacao, setDadosParaAtualizacao, setSalvandoAtualizacoes)
                         }}>Registrar alterações</button>
-                        <button>Finalizar demanda</button>
+                        <button onClick={() => finalizarDemanda( demanda )}>Finalizar demanda</button>
                         </div>
                         : <div className='btnHolder'>
                             <button onClick={() => {

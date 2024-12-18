@@ -2,9 +2,12 @@ section {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: calc(100vh - 80px);
 
     aside.menuAreaDemandas {
         border-right: solid 1px #008080;
+        z-index: 1;
+        background-color: #008080;
 
         div.btnGroup {
             display: flex;
@@ -30,11 +33,11 @@ section {
         align-items: center;
 
         aside.menuAreaDemandas {
-            margin-top: 32px;
             border: none;
             width: 100%;
-
+            
             div.btnGroup {
+                box-shadow: 0 2px 16px rgba(0,0,0,0.8);
                 button {
                     width: inherit;
                 }

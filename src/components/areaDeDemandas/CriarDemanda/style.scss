@@ -163,6 +163,11 @@ form#reg_demanda {
             display: inherit;
         }
     }
+
+    @media screen and (max-width: 600px) {
+        height: auto;
+        margin-bottom: 128px;
+    }
 }
 
 div#protocolo{

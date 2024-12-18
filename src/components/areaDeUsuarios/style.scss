@@ -2,9 +2,12 @@ section {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: calc(100vh - 80px);
 
     aside.menuAreaUsuarios {
         border-right: solid 1px #008080;
+        z-index: 1;
+        background-color: #008080;
 
         div.btnGroup {
             display: flex;
@@ -15,12 +18,11 @@ section {
         }
 
         @media screen and (max-width:600px) {
-            height: auto;
-            margin-top: 100px;
             border: none;
             width: 100%;
 
             div.btnGroup{
+                box-shadow: 0 2px 16px rgba(0,0,0,0.8);
                 button{
                     width: inherit;
                 }
@@ -36,6 +38,7 @@ section {
         overflow-y: scroll;
         scrollbar-width: none;
         position: relative;
+        height: calc(100vh - 80px);
 
         section.modal{
             background-color: rgba(0,0,0,0.5);
@@ -72,12 +75,23 @@ section {
                         width: 50px;
                         height: 50px;
                     }
+
+                    @media screen and (max-width: 600px) {
+                        display: none;
+                    }
                 }
                 
                 div.dados{
-                    width: 100%;
+                    width: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 8px;
+
                     .subDiv{
-                        padding: 16px;
+                        width: inherit;
+                        display: flex;
+                        flex-direction: column;
                         p{
                             text-align: left;
                             font-size: 20px;
@@ -97,23 +111,47 @@ section {
                                 height: 30px;
                             }
                             
+                            @media screen and (max-width: 1000px) {
+                                font-size: 10pt;
+                                flex-wrap: wrap;
+                            }
+
                             @media screen and (max-width: 600px) {
-                                font-size: 12pt;
+                                width: inherit;
+                                min-width: auto;
+                            }
+                        }
+
+                        div.mobileData{
+                            position: relative;
+                            button.fechar{
+                                // position: absolute;
+                                font-size: 25px;
+                                font-weight: bold;
+                                width: 50px;
+                                height: 50px;
                             }
                         }
                     }
                     
-                .btnEditar{
-                    font-size: 25px;
-                    font-weight: bold;
-                    width: 300px;
-                    height: 50px;
+                    .btnEditar{
+                        font-size: 25px;
+                        font-weight: bold;
+                        width: 100%;
+                        max-width: inherit;
+                        height: 50px;
+                        background-color: #008080;
+                        color: white;
+                    }
                 }
+
+                @media screen and (max-width: 1000px) {
+                    min-width: auto;
                 }
             }
 
-            @media screen and (max-width:600px) {
-                background-color: red;
+            @media screen and (max-width: 1000px) {
+                display: block;
             }
         }
     }

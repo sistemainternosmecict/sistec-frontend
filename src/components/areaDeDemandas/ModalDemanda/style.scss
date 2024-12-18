@@ -1,8 +1,7 @@
 div.modal {
     width: 100%;
     height: 100%;
-    margin-bottom: 128px;
-
+    
     div.wrapper{
         background-color: white;
         padding: 32px;
@@ -18,7 +17,7 @@ div.modal {
             }
             
             @media screen and (max-width: 600px) {
-                font-size: 12pt;
+                font-size: 10pt;
             }
         }
         
@@ -48,13 +47,22 @@ div.modal {
             display: flex;
             width: 100%;
             flex-direction: column;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.8);
             
             button{
                 width: 100%;
                 flex-basis: 300px;
                 flex-grow: 1;
                 margin: 8px 0;
-                margin-right: 8px;
+                background-color: #008080;
+                color: white;
+                
+                &:nth-child(1){
+                    margin-right: 8px;
+                    @media screen and (max-width: 840px) {
+                        margin-right: 0;
+                    }
+                }
             }
             
             p{ 
@@ -69,7 +77,8 @@ div.modal {
                 padding: 16px;
                 width: inherit;
                 resize: none;
-                margin: 4px;
+                margin: 8px 4px 0;
+                height: 100px;
             }
 
             div.btnHolder{
@@ -83,6 +92,7 @@ div.modal {
 
                     @media screen and (max-width: 600px) {
                         flex-basis: auto;
+                        height: auto;
                     }
                 }
             }
@@ -94,6 +104,10 @@ div.modal {
                 align-items: center;
                 flex-wrap: wrap;
 
+                h2{
+                    color: #008080;
+                }
+
                 select{
                     font-size: 12pt;
                     border: #008080 solid 1px;
@@ -102,9 +116,13 @@ div.modal {
                     outline: none;
                     flex-grow: 1;
                     margin: 4px;
-
+                    background-color: transparent;
+                    font-weight: bold;
+                    
                     @media screen and (max-width: 700px) {
                         width: inherit;
+                        font-size: 10pt;
+                        padding: 8px;
                     }
                 }
                 

@@ -158,6 +158,11 @@ function AreaDeUsuarios() {
                                 }}>X</button></p>
                             
                             <div className="subDiv">
+                                <div className="mobileData">
+                                    <p><span>ID:</span> {usuarioModal.usuario_id} </p>
+                                    <p><span>Matrícula:</span> {usuarioModal.usuario_matricula} </p>
+                                    <p><span>CPF:</span> {usuarioModal.usuario_cpf} </p>
+                                </div>
                                 <p><span>Vínculo:</span> {usuarioModal.usuario_vinculo}</p>
                                 <p><span>Nome:</span> {usuarioModal.usuario_nome}</p>
                                 <p><span>Cargo:</span> {usuarioModal.usuario_cargo}</p>
