@@ -26,6 +26,7 @@ function Demanda({ demanda, ticketControl }){
             ticketControl.setSelectedTicket(demanda)
             ticketControl.setPagina(4)
             }}>
+            <p><span>NP:</span> {demanda.nvl_prioridade}</p>
             <p><span>Protocolo:</span> {demanda.protocolo}</p>
             <p><span>Data:</span> {demanda.dt_entrada}</p>
             <p><span>Status:</span> {getStatus(demanda.status)}</p>

@@ -114,8 +114,7 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
                 <>
                     <h2 className='titulo'>Nova demanda</h2>
                     <input name="dem_local" placeholder='Local' /> 
-                    <input name="dem_sala" placeholder='Sala' /> 
-                    {/* <input name='solicitante' type="text" placeholder='Solicitante' /> */}
+                    <input name="dem_sala" placeholder='Sala' />
                     <select name="solicitante" id="solicitante" defaultValue="-">
                         <option value="-" disabled>Solicitante</option>
                         {solicitantes.map( (usuario, idx) => {
