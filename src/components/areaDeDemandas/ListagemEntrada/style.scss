@@ -2,8 +2,7 @@ div.topBar{
     background-color: #008080;
     width: 100%;
     padding: 16px;
-    margin-bottom: 16px;
-    // box-shadow: 0 2px 16px rgba(50,50,50,0.8);
+    margin-bottom: 4px;
 
     div{
         display: flex;
@@ -18,7 +17,6 @@ div.topBar{
             flex-basis: 400px;
             flex-grow: 1;
             flex-shrink: 1;
-            // margin-bottom: 8px;
         }
         
         select{
@@ -35,7 +33,6 @@ ul#demandas{
     list-style: none;
 
     li{
-        margin: 0 4px;
-        margin-bottom: 16px;
+        margin: 4px 0 8px;
     }
 }

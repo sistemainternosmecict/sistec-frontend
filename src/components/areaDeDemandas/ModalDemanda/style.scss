@@ -47,20 +47,34 @@ div.modal {
             display: flex;
             width: 100%;
             flex-direction: column;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.8);
             
             button{
                 width: 100%;
                 flex-basis: 300px;
                 flex-grow: 1;
                 margin: 8px 0;
-                background-color: #008080;
-                color: white;
+                background-color: white;
+                color: black;
+                outline: none;
+
+                .iconeZap{
+                    color: #008080;
+                    margin-right: 8px;
+                }
                 
                 &:nth-child(1){
                     margin-right: 8px;
                     @media screen and (max-width: 840px) {
                         margin-right: 0;
+                    }
+                }
+                
+                &:hover{
+                    background-color: #008080;
+                    color: white;
+
+                    .iconeZap{
+                        color: white;
                     }
                 }
             }

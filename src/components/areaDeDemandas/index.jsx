@@ -21,17 +21,12 @@ async function fetchData( setDemandas, hostUrl ) {
 function carregarSecao( pg, demandas, data, tipoDeArea, ticketControl, setPagina ) {
     data.tipoDeArea = tipoDeArea
     switch(pg){
-        // case 1:
-        //     return <CadastroUsuario tipoDeArea={tipoDeArea} />
-        // case 2:
-        //     return <NiveisDeAcesso />
         case 3:
             return <CriarDemanda usuario={data.usuario} setLoggedIn={data.setLoggedIn} setUsuario={data.setUsuario} tipoDeArea={data.tipoDeArea}/>
         case 4:
             return <ModalDemanda demanda={ticketControl.selectedTicket} fetchData={ticketControl.fetchData} setDemandas={ticketControl.setDemandas} setPagina={setPagina} />
         default:
             return <ListagemEntrada demandas={demandas} ticketControl={ticketControl}/>
-            // return <ListagemDemandas demandas={demandas} />
     }
 }
 
@@ -53,10 +48,8 @@ function AreaDeDemandas({ data }) {
             <aside className='menuAreaDemandas'>
                 <div className="btnGroup">
                     <button onClick={() => setPagina(0)}>Listagem</button>
-                    {/* <button onClick={() => setPagina(1)}>Atendimento</button>
-                    <button onClick={() => setPagina(2)}>Arquivo</button> */}
+                    {/* <button onClick={() => setPagina(2)}>Arquivo</button> */}
                     <button onClick={() => setPagina(3)}>Criar demanda</button>
-                    {/* <button onClick={() => setPagina(2)}>Níveis de acesso</button> */}
                 </div>
             </aside>
             <main>

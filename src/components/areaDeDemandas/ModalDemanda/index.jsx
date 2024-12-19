@@ -4,6 +4,7 @@ import './style.scss';
 import { useEffect, useState, useContext, useRef } from 'react';
 import servicos from '../CriarDemanda/tipos_servicos.json';
 import empresas from '../CriarDemanda/empresas.json';
+import { Icon } from '@iconify-icon/react';
 
 async function obterUsuarios(host, set){
     const route = "/api/usuarios/listar"
@@ -88,8 +89,30 @@ function extrairConteudoEntreParenteses(texto) {
     return match ? match[1] : null;
 }
 
-function finalizarDemanda( demanda ){
-    console.log(demanda)
+function finalizarDemanda( demanda, host, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina ){
+    const dadosParaAtualizacaoTemp = {
+        protocolo: demanda.protocolo,
+        dem_status: 5
+    }
+
+    atualizarDemanda(dadosParaAtualizacaoTemp, host, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina)
+}
+
+function abrirZapEncaminharDemanda( demanda, host, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina ){
+    const incidente = "|" + demanda.incidente.split(' ').join("%20")
+    const local = "| Local:%20" + demanda.dadosDemanda.local + "| Sala:%20" + demanda.dadosDemanda.sala
+    const solicitante = `| Solicitante:%20${demanda.usuario.usuario_nome}`
+    const corpoDaMensagem = `Protocolo:%20${demanda.dadosDemanda.protocolo}%20${incidente}%20${local}%20${solicitante}`
+    
+    const url = `https://wa.me/+55${demanda.dadosEmpresa.telefone}?text=${corpoDaMensagem}`
+    window.open(url, '_blank', 'noopener, noreferrer')
+    
+    const dadosParaAtualizacaoTemp = {
+        protocolo: demanda.dadosDemanda.protocolo,
+        dem_status: 4
+    }
+
+    atualizarDemanda(dadosParaAtualizacaoTemp, host, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina)
 }
 
 function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
@@ -223,13 +246,15 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
                         <button onClick={() => {
                             salvar(dadosParaAtualizacao, setDadosParaAtualizacao, setSalvandoAtualizacoes)
                         }}>Registrar alterações</button>
-                        <button onClick={() => finalizarDemanda( demanda )}>Finalizar demanda</button>
+                        <button onClick={() => finalizarDemanda( demanda, hostUrl, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina )}>Finalizar demanda</button>
                         </div>
                         : <div className='btnHolder'>
                             <button onClick={() => {
                             salvar(dadosParaAtualizacao, setDadosParaAtualizacao, setSalvandoAtualizacoes)
                         }}>Registrar alterações</button>
-                            <button>Zap da empresa</button>
+                            <button style={{display: "flex", alignItems: "center", justifyContent: "center"}} onClick={() => abrirZapEncaminharDemanda({dadosDemanda: demanda, dadosEmpresa: empresaRef.current, incidente: descricaoLegivel, usuario: usuarioSelecionado}, hostUrl, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina)}>
+                                <Icon icon="logos:whatsapp-icon" width="30" height="30" className='iconeZap'/> Zap da {(empresaRef.current != undefined) ? empresaRef.current.empresa : "empresa"}
+                            </button>
                         </div>   
                         }
                     </div> : <div>
