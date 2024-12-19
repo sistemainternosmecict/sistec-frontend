@@ -124,6 +124,7 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
     const [dadosParaAtualizacao, setDadosParaAtualizacao] = useState({protocolo: demanda.protocolo, dem_prioridade: undefined, dem_direcionamento_id: undefined})
     const [salvandoAtualizacoes, setSalvandoAtualizacoes] = useState(false)
     const [msg, setMsg] = useState("")
+    const [finalizando, setFinalizando] = useState(false)
     const descSolicitanteRef = useRef("N/D")
     const direcionamentos = useRef([])
     const direcionamento = useRef({usuario_nome: "-"})
@@ -203,7 +204,8 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
                 <p><span>Status:</span> {obterEstado(demanda.status)} </p>
                 <p><span>Direcionamento:</span> {direcionamento.current.usuario_id + " - " + direcionamento.current.usuario_nome} </p>
 
-                <div className="atendimento">
+                {(demanda.status < 4)
+                ? <div className="atendimento">
                     {(!salvandoAtualizacoes) ?
                     <div>
                         <h2>Atendimento</h2>
@@ -246,7 +248,13 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
                         <button onClick={() => {
                             salvar(dadosParaAtualizacao, setDadosParaAtualizacao, setSalvandoAtualizacoes)
                         }}>Registrar alterações</button>
-                        <button onClick={() => finalizarDemanda( demanda, hostUrl, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina )}>Finalizar demanda</button>
+                        <button onClick={() => {
+                            setFinalizando(true)
+                            setSalvandoAtualizacoes(true)
+
+                            console.log(tipoDeServico)
+                            // finalizarDemanda( demanda, hostUrl, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina )
+                            }}>Finalizar demanda</button>
                         </div>
                         : <div className='btnHolder'>
                             <button onClick={() => {
@@ -262,13 +270,18 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina }){
                         <>
                             <h2>Confirmação de alteração</h2>
                             <p>Gostaria realmente de registrar as alterações feitas?</p>
-                            <button onClick={() => atualizarDemanda(dadosParaAtualizacao, hostUrl, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina)}>Salvar</button>
+                            <button onClick={() => {
+                                (!finalizando)
+                                ? atualizarDemanda(dadosParaAtualizacao, hostUrl, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina)
+                                : finalizarDemanda( demanda, hostUrl, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina )
+                            }}>Salvar</button>
                             <button onClick={() => setSalvandoAtualizacoes(false)}>Cancelar</button>
                         </> : <>
                         <h2>{msg}</h2>
                         </>}
                     </div>}
-                </div>
+                </div> : <>
+                </>}
             </div>
         </div>
     )

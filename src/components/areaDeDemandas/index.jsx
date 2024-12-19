@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { HostContext } from '../../HostContext';
 import ListagemEntrada from './ListagemEntrada';
+import ListagemArquivo from './ListagemArquivo';
 import CriarDemanda from './CriarDemanda';
 import ModalDemanda from './ModalDemanda';
 import PropTypes from 'prop-types'
@@ -21,6 +22,9 @@ async function fetchData( setDemandas, hostUrl ) {
 function carregarSecao( pg, demandas, data, tipoDeArea, ticketControl, setPagina ) {
     data.tipoDeArea = tipoDeArea
     switch(pg){
+        case 2:
+            // return <>arquivo</>
+            return <ListagemArquivo demandas={demandas} ticketControl={ticketControl}/>
         case 3:
             return <CriarDemanda usuario={data.usuario} setLoggedIn={data.setLoggedIn} setUsuario={data.setUsuario} tipoDeArea={data.tipoDeArea}/>
         case 4:
@@ -48,7 +52,7 @@ function AreaDeDemandas({ data }) {
             <aside className='menuAreaDemandas'>
                 <div className="btnGroup">
                     <button onClick={() => setPagina(0)}>Listagem</button>
-                    {/* <button onClick={() => setPagina(2)}>Arquivo</button> */}
+                    <button onClick={() => setPagina(2)}>Arquivo</button>
                     <button onClick={() => setPagina(3)}>Criar demanda</button>
                 </div>
             </aside>

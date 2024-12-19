@@ -6,7 +6,7 @@ import "./style.scss"
 function retornarLista( demandas, ticketControl ){
     return demandas.map((demanda, index) => (
         <li key={index}>
-            {( demanda.status < 4)
+            {( demanda.status > 3)
             ? <Demanda demanda={demanda} ticketControl={ticketControl} />
             : <></>}
         </li>
@@ -36,7 +36,7 @@ function setarListagem( lista, setListaOrdenada){
     setListaOrdenada(lista)
 }
 
-function ListagemEntrada({ demandas, ticketControl }){
+function ListagemArquivo({ demandas, ticketControl }){
     const [listaOrdenada, setListaOrdenada] = useState([])
     const [filtro, setFiltro] = useState(undefined) //String
     const [termo, setTermo] = useState(undefined) //String ou Number
@@ -106,9 +106,9 @@ function ListagemEntrada({ demandas, ticketControl }){
     )
 }
 
-ListagemEntrada.propTypes = {
+ListagemArquivo.propTypes = {
     demandas: PropTypes.arrayOf(PropTypes.object),
     ticketControl: PropTypes.object
 }
 
-export default ListagemEntrada
+export default ListagemArquivo
