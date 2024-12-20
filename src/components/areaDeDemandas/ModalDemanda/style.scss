@@ -77,6 +77,10 @@ div.modal {
                         color: white;
                     }
                 }
+
+                &:last-child{
+                    margin-left: 8px;
+                }
             }
             
             p{ 
@@ -147,6 +151,28 @@ div.modal {
                     height: 50px;
                     flex-grow: 1;
                 }
+            }
+        }
+
+        div.dadosFinais{
+            border: #008080 solid 1px;
+            padding: 16px;
+            margin-top: 16px;
+
+            h2 {
+                margin: 8px 0;
+            }
+            
+            p{
+                padding-left: 0;
+                span{
+                    font-weight: 200;
+                }
+
+            }
+
+            button{
+                margin: 0;
             }
         }
     }

@@ -86,7 +86,6 @@ function ListagemArquivo({ demandas, ticketControl }){
                     <select name="filtro" defaultValue="-" onChange={(e) => setFiltro(e.target.value)}>
                         <option value="-">Filtro de busca</option>
                         <option value="prioridade">Prioridade</option>
-                        <option value="status">Status</option>
                         <option value="protocolo">Protocolo</option>
                     </select>
                     {/* <select name="ordem" defaultValue="-" onChange={(e) => setOrdem(e.target.value)}>

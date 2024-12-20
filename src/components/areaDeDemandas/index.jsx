@@ -28,7 +28,7 @@ function carregarSecao( pg, demandas, data, tipoDeArea, ticketControl, setPagina
         case 3:
             return <CriarDemanda usuario={data.usuario} setLoggedIn={data.setLoggedIn} setUsuario={data.setUsuario} tipoDeArea={data.tipoDeArea}/>
         case 4:
-            return <ModalDemanda demanda={ticketControl.selectedTicket} fetchData={ticketControl.fetchData} setDemandas={ticketControl.setDemandas} setPagina={setPagina} />
+            return <ModalDemanda demanda={ticketControl.selectedTicket} fetchData={ticketControl.fetchData} setDemandas={ticketControl.setDemandas} setPagina={setPagina} usuario={data.usuario}/>
         default:
             return <ListagemEntrada demandas={demandas} ticketControl={ticketControl}/>
     }
