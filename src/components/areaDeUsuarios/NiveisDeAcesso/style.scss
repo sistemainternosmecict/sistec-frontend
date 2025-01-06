@@ -1,0 +1,30 @@
+table.niveis-acesso-table {
+    width: 100%;
+    // background-color: blue;
+    thead.niveis-acesso-table__header{
+        background-color: #008080;
+        tr.niveis-acesso-table__header-row{
+            th.niveis-acesso-table__header-cell{
+                font-weight: 200;
+                color: black;
+            }
+        }
+    }
+
+    tbody{
+        tr{
+            td{
+                color: black;
+                cursor: pointer;
+                padding: 4px;
+            }
+
+            &:hover{
+                background-color: #008080;
+                td{
+                    color: white;
+                }
+            }
+        }
+    }
+}

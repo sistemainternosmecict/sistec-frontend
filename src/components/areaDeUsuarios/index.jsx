@@ -13,6 +13,13 @@ function obterUsuarioAtual( e, setUsuarioModal, setModalAberto ){
     setModalAberto(true)
 }
 
+async function obterNiveisDeAcessoDaAPI(host) {
+    const route = "/api/niveis_acesso/listar";
+    const result = await fetch(host + route);
+    const retorno = await result.json();
+    return retorno;
+}
+
 async function obter_usuarios(host){
     const route = "/api/usuarios/listar"
     const result = await fetch(host+route);
@@ -79,10 +86,15 @@ function registrarMudancas( hostUrl, setUsuarios ){
     fetchAtualizar( hostUrl, dados, setUsuarios )
 }
 
-async function fetchData(hostUrl, setUsuarios) {
+async function fetchData(hostUrl, setUsuarios, niveisDeAcesso) {
     const data = await obter_usuarios(hostUrl)
+    const niveis = await obterNiveisDeAcessoDaAPI(hostUrl)
     if(data.usuarios){
         setUsuarios(data.usuarios)
+    }
+
+    if(niveis){
+        niveisDeAcesso.current = niveis
     }
 }
 
@@ -95,9 +107,10 @@ function AreaDeUsuarios() {
     const [usuarioModal, setUsuarioModal] = useState(undefined)
     const [modalAberto, setModalAberto] = useState(false)
     const [editando, setEditando] = useState(false)
+    const niveisDeAcesso = useRef([]);
 
     useEffect(() => {
-        fetchData(hostUrl, setUsuarios)
+        fetchData(hostUrl, setUsuarios, niveisDeAcesso)
     }, [hostUrl])
 
     useEffect(() => {
@@ -139,7 +152,7 @@ function AreaDeUsuarios() {
                             setPagina(1)
                             setModalAberto(false)
                         }}>Cadastro de servidor</button>
-                        {/* <button onClick={() => setPagina(2)}>Níveis de acesso</button> */}
+                        <button onClick={() => setPagina(2)}>Níveis de acesso</button>
                         <button onClick={() => {
                             setPagina(3)
                             setModalAberto(false)
@@ -200,15 +213,9 @@ function AreaDeUsuarios() {
                                     <p><span>Situação RH:</span> <input className='campo' type="text" defaultValue={usuarioModal.usuario_situacao_rh} disabled/></p>
                                     <p><span>Nível de acesso:</span> 
                                     <select className="campo" defaultValue={usuarioModal.usuario_tipo}>
-                                        <option value="10">Sem acesso</option>
-                                        <option value="9">Estagiário</option>
-                                        <option value="7">Diretor</option>
-                                        <option value="6">Agente tec</option>
-                                        <option value="5">Relatórios</option>
-                                        <option value="4">Unidade</option>
-                                        <option value="3">CPD</option>
-                                        <option value="2">Admin</option>
-                                        <option value="1">Root</option>
+                                        {niveisDeAcesso.current.map((nivel, idx)=> {
+                                            return <option key={idx} value={nivel.nva_id}>{nivel.nva_nome}</option>
+                                        })}
                                     </select>
                                     <input className='campo' type="hidden" defaultValue={usuarioModal.usuario_id} />
                                     </p>
