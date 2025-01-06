@@ -50,7 +50,7 @@ export default function Login({ setUsuario,  setLoggedIn }) {
           <button className='cadastro' onClick={(e) => {
             e.preventDefault()
             setCadastrado(false)}}>Cadastre-se</button>
-          <p>
+          <p className='msg'>
             {msg}
           </p>
           <img className='logoSub' src={logoSub} alt="logo da subsecretaria de tecnologia" />
