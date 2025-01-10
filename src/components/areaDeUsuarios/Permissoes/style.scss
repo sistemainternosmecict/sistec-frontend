@@ -1,0 +1,30 @@
+table.permissoes-table {
+    width: 100%;
+    // background-color: blue;
+    thead.permissoes-table__header{
+        background-color: #008080;
+        tr.permissoes-table__header-row{
+            th.permissoes-table__header-cell{
+                font-weight: 200;
+                color: black;
+            }
+        }
+    }
+
+    tbody{
+        tr{
+            td{
+                color: black;
+                cursor: pointer;
+                padding: 4px;
+            }
+
+            &:hover{
+                background-color: #008080;
+                td{
+                    color: white;
+                }
+            }
+        }
+    }
+}

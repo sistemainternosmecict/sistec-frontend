@@ -3,14 +3,16 @@ import ListagemUsuarios from './ListagemUsuario';
 import CadastroUsuario from './CadastroUsuario';
 import CadastroUsuarioSMatricula from './CadastroUsuarioSMatricula';
 import NiveisDeAcesso from './NiveisDeAcesso';
+import Permissoes from './Permissoes';
 import Usuario from './Usuario';
 import { HostContext } from '../../HostContext';
+import PropTypes from 'prop-types';
 import './style.scss'
 
-function obterUsuarioAtual( e, setUsuarioModal, setModalAberto ){
+function obterUsuarioAtual( e, setUsuarioModal, setModalUsuariosAberto ){
     const usuario_temp = JSON.parse(e.target.parentNode.dataset.usuario)
     setUsuarioModal(usuario_temp)
-    setModalAberto(true)
+    setModalUsuariosAberto(true)
 }
 
 async function obterNiveisDeAcessoDaAPI(host) {
@@ -36,6 +38,8 @@ function carregarSecao( pg, tipoDeArea, elements ) {
         case 2:
             return <NiveisDeAcesso />
         case 3:
+            return <Permissoes />
+        case 4:
             return <CadastroUsuarioSMatricula tipoDeArea={tipoDeArea} />
     }
 }
@@ -44,6 +48,20 @@ function obterNvlAcesso( nvl ){
     switch(nvl){
         case 10:
             return "Não tem acesso interno"
+        case 8:
+            return "Estagiário(a)"
+        case 7:
+            return "Diretor(a)"
+        case 6:
+            return "Agente tec"
+        case 5:
+            return "Relatórios"
+        case 4:
+            return "Unidade"
+        case 3:
+            return "CPD"
+        case 2:
+            return "Adm"
         case 1:
             return "Root"
     }
@@ -98,14 +116,13 @@ async function fetchData(hostUrl, setUsuarios, niveisDeAcesso) {
     }
 }
 
-function AreaDeUsuarios() {
+function AreaDeUsuarios({ setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto }) {
+
     const tipoDeArea = "interna"
-    const [pagina, setPagina] = useState(0)
     const { hostUrl } = useContext(HostContext)
     const [usuarios, setUsuarios] = useState([])
     const blocs = useRef([])
     const [usuarioModal, setUsuarioModal] = useState(undefined)
-    const [modalAberto, setModalAberto] = useState(false)
     const [editando, setEditando] = useState(false)
     const niveisDeAcesso = useRef([]);
 
@@ -116,7 +133,7 @@ function AreaDeUsuarios() {
     useEffect(() => {
         if(usuarios.length > 0){
             const lista = usuarios.map((usuario, index) => (
-                <tr className={(usuario.usuario_ativo) ? "usuarioAtivo" : "usuarioInativo"} key={index} data-usuario={JSON.stringify(usuario)} onClick={(e)=> obterUsuarioAtual(e, setUsuarioModal, setModalAberto)}>
+                <tr className={(usuario.usuario_ativo) ? "usuarioAtivo" : "usuarioInativo"} key={index} data-usuario={JSON.stringify(usuario)} onClick={(e)=> obterUsuarioAtual(e, setUsuarioModal, setModalUsuariosAberto)}>
                     <Usuario usuario={usuario}/>
                 </tr>
             ))
@@ -126,7 +143,7 @@ function AreaDeUsuarios() {
                     <tr>
                         <td>Matricula</td>
                         <td>Nome</td>
-                        <td>Local de trabalho</td>
+                        {(window.innerWidth <= 600) ? <></> : <td>Local de trabalho</td>}
                         <td>Ativo</td>
                     </tr>
                 </thead>
@@ -142,31 +159,36 @@ function AreaDeUsuarios() {
     return (
         <>
             <section>
+
                 <aside className='menuAreaUsuarios'>
                     <div className="btnGroup">
                         <button onClick={() => {
-                            setPagina(0)
-                            setModalAberto(false)
+                            setPaginaSecUsuario(0)
+                            setModalUsuariosAberto(false)
                         }}>Todos os usuários</button>
                         <button onClick={() => {
-                            setPagina(1)
-                            setModalAberto(false)
+                            setPaginaSecUsuario(1)
+                            setModalUsuariosAberto(false)
                         }}>Cadastro de servidor</button>
-                        <button onClick={() => setPagina(2)}>Níveis de acesso</button>
                         <button onClick={() => {
-                            setPagina(3)
-                            setModalAberto(false)
-                            }}>Cadastro de não servidores</button>
+                            setPaginaSecUsuario(4)
+                            setModalUsuariosAberto(false)
+                        }}>Cadastro de não servidores</button>
+                        <button onClick={() => setPaginaSecUsuario(2)}>Níveis de acesso</button>
+                        <button onClick={() => setPaginaSecUsuario(3)}>Permissões</button>
                     </div>
                 </aside>
+
                 <main>
-                {carregarSecao(pagina, tipoDeArea, blocs)}
-                {(modalAberto) ? <section className='modal'>
+
+                {carregarSecao(paginaSecUsuario, tipoDeArea, blocs)}
+
+                {(modalUsuariosAberto) ? <section className='modal'>
                     <div className="display">
                     {(!editando) ?
                         <div className="dados">
                             <p id='head'><span>ID:</span> {usuarioModal.usuario_id} <span>|</span> <span>Matrícula:</span> {usuarioModal.usuario_matricula} <span>|</span> <span>CPF:</span> {usuarioModal.usuario_cpf} <button className='fechar' onClick={() => {
-                                setModalAberto(false)
+                                setModalUsuariosAberto(false)
                                 setEditando(false)
                                 }}>X</button></p>
                             
@@ -194,7 +216,7 @@ function AreaDeUsuarios() {
                         </div> : <>
                             <div className="dados">
                                 <p id='head'><span>ID:{usuarioModal.usuario_id}</span> <button className='fechar' onClick={() => {
-                                    setModalAberto(false)
+                                    setModalUsuariosAberto(false)
                                     setEditando(false)
                                     }}>X</button></p>
                                 
@@ -229,7 +251,7 @@ function AreaDeUsuarios() {
                                 <button className='btnEditar' onClick={() => {
                                     registrarMudancas(hostUrl, setUsuarios)
                                     setEditando(false)
-                                    setModalAberto(false)
+                                    setModalUsuariosAberto(false)
                                     }}>Registrar mudanças</button>
                             </div>
                         </>}
@@ -240,6 +262,13 @@ function AreaDeUsuarios() {
             </section>
         </>
     )
+}
+
+AreaDeUsuarios.propTypes = {
+    setModalUsuariosAberto: PropTypes.func,
+    setPaginaSecUsuario: PropTypes.func,
+    paginaSecUsuario: PropTypes.number,
+    modalUsuariosAberto: PropTypes.bool
 }
 
 export default AreaDeUsuarios;

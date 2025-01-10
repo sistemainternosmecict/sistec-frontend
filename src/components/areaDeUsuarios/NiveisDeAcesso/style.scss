@@ -28,3 +28,83 @@ table.niveis-acesso-table {
         }
     }
 }
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+    // max-width: 360px;
+
+    h1{
+        color: #008080;
+        font-size: 16pt;
+    }
+
+    .detalhes {
+        width: inherit;
+        max-width: 800px;
+        border: solid 1px #008080;
+        padding: 16px;
+        // margin: 8px;
+
+        p{
+            text-align: left;
+            span{
+                font-weight: bold;
+            }
+        }
+    }
+
+    .configuracoes {
+        width: inherit;
+        max-width: inherit;
+        display: flex;
+        flex-direction: column;
+
+        ul{
+            display: flex;
+            flex-wrap: wrap;
+            margin: 8px 0;
+
+            li{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 50px;
+                flex-basis: 250px;
+                flex-grow: 1;
+                max-width: 300px;
+                margin: 8px 0;
+
+                label{
+                    cursor: pointer;
+                    width: 100%;
+                    border: solid 1px #008080;
+                    user-select: auto;
+                    padding: 8px;
+                    height: inherit;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin: 8px;
+
+                    input[type='checkbox']{
+                        cursor: pointer;
+                        width: 24px;
+                        height: 24px;
+                        accent-color: #008080;
+                    }
+                }
+            }
+        }
+
+        button{
+            background-color: #008080;
+            width: 100%;
+            max-width: 285px;
+            height: 50px;
+            color: white;
+        }
+    }
+}

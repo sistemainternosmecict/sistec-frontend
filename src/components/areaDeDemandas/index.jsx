@@ -34,14 +34,13 @@ function carregarSecao( pg, demandas, data, tipoDeArea, ticketControl, setPagina
     }
 }
 
-function AreaDeDemandas({ data }) {
+function AreaDeDemandas({ data, paginaAreaDemandas, setPaginaAreaDemandas }) {
     const tipoDeArea = "interna"
-    const [pagina, setPagina] = useState(0)
     const { hostUrl } = useContext(HostContext)
     const [demandas, setDemandas] = useState([])
     const [selectedTicket, setSelectedTicket] = useState({ticket: undefined})
 
-    const ticketControl = {selectedTicket, setSelectedTicket, setPagina, fetchData, setDemandas}
+    const ticketControl = {selectedTicket, setSelectedTicket, setPaginaAreaDemandas, fetchData, setDemandas}
 
     useEffect(() => {
         fetchData( setDemandas, hostUrl )
@@ -51,20 +50,22 @@ function AreaDeDemandas({ data }) {
         <section>
             <aside className='menuAreaDemandas'>
                 <div className="btnGroup">
-                    <button onClick={() => setPagina(0)}>Listagem</button>
-                    <button onClick={() => setPagina(2)}>Arquivo</button>
-                    <button onClick={() => setPagina(3)}>Criar demanda</button>
+                    <button onClick={() => setPaginaAreaDemandas(0)}>Listagem</button>
+                    <button onClick={() => setPaginaAreaDemandas(2)}>Arquivo</button>
+                    <button onClick={() => setPaginaAreaDemandas(3)}>Criar demanda</button>
                 </div>
             </aside>
             <main>
-                {carregarSecao(pagina, demandas, data, tipoDeArea, ticketControl, setPagina)}
+                {carregarSecao(paginaAreaDemandas, demandas, data, tipoDeArea, ticketControl, setPaginaAreaDemandas)}
             </main>
         </section>
     )
 }
 
 AreaDeDemandas.propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    paginaAreaDemandas: PropTypes.number,
+    setPaginaAreaDemandas: PropTypes.func
 }
 
 export default AreaDeDemandas;

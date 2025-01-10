@@ -5,7 +5,7 @@ function Usuario({ usuario }){
         <>
         <td>{usuario.usuario_matricula}</td>
         <td>{usuario.usuario_nome}</td>
-        <td>{usuario.usuario_local}</td>
+        {(window.innerWidth <= 600) ? <></> : <td>{usuario.usuario_local}</td>}
         <td>{(usuario.usuario_ativo) ? "Sim" : "Não"}</td>
         </>
     )

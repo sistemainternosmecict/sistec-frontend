@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { HostContext } from "../../HostContext";
 import AreaDeUsuarios from "../areaDeUsuarios";
 import AreaDeDemandas from '../areaDeDemandas';
+import Dashboard from './dashboard';
 import Nav from "../Nav";
 import './style.scss';
 
-function get_page(page_number, data){
+function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas){
     switch(page_number){
         case 1:
             return <section id="main_cadastro">
-                <AreaDeUsuarios />
+                <AreaDeUsuarios setModalUsuariosAberto={setModalUsuariosAberto} setPaginaSecUsuario={setPaginaSecUsuario} paginaSecUsuario={paginaSecUsuario} modalUsuariosAberto={modalUsuariosAberto}/>
                 </section>
         case 2:
             return <section id="main_cadastro">
-                <AreaDeDemandas data={data} />
+                <AreaDeDemandas data={data} paginaAreaDemandas={paginaAreaDemandas} setPaginaAreaDemandas={setPaginaAreaDemandas}/>
                 </section>
         case 3:
             return <section id="main_cadastro">
@@ -42,7 +43,7 @@ function get_page(page_number, data){
             </section>
         default:
             return <div id="btn_menu">
-                <p>Bem vindo ao Sistec</p>
+                <Dashboard />
             </div>
     }
 }
@@ -50,11 +51,26 @@ function get_page(page_number, data){
 function Home({ usuario, setLoggedIn, setUsuario }) {
     const [page, setPage] = useState({pageN: 0, pageT: "Inicio"})
     const { hostUrl } = useContext(HostContext)
+    const [mobile, setMobile] = useState(window.innerWidth <= 600)
+    const [paginaSecUsuario, setPaginaSecUsuario] = useState(0)
+    const [modalUsuariosAberto, setModalUsuariosAberto] = useState(false)
+    const [paginaAreaDemandas, setPaginaAreaDemandas] = useState(0)
+
+    useEffect(() => {
+
+        function resize(){
+            setMobile(window.innerWidth <= 600)
+        }
+
+        window.addEventListener('resize', resize)
+
+        return () => window.removeEventListener('resize', resize)
+    }, [])
   
     return (
       <>
-        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario}/>
-        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario})} 
+        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario} mobile={mobile} setPaginaSecUsuario={setPaginaSecUsuario} setModalUsuariosAberto={setModalUsuariosAberto} setPaginaAreaDemandas={setPaginaAreaDemandas}/>
+        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario}, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas)} 
       </>
     )
   }
