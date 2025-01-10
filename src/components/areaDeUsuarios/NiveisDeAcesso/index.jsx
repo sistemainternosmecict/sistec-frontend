@@ -12,9 +12,10 @@ async function fetchRegistrar( host, dados ){
       };
     const result = await fetch(host+route, options);
     const retorno = await result.json();
+    console.log(retorno)
 }
 
-async function fetchAtualizar( host, dados ){
+async function fetchAtualizar( host, dados, setMsg, setNivelSelecionado ){
     const route = "/api/rap/atualizar"
     const options = {
         method: "POST",
@@ -23,6 +24,14 @@ async function fetchAtualizar( host, dados ){
       };
     const result = await fetch(host+route, options);
     const retorno = await result.json();
+    if(retorno.atualizado){
+        const msg = "Nivel de acesso, atualizado!"
+        setMsg(msg)
+        setTimeout(() => {
+            setMsg(null)
+            setNivelSelecionado(undefined)
+        }, 3000)
+    }
 }
 
 async function obterPermissoesDaAPI(host) {
@@ -46,39 +55,61 @@ async function obterNiveisDeAcessoDaAPI(host) {
     return retorno;
 }
 
-async function submeter(e, hostUrl, nivel) {
+async function submeter(e, hostUrl, nivel, setMsg, setNivelSelecionado) {
     e.preventDefault();
-    const raps = await obterRapDaAPI(hostUrl)
-    const form = e.target
-    const campos = Array.from(form.elements)
-    const ids = []
-    raps.forEach( rapDb => {
-        ids.push([rapDb.rap_id, rapDb.rap_acesso_id])
-    })
 
-    campos.forEach( (campo) => {
-        if( campo.type == "checkbox"){
-            if(ids.includes([Number(campo.id), nivel.nva_id])){
-                const dados = {
-                    rap_id: Number(campo.id),
-                    rap_ativo: campo.checked
+    // Obter os RAPS existentes no banco de dados
+    const raps = await obterRapDaAPI(hostUrl);
+    const form = e.target;
+    const campos = Array.from(form.elements);
+
+    // Criar um mapa para identificar rapidamente as permissões existentes
+    const rapMap = new Map(
+        raps.map((rapDb) => [`${rapDb.rap_perm_id}_${rapDb.rap_acesso_id}`, rapDb])
+    );
+
+    // Iterar pelos campos do formulário
+    campos.forEach((campo) => {
+        if (campo.type === "checkbox") {
+            const chave = `${campo.id}_${nivel.nva_id}`;
+            const existente = rapMap.get(chave);
+
+            if (existente) {
+                // Se o RAP já existir, verificar se o estado mudou
+                if (existente.rap_ativo !== campo.checked) {
+                    const dados = {
+                        rap_id: existente.rap_id,
+                        rap_ativo: campo.checked,
+                    };
+                    fetchAtualizar(hostUrl, dados, setMsg, setNivelSelecionado);
                 }
-
-                fetchAtualizar(hostUrl, dados)
-                // console.log(dados)
             } else {
+                // Se o RAP não existir, registrar como novo
                 const dadosNovos = {
                     rap_acesso_id: nivel.nva_id,
                     rap_perm_id: Number(campo.id),
-                    rap_ativo: campo.checked 
-                }
-                fetchRegistrar( hostUrl, dadosNovos)
-                // console.log(dadosNovos)
+                    rap_ativo: campo.checked,
+                };
+                fetchRegistrar(hostUrl, dadosNovos);
             }
         }
-    })
-    
+    });
+
+    // Verificar se o nível de acesso está registrado
+    if (!raps.some((rap) => rap.rap_acesso_id === nivel.nva_id)) {
+
+        // Exemplo de ação adicional para registrar o nível de acesso, se necessário
+        const novoNivelDeAcesso = {
+            nva_id: nivel.nva_id,
+            nva_nome: nivel.nva_nome,
+            nva_desc: nivel.nva_desc,
+        };
+
+        fetchRegistrar(hostUrl, novoNivelDeAcesso, setMsg, setNivelSelecionado);
+    }
 }
+
+
 
 function Detalhes(event, rap, setNivelSelecionado ){
     const parent = event.target.parentNode
@@ -86,61 +117,80 @@ function Detalhes(event, rap, setNivelSelecionado ){
     setNivelSelecionado(obj)
 }
 
-function ModalNivelDeAcesso( { nivelSelecionado, rap, permissoes, hostUrl } ){
+function ModalNivelDeAcesso({ nivelSelecionado, rap, permissoes, hostUrl, setNivelSelecionado }) {
     const [rapRender, setRapRender] = useState([]);
+    const [msg, setMsg] = useState(null);
 
     useEffect(() => {
-        const render = rap.filter(rapTemp => rapTemp.rap_acesso_id === nivelSelecionado.nva_id);
+        const render = rap.filter(
+            (rapTemp) => rapTemp.rap_acesso_id === nivelSelecionado.nva_id
+        );
         setRapRender(render);
     }, [nivelSelecionado, rap]);
 
     const handleCheckboxChange = (permId, isChecked) => {
-        setRapRender((prev) => {
-            const existingRap = prev.find(rend => rend.rap_perm_id === permId);
-            if (isChecked) {
-                if (!existingRap) {
-                    return [...prev, { rap_perm_id: permId, rap_acesso_id: nivelSelecionado.nva_id, rap_ativo: true }];
-                }
-            } else {
-                return prev.filter(rend => rend.rap_perm_id !== permId);
-            }
-            return prev;
-        });        
+        setRapRender((prev) =>
+            prev.map((item) =>
+                item.rap_perm_id === permId
+                    ? { ...item, rap_ativo: isChecked }
+                    : item
+            )
+        );
     };
 
-    return (<div className='modal'>
-        <h1>Detalhes do Nível de acesso</h1>
+    const isPermissionChecked = (permId) => {
+        const rapItem = rapRender.find((item) => item.rap_perm_id === permId);
+        return rapItem ? rapItem.rap_ativo : false;
+    };
 
-        <div className='detalhes'>
-            <p><span>Nivel:</span> {nivelSelecionado.nva_id}</p>
-            <p><span>Nome:</span> {nivelSelecionado.nva_nome}</p>
-            <p><span>Desc:</span> {nivelSelecionado.nva_desc}</p>
-        </div>
+    return (
+        <div className="modal">
+            <h1>Detalhes do Nível de Acesso</h1>
 
-        <div className='configuracoes'>
-            <form onSubmit={(e) => submeter(e, hostUrl, nivelSelecionado)}>
-                <ul>
-                {permissoes.map( (perm, idx) => {
-                    const isChecked = rapRender.some(rend => rend.rap_perm_id === perm.perm_id && rend.rap_ativo);
-                    console.log(isChecked)
-                        return <li key={idx}>
-                        <label htmlFor={perm.perm_id}>{perm.perm_nome}
-                            <input type="checkbox" name={perm.perm_nome} id={perm.perm_id} onChange={(e) => handleCheckboxChange(perm.perm_id, e.target.checked)}/>
-                        </label>
-                    </li>
-                })}
-                </ul>
-                <button>Registrar alterações</button>
-            </form>
+            <div className="detalhes">
+                <p>
+                    <span>Nível:</span> {nivelSelecionado.nva_id}
+                </p>
+                <p>
+                    <span>Nome:</span> {nivelSelecionado.nva_nome}
+                </p>
+                <p>
+                    <span>Descrição:</span> {nivelSelecionado.nva_desc}
+                </p>
+            </div>
+
+            {(!msg)
+            ? <div className="configuracoes">
+                <form onSubmit={(e) => submeter(e, hostUrl, nivelSelecionado, setMsg, setNivelSelecionado)}>
+                    <ul>
+                        {permissoes.map((perm, idx) => (
+                            <li key={idx}>
+                                <label>
+                                    {perm.perm_nome}
+                                    <input
+                                        type="checkbox"
+                                        id={perm.perm_id}
+                                        name={perm.perm_nome}
+                                        checked={isPermissionChecked(perm.perm_id)}
+                                        onChange={(e) => handleCheckboxChange(perm.perm_id, e.target.checked)}
+                                    />
+                                </label>
+                            </li>
+                        ))}
+                    </ul>
+                    <button type="submit">Registrar alterações</button>
+                </form>
+            </div> : <p>{msg}</p>}
         </div>
-    </div>
-    )
+    );
 }
 
 ModalNivelDeAcesso.propTypes = {
     nivelSelecionado: PropTypes.object,
     rap: PropTypes.array,
-    permissoes: PropTypes.array
+    permissoes: PropTypes.array,
+    hostUrl: PropTypes.string,
+    setNivelSelecionado: PropTypes.func
 }
 
 function NiveisDeAcesso() {
@@ -194,7 +244,7 @@ function NiveisDeAcesso() {
                 ))}
             </tbody>
         </table>
-        : <ModalNivelDeAcesso nivelSelecionado={nivelSelecionado} rap={rap} permissoes={permissoes} hostUrl={hostUrl}/>
+        : <ModalNivelDeAcesso nivelSelecionado={nivelSelecionado} rap={rap} permissoes={permissoes} hostUrl={hostUrl} setNivelSelecionado={setNivelSelecionado}/>
     );
 }
 
