@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Demanda from '../DemandaNovo'
 import PropTypes from 'prop-types'
 import "./style.scss"
@@ -40,7 +40,7 @@ function ListagemEntrada({ demandas, ticketControl }){
     const [listaOrdenada, setListaOrdenada] = useState([])
     const [filtro, setFiltro] = useState(undefined) //String
     const [termo, setTermo] = useState(undefined) //String ou Number
-    const [ordem, setOrdem] = useState("prioridade")
+    const [ordem] = useState("prioridade")
     
     useEffect(() => {
         let listaTemp = demandas
@@ -89,12 +89,6 @@ function ListagemEntrada({ demandas, ticketControl }){
                         <option value="status">Status</option>
                         <option value="protocolo">Protocolo</option>
                     </select>
-                    {/* <select name="ordem" defaultValue="-" onChange={(e) => setOrdem(e.target.value)}>
-                        <option value="-">Ordem</option>
-                        <option value="prioridade">Prioridade</option>
-                        <option value="status">Status</option>
-                        <option value="data">Data</option>
-                    </select> */}
                 </div>
             </div>
             <ul id="demandas">

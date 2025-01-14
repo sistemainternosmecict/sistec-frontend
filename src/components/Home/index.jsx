@@ -11,7 +11,7 @@ function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario
     switch(page_number){
         case 1:
             return <section id="main_cadastro">
-                <AreaDeUsuarios setModalUsuariosAberto={setModalUsuariosAberto} setPaginaSecUsuario={setPaginaSecUsuario} paginaSecUsuario={paginaSecUsuario} modalUsuariosAberto={modalUsuariosAberto}/>
+                <AreaDeUsuarios setModalUsuariosAberto={setModalUsuariosAberto} setPaginaSecUsuario={setPaginaSecUsuario} paginaSecUsuario={paginaSecUsuario} modalUsuariosAberto={modalUsuariosAberto} rapPermissao={rapPermissao}/>
                 </section>
         case 2:
             return <section id="main_cadastro">
@@ -19,28 +19,12 @@ function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario
                 </section>
         case 3:
             return <section id="main_cadastro">
-                {/* <CadastroSolic/> */}
+                {/* Area de unidades */}
                 </section>
         case 4:
-            return <section id="main_listagem">
-                {/* <ListagemSolic /> */}
-                </section>
-        case 5:
             return <section id="main_cadastro">
-                {/* <CriarDemanda/> */}
-            </section>
-        case 6:
-            return <section id="main_listagem">
-                {/* <ListagemEntrada/> */}
-            </section>
-        case 7:
-            return <section id="main_listagem">
-                {/* <ListagemAtendimento/> */}
-            </section>
-        case 8:
-            return <section id="main_listagem">
-                {/* <ListagemArquivo/> */}
-            </section>
+                {/* Inventário */}
+                </section>
         default:
             return <div id="btn_menu">
                 <Dashboard />

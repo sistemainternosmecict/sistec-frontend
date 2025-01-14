@@ -4,15 +4,14 @@ div.topBar{
     padding: 16px;
     margin-bottom: 4px;
 
-    div{
+    div.ordem{
         display: flex;
         flex-wrap: wrap;
         width: inherit;
         
-        input[type=text]{
+        input[type="text"]{
             outline: none;
             width: 100%;
-            min-width: 400px;
             padding: 8px;
             flex-basis: 400px;
             flex-grow: 1;
