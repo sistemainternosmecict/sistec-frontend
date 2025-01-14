@@ -193,12 +193,12 @@ ModalNivelDeAcesso.propTypes = {
     setNivelSelecionado: PropTypes.func
 }
 
-function NiveisDeAcesso() {
+function NiveisDeAcesso({ nivelSelecionado, setNivelSelecionado }) {
     const [niveisAcesso, setNiveisAcesso] = useState([]);
     const [permissoes, setPermissoes] = useState([]);
     const [rap, setRap] = useState([]); 
     const { hostUrl } = useContext(HostContext);
-    const [nivelSelecionado, setNivelSelecionado] = useState(undefined);
+    
 
     useEffect(()=> {
         setNivelSelecionado(undefined)
@@ -246,6 +246,11 @@ function NiveisDeAcesso() {
         </table>
         : <ModalNivelDeAcesso nivelSelecionado={nivelSelecionado} rap={rap} permissoes={permissoes} hostUrl={hostUrl} setNivelSelecionado={setNivelSelecionado}/>
     );
+}
+
+NiveisDeAcesso.propTypes = {
+    nivelSelecionado: PropTypes.object,
+    setNivelSelecionado: PropTypes.func
 }
 
 export default NiveisDeAcesso;

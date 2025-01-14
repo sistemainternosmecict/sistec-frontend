@@ -7,7 +7,7 @@ import Dashboard from './dashboard';
 import Nav from "../Nav";
 import './style.scss';
 
-function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas){
+function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao){
     switch(page_number){
         case 1:
             return <section id="main_cadastro">
@@ -48,7 +48,7 @@ function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario
     }
 }
 
-function Home({ usuario, setLoggedIn, setUsuario }) {
+function Home({ usuario, setLoggedIn, setUsuario, rapPermissao }) {
     const [page, setPage] = useState({pageN: 0, pageT: "Inicio"})
     const { hostUrl } = useContext(HostContext)
     const [mobile, setMobile] = useState(window.innerWidth <= 600)
@@ -69,8 +69,8 @@ function Home({ usuario, setLoggedIn, setUsuario }) {
   
     return (
       <>
-        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario} mobile={mobile} setPaginaSecUsuario={setPaginaSecUsuario} setModalUsuariosAberto={setModalUsuariosAberto} setPaginaAreaDemandas={setPaginaAreaDemandas}/>
-        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario}, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas)} 
+        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario} mobile={mobile} setPaginaSecUsuario={setPaginaSecUsuario} setModalUsuariosAberto={setModalUsuariosAberto} setPaginaAreaDemandas={setPaginaAreaDemandas} rapPermissao={rapPermissao}/>
+        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario}, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao)} 
       </>
     )
   }
@@ -79,6 +79,7 @@ function Home({ usuario, setLoggedIn, setUsuario }) {
     usuario: PropTypes.object,
     setLoggedIn: PropTypes.func,
     setUsuario: PropTypes.func,
+    rapPermissao: PropTypes.array
   }
   
   export default Home

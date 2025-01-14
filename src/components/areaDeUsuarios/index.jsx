@@ -29,14 +29,14 @@ async function obter_usuarios(host){
     return retorno
 }
 
-function carregarSecao( pg, tipoDeArea, elements ) {
+function carregarSecao( pg, tipoDeArea, elements, nivelSelecionado, setNivelSelecionado ) {
     switch(pg){
         case 0:
             return <ListagemUsuarios elements={elements} />
         case 1:
             return <CadastroUsuario tipoDeArea={tipoDeArea} />
         case 2:
-            return <NiveisDeAcesso />
+            return <NiveisDeAcesso nivelSelecionado={nivelSelecionado} setNivelSelecionado={setNivelSelecionado}/>
         case 3:
             return <Permissoes />
         case 4:
@@ -125,6 +125,7 @@ function AreaDeUsuarios({ setModalUsuariosAberto, setPaginaSecUsuario, paginaSec
     const [usuarioModal, setUsuarioModal] = useState(undefined)
     const [editando, setEditando] = useState(false)
     const niveisDeAcesso = useRef([]);
+    const [nivelSelecionado, setNivelSelecionado] = useState(undefined);
 
     useEffect(() => {
         fetchData(hostUrl, setUsuarios, niveisDeAcesso)
@@ -154,7 +155,7 @@ function AreaDeUsuarios({ setModalUsuariosAberto, setPaginaSecUsuario, paginaSec
         
             blocs.current = listao
         }
-    }, [usuarios])
+    }, [usuarios, setModalUsuariosAberto])
     
     return (
         <>
@@ -174,14 +175,19 @@ function AreaDeUsuarios({ setModalUsuariosAberto, setPaginaSecUsuario, paginaSec
                             setPaginaSecUsuario(4)
                             setModalUsuariosAberto(false)
                         }}>Cadastro de não servidores</button>
-                        <button onClick={() => setPaginaSecUsuario(2)}>Níveis de acesso</button>
-                        <button onClick={() => setPaginaSecUsuario(3)}>Permissões</button>
+                        <button onClick={() => {
+                            setPaginaSecUsuario(2)
+                            setNivelSelecionado(undefined)
+                            }}>Níveis de acesso</button>
+                        <button onClick={() => {
+                            setPaginaSecUsuario(3)
+                            }}>Permissões</button>
                     </div>
                 </aside>
 
                 <main>
 
-                {carregarSecao(paginaSecUsuario, tipoDeArea, blocs)}
+                {carregarSecao(paginaSecUsuario, tipoDeArea, blocs, nivelSelecionado, setNivelSelecionado)}
 
                 {(modalUsuariosAberto) ? <section className='modal'>
                     <div className="display">

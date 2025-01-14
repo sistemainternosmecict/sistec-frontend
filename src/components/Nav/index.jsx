@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ButtonBase from '../ButtonBase'
 import PropTypes from 'prop-types'
 import './style.scss';
@@ -11,8 +11,17 @@ async function logout(e, host, setLoggedIn, setUsuario){
     setLoggedIn(false)
 }
 
-function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario, mobile, setPaginaSecUsuario, setModalUsuariosAberto, setPaginaAreaDemandas }){
+function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario, mobile, setPaginaSecUsuario, setModalUsuariosAberto, setPaginaAreaDemandas, rapPermissao }){
     const [menuOpen, setMenuOpen] = useState(false)
+    const openAreas = useRef([])
+
+    useEffect(() => {
+        if(rapPermissao){
+            openAreas.current = rapPermissao.map( rap => {
+                return rap.rap_perm_id
+            })
+        }
+    }, [rapPermissao])
 
     return (
         <>
@@ -41,54 +50,63 @@ function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario, mobile
                         {(mobile)
                         ? <>
                         <div className="btnGroup">
-                            <button onClick={() => {
-                                setPage({pageN: 1, pageT: "Área de Usuários"})
-                                setPaginaSecUsuario(0)
-                                setModalUsuariosAberto(false)
-                                setMenuOpen(false)
-                            }}>Todos os usuários</button>
-                            <button onClick={() => {
-                                setPage({pageN: 1, pageT: "Área de Usuários"})
-                                setPaginaSecUsuario(1)
-                                setModalUsuariosAberto(false)
-                                setMenuOpen(false)
-                            }}>Cadastro de servidor</button>
-                            <button onClick={() => {
-                                setPage({pageN: 1, pageT: "Área de Usuários"})
-                                setPaginaSecUsuario(4)
-                                setModalUsuariosAberto(false)
-                                setMenuOpen(false)
-                            }}>Cadastro de não servidores</button>
-                            <button onClick={() => {
-                                setPage({pageN: 1, pageT: "Área de Usuários"})
-                                setPaginaSecUsuario(2)
-                                setMenuOpen(false)
-                            }}>Níveis de acesso</button>
-                            <button onClick={() => {
-                                setPage({pageN: 1, pageT: "Área de Usuários"})
-                                setPaginaSecUsuario(3)
-                                setMenuOpen(false)
-                            }}>Permissões do sistema</button>
-                            <button onClick={() => {
-                                setPage({pageN: 2, pageT: "Área de Demandas"})
-                                setPaginaAreaDemandas(0)
-                                setMenuOpen(false)
-                            }}>Listagem de demandas</button>
-                            <button onClick={() => {
-                                setPage({pageN: 2, pageT: "Área de Demandas"})
-                                setPaginaAreaDemandas(2)
-                                setMenuOpen(false)
-                            }}>Arquivo de demandas</button>
-                            <button onClick={() => {
-                                setPage({pageN: 2, pageT: "Área de Demandas"})
-                                setPaginaAreaDemandas(3)
-                                setMenuOpen(false)
-                                }}>Criar nova demanda</button>
+                            
+                            {(openAreas.current.find( perm => perm === 1))
+                            ? <>
+                                <button onClick={() => {
+                                    setPage({pageN: 1, pageT: "Área de Usuários"})
+                                    setPaginaSecUsuario(0)
+                                    setModalUsuariosAberto(false)
+                                    setMenuOpen(false)
+                                }}>Todos os usuários</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 1, pageT: "Área de Usuários"})
+                                    setPaginaSecUsuario(1)
+                                    setModalUsuariosAberto(false)
+                                    setMenuOpen(false)
+                                }}>Cadastro de servidor</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 1, pageT: "Área de Usuários"})
+                                    setPaginaSecUsuario(4)
+                                    setModalUsuariosAberto(false)
+                                    setMenuOpen(false)
+                                }}>Cadastro de não servidores</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 1, pageT: "Área de Usuários"})
+                                    setPaginaSecUsuario(2)
+                                    setMenuOpen(false)
+                                }}>Níveis de acesso</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 1, pageT: "Área de Usuários"})
+                                    setPaginaSecUsuario(3)
+                                    setMenuOpen(false)
+                                }}>Permissões do sistema</button>
+                            </> : <></>}
+
+                            {(openAreas.current.find( perm => perm === 6))
+                            ? <>
+                                <button onClick={() => {
+                                    setPage({pageN: 2, pageT: "Área de Demandas"})
+                                    setPaginaAreaDemandas(0)
+                                    setMenuOpen(false)
+                                }}>Listagem de demandas</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 2, pageT: "Área de Demandas"})
+                                    setPaginaAreaDemandas(2)
+                                    setMenuOpen(false)
+                                }}>Arquivo de demandas</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 2, pageT: "Área de Demandas"})
+                                    setPaginaAreaDemandas(3)
+                                    setMenuOpen(false)
+                                    }}>Criar nova demanda</button>
+                            </> : <></>}
+                            
                         </div>
                         </>
                         : <>
-                            <button onClick={() => {setPage({pageN: 1, pageT: "Área de Usuários"}), setMenuOpen(false)}}>Usuários</button>
-                            <button onClick={() => {setPage({pageN: 2, pageT: "Área de Demandas"}), setMenuOpen(false)}}>Demandas</button>
+                            {(openAreas.current.find( perm => perm === 1)) ? <button onClick={() => {setPage({pageN: 1, pageT: "Área de Usuários"}), setMenuOpen(false)}}>Usuários</button> : <></>}
+                            {(openAreas.current.find( perm => perm === 6)) ? <button onClick={() => {setPage({pageN: 2, pageT: "Área de Demandas"}), setMenuOpen(false)}}>Demandas</button> : <></>}
                         </>
                         }
 
@@ -113,7 +131,8 @@ Nav.propTypes = {
     mobile: PropTypes.bool,
     setPaginaSecUsuario: PropTypes.func,
     setModalUsuariosAberto: PropTypes.func,
-    setPaginaAreaDemandas: PropTypes.func
+    setPaginaAreaDemandas: PropTypes.func,
+    rapPermissao: PropTypes.array
 
 }
 
