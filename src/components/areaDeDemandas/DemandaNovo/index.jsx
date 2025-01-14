@@ -24,7 +24,7 @@ function Demanda({ demanda, ticketControl }){
     return (
         <div className="demanda" onClick={() => {
             ticketControl.setSelectedTicket(demanda)
-            ticketControl.setPagina(4)
+            ticketControl.setPaginaAreaDemandas(4)
             }}>
             <p><span>NP:</span> {demanda.nvl_prioridade}</p>
 

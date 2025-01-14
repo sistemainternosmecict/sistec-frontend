@@ -60,19 +60,16 @@ function criarDemanda(e, host, setMessage, servicoSelecionado){
         status: (Number(servicoSelecionado.tipo) === 2) ? 4 : 1
     }
 
-    // console.log(demanda)
     registrar_demanda(demanda, host, setMessage)
 }
 
 function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
     const { hostUrl } = useContext(HostContext)
-    const [salas, setSalas] = useState([])
     const [solicitantes, setSolicitantes] = useState([])
     const [msg, setMessage] = useState(undefined)
     const [escolas, setEscolas] = useState([])
     const [servicos, setServicos] = useState([])
     const [empresas, setEmpresas] = useState([])
-    const [incidentes, setIncidentes] = useState(undefined)
     const [unidadeSelecionada] = useState({'selecionada':true, 'unidade':usuario.usuario_setor})
     const [salaSelecionada, setSalaSelecionada] = useState({'selecionada':false, 'sala':undefined, 'default':'-'})
     const [servicoSelecionado, setServicoSelecionado] = useState({'selecionado':false, 'servico':undefined, 'default':'-', 'tipo':undefined, 'incidente':undefined})
@@ -126,6 +123,7 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
                     <img className='logo' src={logoSistec} alt="Logo do sistec" />
                     <h2 className='titulo'>Nova demanda</h2>
                     <input name='dem_local' ref={localInputRef} type="hidden" defaultValue={unidadeSelecionada.unidade}/>
+                    <input name='dem_sala' type="hidden" defaultValue={usuario.usuario_sala}/>
                     <input type="hidden" name='solicitante' defaultValue={usuario.usuario_id} />
                 </>}
 
