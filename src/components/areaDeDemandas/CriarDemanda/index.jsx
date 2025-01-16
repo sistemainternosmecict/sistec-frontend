@@ -138,7 +138,7 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
                 <button className='sairForm' onClick={(e) => logout(e, hostUrl, setLoggedIn, setUsuario)}>Sair</button> : <></>}
             </form> : <div id="protocolo">
                 <p>
-                Demanda inserida! Protocolo de demanda número <strong>{msg}</strong> gerado com sucesso!
+                Demanda criada! Protocolo de demanda número <strong>{msg}</strong> gerado com sucesso! Anote-o para consulta futura.
                 </p>
                 <button onClick={() => {
                     setMessage(undefined)

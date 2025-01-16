@@ -49,7 +49,8 @@ form#reg_demanda {
     }
 
     textarea{
-        height: 100px;
+        height: 128px;
+        min-height: 128px;
     }
 
     input[type="submit"]{
