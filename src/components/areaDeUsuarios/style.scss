@@ -56,31 +56,6 @@ section {
                 width: 100%;
                 min-width: 650px;
 
-                p#head{
-                    background-color: #008080;
-                    color: white;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0 16px;
-                    height: 50px;
-
-                    span{
-                        font-weight: bold;
-                        color: black;
-                    }
-
-                    button{
-                        font-size: 25px;
-                        font-weight: bold;
-                        width: 50px;
-                        height: 50px;
-                    }
-
-                    @media screen and (max-width: 600px) {
-                        display: none;
-                    }
-                }
                 
                 div.dados{
                     width: inherit;
@@ -88,6 +63,32 @@ section {
                     flex-direction: column;
                     align-items: center;
                     padding: 8px;
+                    
+                    p#head{
+                        background-color: #008080;
+                        color: white;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 0 16px;
+                        height: 50px;
+    
+                        span{
+                            font-weight: bold;
+                            color: black;
+                        }
+    
+                        button{
+                            font-size: 25px;
+                            font-weight: bold;
+                            width: 50px;
+                            height: 50px;
+                        }
+    
+                        @media screen and (max-width: 600px) {
+                            display: none;
+                        }
+                    }
 
                     .subDiv{
                         width: inherit;
@@ -99,6 +100,7 @@ section {
                             display: flex;
                             padding: 4px;
                             align-items: center;
+                            margin: 4px 0;
                             
                             span{
                                 font-weight: bold;
@@ -126,11 +128,14 @@ section {
                         div.mobileData{
                             position: relative;
                             button.fechar{
-                                // position: absolute;
                                 font-size: 25px;
                                 font-weight: bold;
                                 width: 50px;
                                 height: 50px;
+                            }
+
+                            @media screen and (min-width: 600px) {
+                                display: none;
                             }
                         }
                     }

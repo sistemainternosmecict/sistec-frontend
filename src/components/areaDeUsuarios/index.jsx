@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import ListagemUsuarios from './ListagemUsuario';
 import CadastroUsuario from './CadastroUsuario';
 import CadastroUsuarioSMatricula from './CadastroUsuarioSMatricula';
@@ -15,11 +15,14 @@ function obterUsuarioAtual( e, setUsuarioModal, setModalUsuariosAberto ){
     setModalUsuariosAberto(true)
 }
 
-async function obterNiveisDeAcessoDaAPI(host) {
+async function obterNiveisDeAcessoDaAPI(host, setNvaFetched) {
     const route = "/api/niveis_acesso/listar";
     const result = await fetch(host + route);
     const retorno = await result.json();
-    return retorno;
+    if(retorno){
+        setNvaFetched(true)
+        return retorno;
+    }
 }
 
 async function obter_usuarios(host){
@@ -67,7 +70,7 @@ function obterNvlAcesso( nvl ){
     }
 }
 
-async function fetchAtualizar( host, dados, setUsuarios ){
+async function fetchAtualizar( host, dados, setUsuarios, nva, setNva, nvaFetched, setNvaFetched ){
     const route = "/api/usuarios/atualizar"
     const options = {
         method: "POST",
@@ -77,11 +80,11 @@ async function fetchAtualizar( host, dados, setUsuarios ){
     const result = await fetch(host+route, options);
     const retorno = await result.json();
     if(retorno.atualizado){
-        fetchData(host, setUsuarios)
+        fetchData(host, setUsuarios, nva, setNva, nvaFetched, setNvaFetched)
     }
 }
 
-function registrarMudancas( hostUrl, setUsuarios ){
+function registrarMudancas( hostUrl, setUsuarios, nva, setNva, nvaFetched, setNvaFetched ){
     const campos = document.querySelectorAll(".campo")
     const dados = {
         usuario_matricula: campos[0].value,
@@ -101,61 +104,64 @@ function registrarMudancas( hostUrl, setUsuarios ){
         usuario_ativo: Boolean(Number(campos[14].value)),
     }
 
-    fetchAtualizar( hostUrl, dados, setUsuarios )
+    fetchAtualizar( hostUrl, dados, setUsuarios, nva, setNva, nvaFetched, setNvaFetched )
 }
 
-async function fetchData(hostUrl, setUsuarios, niveisDeAcesso) {
+async function fetchData(hostUrl, setUsuarios, nva, setNva, nvaFetched, setNvaFetched) {
     const data = await obter_usuarios(hostUrl)
-    const niveis = await obterNiveisDeAcessoDaAPI(hostUrl)
-    if(data.usuarios){
+    
+    if(data.usuarios.length > 0){
         setUsuarios(data.usuarios)
     }
-
-    if(niveis){
-        niveisDeAcesso.current = niveis
+    
+    if(!nvaFetched){
+        const niveis = await obterNiveisDeAcessoDaAPI(hostUrl, setNvaFetched)
+        setNva(niveis)
     }
 }
 
 function AreaDeUsuarios({ setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto }) {
 
-    const tipoDeArea = "interna"
-    const { hostUrl } = useContext(HostContext)
-    const [usuarios, setUsuarios] = useState([])
-    const blocs = useRef([])
-    const [usuarioModal, setUsuarioModal] = useState(undefined)
-    const [editando, setEditando] = useState(false)
-    const niveisDeAcesso = useRef([]);
-    const [nivelSelecionado, setNivelSelecionado] = useState(undefined);
+    const tipoDeArea = "interna";
+    const { hostUrl } = useContext(HostContext);
+    const [usuarios, setUsuarios] = useState([]);
+    const [usuarioModal, setUsuarioModal] = useState(undefined);
+    const [editando, setEditando] = useState(false);
+    const [nva, setNva] = useState([])
+    const [nvaFetched, setNvaFetched] = useState(false);
+    const [nivelSelecionado, setNivelSelecionado] = useState([]);
+    const [usuariosRender, setUsuariosRender] = useState([])
+    const [usuariosFetched, setUsuariosFetched] = useState(false)
 
     useEffect(() => {
-        fetchData(hostUrl, setUsuarios, niveisDeAcesso)
-    }, [hostUrl])
+        fetchData(hostUrl, setUsuarios, nva, setNva, nvaFetched, setNvaFetched, setUsuariosFetched);
+    }, [hostUrl, nva, nvaFetched])
 
     useEffect(() => {
-        if(usuarios.length > 0){
-            const lista = usuarios.map((usuario, index) => (
-                <tr className={(usuario.usuario_ativo) ? "usuarioAtivo" : "usuarioInativo"} key={index} data-usuario={JSON.stringify(usuario)} onClick={(e)=> obterUsuarioAtual(e, setUsuarioModal, setModalUsuariosAberto)}>
-                    <Usuario usuario={usuario}/>
+        const lista = usuarios.map((usuario, index) => (
+            <tr className={(usuario.usuario_ativo) ? "usuarioAtivo" : "usuarioInativo"} key={index} data-usuario={JSON.stringify(usuario)} onClick={(e)=> obterUsuarioAtual(e, setUsuarioModal, setModalUsuariosAberto)}>
+                <Usuario usuario={usuario}/>
+            </tr>
+        ))
+    
+        const listao = <table id="usuarios">
+            <thead>
+                <tr>
+                    <td>Matricula</td>
+                    <td>Nome</td>
+                    {(window.innerWidth <= 600) ? <></> : <td>Local de trabalho</td>}
+                    <td>Ativo</td>
                 </tr>
-            ))
-        
-            const listao = <table id="usuarios">
-                <thead>
-                    <tr>
-                        <td>Matricula</td>
-                        <td>Nome</td>
-                        {(window.innerWidth <= 600) ? <></> : <td>Local de trabalho</td>}
-                        <td>Ativo</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {lista}
-                </tbody>
-            </table>
-        
-            blocs.current = listao
+            </thead>
+            <tbody>
+                {lista}
+            </tbody>
+        </table>
+    
+        if(!usuariosFetched){
+            setUsuariosRender(listao)
         }
-    }, [usuarios, setModalUsuariosAberto])
+    }, [usuarios, setModalUsuariosAberto, usuariosFetched])
     
     return (
         <>
@@ -186,8 +192,9 @@ function AreaDeUsuarios({ setModalUsuariosAberto, setPaginaSecUsuario, paginaSec
                 </aside>
 
                 <main>
-
-                {carregarSecao(paginaSecUsuario, tipoDeArea, blocs, nivelSelecionado, setNivelSelecionado)}
+                {(usuariosRender) ?
+                    carregarSecao(paginaSecUsuario, tipoDeArea, usuariosRender, nivelSelecionado, setNivelSelecionado)
+                : <></>}
 
                 {(modalUsuariosAberto) ? <section className='modal'>
                     <div className="display">
@@ -241,7 +248,7 @@ function AreaDeUsuarios({ setModalUsuariosAberto, setPaginaSecUsuario, paginaSec
                                     <p><span>Situação RH:</span> <input className='campo' type="text" defaultValue={usuarioModal.usuario_situacao_rh} disabled/></p>
                                     <p><span>Nível de acesso:</span> 
                                     <select className="campo" defaultValue={usuarioModal.usuario_tipo}>
-                                        {niveisDeAcesso.current.map((nivel, idx)=> {
+                                        {nva.map((nivel, idx)=> {
                                             return <option key={idx} value={nivel.nva_id}>{nivel.nva_nome}</option>
                                         })}
                                     </select>
@@ -255,7 +262,7 @@ function AreaDeUsuarios({ setModalUsuariosAberto, setPaginaSecUsuario, paginaSec
                                     </p>
                                 </div>
                                 <button className='btnEditar' onClick={() => {
-                                    registrarMudancas(hostUrl, setUsuarios)
+                                    registrarMudancas(hostUrl, setUsuarios, nva, setNva, nvaFetched, setNvaFetched)
                                     setEditando(false)
                                     setModalUsuariosAberto(false)
                                     }}>Registrar mudanças</button>
