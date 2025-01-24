@@ -2,19 +2,24 @@ import { useState } from "react";
 import PropTypes from 'prop-types';
 import ContainerBaixo from "./containerBaixo";
 
-function toggleContainer( e, pack, idControler ){
-    e.preventDefault()
-    const components = e.target.parentNode.parentNode
-    const containers = components.querySelectorAll(".container")
-    containers.forEach( (component, idx) => {
-        pack.setAberto(false)
-
-        if(component == e.target.parentNode){
-            idControler.setIdAberto(idx)
-            pack.setAberto(!pack.aberto)
-        }
-    })
+function reset_container( { setAberto }, {setIdAberto} ){
+    setAberto(false)
+    setIdAberto(null)
 }
+
+function toggleContainer(e, pack, idControler, idx) {
+    e.preventDefault();
+
+    if (idControler.idAberto === idx && pack.aberto) {
+        // Fecha o componente se ele já estiver aberto
+        reset_container(pack, idControler);
+    } else {
+        // Abre o componente e fecha outros
+        pack.setAberto(true);
+        idControler.setIdAberto(idx);
+    }
+}
+
 
 function Container({ servico, idx, setServicoSelecionado, idControler }){
     const [aberto, setAberto] = useState(false)

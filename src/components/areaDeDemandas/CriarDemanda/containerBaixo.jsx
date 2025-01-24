@@ -7,18 +7,18 @@ function setServico(e, dados, inc, setServicoSelecionado){
     setServicoSelecionado(servico)
 }
 
-function toggleContainer( e, pack, subIdControler ){
-    e.preventDefault()
-    
-    const components = e.target.parentNode.parentNode.parentNode
-    const containers = components.querySelectorAll(".containerBaixo")
-    containers.forEach( (component, idx) => {
-        if(component == e.target.parentNode.parentNode){
-            subIdControler.setSubIdAberto(idx)
-            // pack.setAberto(true)
-        }
-        // console.log(subIdControler.subIdAberto, containers)
-    })
+function toggleContainer(e, pack, subIdControler, idx) {
+    e.preventDefault();
+
+    if (subIdControler.subIdAberto === idx && pack.aberto) {
+        // Fecha o subcontainer se já estiver aberto
+        subIdControler.setSubIdAberto(undefined);
+        pack.setAberto(false);
+    } else {
+        // Abre o subcontainer e fecha os outros
+        subIdControler.setSubIdAberto(idx);
+        pack.setAberto(true);
+    }
 }
 
 function selecionar(e, dados){
