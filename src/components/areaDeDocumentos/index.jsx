@@ -73,28 +73,28 @@ function openForm(hostUrl, setPg){
         <form onSubmit={(e) => stageData(e, hostUrl, setPg)}>
             <div className="boxInput">
                 <label htmlFor="serial"> SERIAL: 
-                <input type="text" name="serial" id="serial" placeholder="Serial do dispositivo..." />
                 </label>
+                <input type="text" name="serial" id="serial" placeholder="Serial do dispositivo..." />
             </div>
             <div className="boxInput">
                 <label htmlFor="nome"> Nome completo: 
-                <input type="text" name="nome" id="nome" placeholder="Nome completo..." />
                 </label>
+                <input type="text" name="nome" id="nome" placeholder="Nome completo..." />
             </div>
             <div className="boxInput">
                 <label htmlFor="matricula"> Matrícula: 
-                <input type="text" name="matricula" id="matricula" placeholder="Matrícula..." />
                 </label>
+                <input type="text" name="matricula" id="matricula" placeholder="Matrícula..." />
             </div>
             <div className="boxInput">
                 <label htmlFor="cpf"> CPF: 
-                <input type="text" name="cpf" id="cpf" placeholder="CPF..." />
                 </label>
+                <input type="text" name="cpf" id="cpf" placeholder="CPF..." />
             </div>
             <div className="boxInput">
                 <label htmlFor="celular"> Celular: 
-                <input type="text" name="celular" id="celular" placeholder="Celular..." />
                 </label>
+                <input type="text" name="celular" id="celular" placeholder="Celular..." />
             </div>
 
             <input type="submit" value="Gerar termo" />
