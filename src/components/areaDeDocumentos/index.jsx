@@ -31,7 +31,7 @@ async function gerarTermo(dados, hostUrl, setPg) {
         }
 
         const result = await response.json();
-        const url = `http://localhost/export/${result.number}.pdf`;
+        const url = `http://${window.location.hostname}/files/${result.number}.pdf`;
         window.open(url, "_blank"); // Abre o PDF em uma nova aba
         return result; // Retorna { compiled_data, generated, number }
     } catch (error) {
