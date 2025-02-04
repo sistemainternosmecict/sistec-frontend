@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { HostContext } from "../../HostContext";
 import AreaDeUsuarios from "../areaDeUsuarios";
 import AreaDeDemandas from '../areaDeDemandas';
+import Documentos from '../areaDeDocumentos';
 import Dashboard from './dashboard';
 import Nav from "../Nav";
 import './style.scss';
@@ -19,7 +20,7 @@ function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario
                 </section>
         case 3:
             return <section id="main_cadastro">
-                {/* Area de unidades */}
+                <Documentos />
                 </section>
         case 4:
             return <section id="main_cadastro">

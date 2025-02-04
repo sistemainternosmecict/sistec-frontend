@@ -107,6 +107,7 @@ function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario, mobile
                         : <>
                             {(openAreas.current.find( perm => perm === 1)) ? <button onClick={() => {setPage({pageN: 1, pageT: "Área de Usuários"}), setMenuOpen(false)}}>Usuários</button> : <></>}
                             {(openAreas.current.find( perm => perm === 6)) ? <button onClick={() => {setPage({pageN: 2, pageT: "Área de Demandas"}), setMenuOpen(false)}}>Demandas</button> : <></>}
+                            {(openAreas.current.find( perm => perm === 7)) ? <button onClick={() => {setPage({pageN: 3, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button> : <></>}
                         </>
                         }
 
