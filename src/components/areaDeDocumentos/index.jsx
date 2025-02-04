@@ -1,12 +1,13 @@
 import { useState, useContext } from "react";
 import { HostContext } from "../../HostContext";
 import "./style.scss";
-import ListagemTermos from "./listagemTermos";
+// import ListagemTermos from "./listagemTermos";
 
 
 // Função para gerar um termo
-export async function gerarTermo(dados, hostUrl, setPg) {
+async function gerarTermo(dados, hostUrl, setPg) {
     const BASE_URL = `${hostUrl}/api/termos`
+    // const BASE_URL = `http://172.20.1.108:8082/api/termos`
     try {
         const response = await fetch(`${BASE_URL}/gerar`, {
             method: "POST",
@@ -17,6 +18,17 @@ export async function gerarTermo(dados, hostUrl, setPg) {
         });
 
         setPg(0)
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Erro da API (${response.status}): ${errorText}`);
+        }
+
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            const errorText = await response.text(); // Obtém o texto da resposta
+            throw new Error(`Resposta não é JSON: ${errorText}`);
+        }
 
         const result = await response.json();
         const url = `http://localhost/export/${result.number}.pdf`;
@@ -51,6 +63,7 @@ function stageData(e, hostUrl, setPg) {
     }
 
     if (validarCampos(data)) {
+        console.log(typeof data, data)
         gerarTermo(data, hostUrl, setPg)
     }
 }
