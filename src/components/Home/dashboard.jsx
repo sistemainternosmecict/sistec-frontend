@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useContext, useEffect } from 'react';
 import { HostContext } from '../../HostContext';
-import { io } from "socket.io-client";
 import './dash.scss';
-
-const socket = io("http://localhost:8082")
 
 async function obter_demanda(host, protocolo){
     const route = `/api/demandas/buscar/${protocolo}`
@@ -28,20 +25,20 @@ async function fetchData( setNotificacoes, hostUrl ) {
 function Dashboard({ setPage, setDashboardSelected, setPaginaAreaDemandas }){
     const { hostUrl } = useContext(HostContext)
     const [notificacoes, setNotificacoes] = useState([])
-    const dataAtual = new Date();
+    // const dataAtual = new Date();
 
-    useEffect(()=> {
-        socket.on("nova_demanda", (data) => {
-            setNotificacoes((prev) => [...prev, {not_message: data.not_message, 
-                not_data: dataAtual.toLocaleDateString(), 
-                not_hora: `${dataAtual.getHours()}:${dataAtual.getMinutes()}`, 
-                dados: data.inserted_data,
-                protocolo: data.protocolo
-            }])
-        })
+    // useEffect(()=> {
+    //     socket.on("nova_demanda", (data) => {
+    //         setNotificacoes((prev) => [...prev, {not_message: data.not_message, 
+    //             not_data: dataAtual.toLocaleDateString(), 
+    //             not_hora: `${dataAtual.getHours()}:${dataAtual.getMinutes()}`, 
+    //             dados: data.inserted_data,
+    //             protocolo: data.protocolo
+    //         }])
+    //     })
 
-        return () => socket.off("nova_demanda")
-    }, [])
+    //     return () => socket.off("nova_demanda")
+    // }, [])
 
     useEffect(() => {
         fetchData( setNotificacoes, hostUrl )
