@@ -68,9 +68,6 @@ div.slideMenu {
     transition: all .4s ease-in-out;
     z-index: 1;
 
-    @media screen and (max-width: 600px) {
-        overflow-y: scroll;
-    }
     
     h1{
         margin: 32px 0;
@@ -79,6 +76,10 @@ div.slideMenu {
     }
     
     ul{
+        @media screen and (max-width: 600px) {
+            overflow-y: scroll;
+        }
+        
         li {
             display: flex;
             flex-direction: column;

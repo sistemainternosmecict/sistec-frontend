@@ -140,7 +140,7 @@ function Nav({ host,
                                 }}>Novo dispositivo</button>
                             </> : <></>}
 
-                            <button onClick={() => {setPage({pageN: 3, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>
+                            <button onClick={() => {setPage({pageN: 5, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>
                             
                         </div>
                         </>
