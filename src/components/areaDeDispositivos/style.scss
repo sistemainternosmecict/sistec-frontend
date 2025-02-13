@@ -20,5 +20,25 @@ section#area_de_dispositivos {
         h1{
             color: #008080;
         }
+
+        h2.titulo{
+            margin: 32px 0;
+        }
+
+        table.dispositivos{
+
+            thead, tbody {
+                tr{
+                    td{
+                        @media screen and (max-width:600px) {
+                            &:last-child{
+                                display: none;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
     }
 }

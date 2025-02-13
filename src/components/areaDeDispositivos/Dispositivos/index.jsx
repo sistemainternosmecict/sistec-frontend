@@ -79,8 +79,8 @@ function Dispositivos({ areaDispControl, setSelectedDevice }){
 
     return (
         <>
-            <h2 style={{ margin: "32px 0" }}>Dispositivos</h2>
-            <table style={{width: "100%"}}>
+            <h2 className="titulo">Dispositivos</h2>
+            <table className="dispositivos">
                 {listar(dispositivos, categorias, areaDispControl, setSelectedDevice)}
             </table>
         </>

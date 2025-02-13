@@ -63,7 +63,7 @@ function NovoDispositivo({ areaDispControl }){
             ? <form onSubmit={(e)=> stageData(e, hostUrl, setRegistrado, areaDispControl)}>
                 <div className="inputBox">
                     <label htmlFor="serial">Numero de série (S/N): </label>
-                    <input type="text" name="serial" id="serial" />
+                    <input type="text" name="serial" id="serial" placeholder="Serial" />
                 </div>
 
                 <div className="inputBox">

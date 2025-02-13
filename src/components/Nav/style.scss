@@ -67,6 +67,10 @@ div.slideMenu {
     transform: translateX(0);
     transition: all .4s ease-in-out;
     z-index: 1;
+
+    @media screen and (max-width: 600px) {
+        overflow-y: scroll;
+    }
     
     h1{
         margin: 32px 0;

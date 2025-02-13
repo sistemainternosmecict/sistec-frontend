@@ -58,7 +58,7 @@ function ModalDisp({ dispositivo }){
     const [categorias, setCategorias] = useState([])
     const categoria = obterCategoria(dispositivo.disp_tipo, categorias)
     const [enderecoViaCep, setEnderecoViaCep] = useState(undefined)
-    const [abrirJanelaDeRegistro, setAbrirJanelaDeRegistro] = useState(false)
+    const [abrirJanelaDeRegistro] = useState(false)
 
     useEffect(() => {
         fetchAll(hostUrl, setCategorias)
@@ -103,7 +103,7 @@ function ModalDisp({ dispositivo }){
 
                 <input type="submit" value="Registrar vinculo" />
             </form> : <>
-                <button className='registrarVinculo' onClick={() => setAbrirJanelaDeRegistro(true)}>Registrar novo vinculo com unidade</button>
+                {/* <button className='registrarVinculo' onClick={() => setAbrirJanelaDeRegistro(true)}>Registrar novo vinculo com unidade</button> */}
             </>}
 
 

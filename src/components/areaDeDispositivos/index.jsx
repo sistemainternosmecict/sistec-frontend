@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import "./style.scss"
 import CategoriasDispositivos from './CategoriasDispositivos';
 import NovaCategoria from './NovaCategoria'
 import NovoDispositivo from './NovoDispositivo';
 import Dispositivos from './Dispositivos';
 import ModalDisp from './ModalDisp';
 import { useEffect, useState } from 'react';
+import "./style.scss"
 
 function carregar_bloco( areaDispControl, selectedDevice, setSelectedDevice ){
     switch(areaDispControl.paginaAreaDispositivos){

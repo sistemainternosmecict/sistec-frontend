@@ -40,25 +40,25 @@ function NovaCategoria({ areaDispControl }){
 
     return (
         <>
-            <h2 className="novaCatTitulo">Nova categoria</h2>
+            <h2 className="novaCatTitulo">Nova categoria de dispositivo</h2>
 
             {(!registrado)
             ? <form onSubmit={(e) => stageData(e, hostUrl, setRegistrado, areaDispControl)}>
                 <div className="inputBox">
-                    <label htmlFor="nome">Nome da nova categoria: </label>
-                    <input type="text" name="nome" id="nome" placeholder="Nome..."/>
+                    <label htmlFor="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" placeholder="Insira um nome para a categoria"/>
                 </div>
                 <div className="inputBox">
-                    <label htmlFor="modelo">Nodelo da nova categoria: </label>
-                    <input type="text" name="modelo" id="modelo" placeholder="Modelo..."/>
+                    <label htmlFor="modelo">Modelo</label>
+                    <input type="text" name="modelo" id="modelo" placeholder='Chromebook GO, Samsung 75"... '/>
                 </div>
                 <div className="inputBox">
-                    <label htmlFor="tipo">Tipo da nova categoria: </label>
-                    <input type="text" name="tipo" id="tipo" placeholder="Tipo..."/>
+                    <label htmlFor="tipo">Tipo</label>
+                    <input type="text" name="tipo" id="tipo" placeholder="Chromebook, Lousa digital, notebook, desktop..."/>
                 </div>
                 <div className="inputBox">
-                    <label htmlFor="desc">Descrição da nova categoria: </label>
-                    <textarea name="desc" id="desc" placeholder="Descrição..."></textarea>
+                    <label htmlFor="desc">Descrição</label>
+                    <textarea name="desc" id="desc" placeholder="Especificações do dispositivo ou descrição"></textarea>
                 </div>
 
                 <input type="submit" value="Registrar categoria" />
