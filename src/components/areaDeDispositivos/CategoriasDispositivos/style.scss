@@ -1,0 +1,36 @@
+h2.catDispTitulo{
+    margin: 32px 0;
+}
+
+table {
+    width: 100%;
+
+    thead{
+        tr{
+            color: #008080;
+            font-weight: bold;
+            font-size: 16px;
+
+            td{
+                border: solid 1px #008080;
+                padding: 8px;
+            }
+        }
+    }
+
+    tbody{
+        tr{
+            cursor: pointer;
+            td{
+                border: solid 1px #008080;
+                padding: 8px;
+            }
+
+            &:hover{
+                background-color: #008080;
+                color: white;
+            }
+        }
+    }
+
+}

@@ -1,58 +1,77 @@
+import PropTypes from 'prop-types';
 import { useState, useContext, useEffect } from 'react';
 import { HostContext } from '../../HostContext';
-import logoSub from '../../assets/preto_logoSub.png';
+import { io } from "socket.io-client";
+import './dash.scss';
 
-const dataStyle = {
-    padding: "16px",
-    border: "solid 1px #008080"
-}
+const socket = io("http://localhost:8082")
 
-async function obter_usuarios(host){
-    const route = "/api/usuarios/listar"
+async function obter_demanda(host, protocolo){
+    const route = `/api/demandas/buscar/${protocolo}`
     const result = await fetch(host+route);
     const retorno = await result.json();
     return retorno
 }
 
-async function obter_demandas(host){
-    const route = "/api/demandas/listar"
+async function obter_notificacoes(host){
+    const route = "/api/demandas/notificacoes/listar"
     const result = await fetch(host+route);
     const retorno = await result.json();
     return retorno
 }
 
-async function fetchData( setDemandas, setUsuarios, hostUrl ) {
-    const data_temp_demandas = await obter_demandas(hostUrl)
-    const data_temp_usuarios = await obter_usuarios(hostUrl)
-    setDemandas(data_temp_demandas.demandas || [])
-    setUsuarios(data_temp_usuarios.usuarios || [])
+async function fetchData( setNotificacoes, hostUrl ) {
+    const data_temp_notificacoes = await obter_notificacoes(hostUrl)
+    setNotificacoes(data_temp_notificacoes.notificacoes || [])
 }
 
-function Dashboard(){
+function Dashboard({ setPage, setDashboardSelected, setPaginaAreaDemandas }){
     const { hostUrl } = useContext(HostContext)
-    const [demandas, setDemandas] = useState([])
-    const [usuarios, setUsuarios] = useState([])
+    const [notificacoes, setNotificacoes] = useState([])
+    const dataAtual = new Date();
+
+    useEffect(()=> {
+        socket.on("nova_demanda", (data) => {
+            setNotificacoes((prev) => [...prev, {not_message: data.not_message, 
+                not_data: dataAtual.toLocaleDateString(), 
+                not_hora: `${dataAtual.getHours()}:${dataAtual.getMinutes()}`, 
+                dados: data.inserted_data,
+                protocolo: data.protocolo
+            }])
+        })
+
+        return () => socket.off("nova_demanda")
+    }, [])
 
     useEffect(() => {
-        fetchData( setDemandas, setUsuarios, hostUrl )
+        fetchData( setNotificacoes, hostUrl )
     }, [hostUrl])
 
     return (
-        <div className='dashboard' style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <img src={logoSub} style={{ width: "264px", opacity: 0.4, userSelect: "none"}}/>
-            <p style={{ margin: "16px", fontWeight: "bold"}}>Bem vindo ao sistec</p>
-
-            <div style={{ display: "flex", justifyContent: "center"}}>
-                <div className="novosUsuarios" style={{margin: "2px"}}>
-                    <p style={dataStyle} >Usuarios: {usuarios.length}</p>
-                </div>
-
-                <div className="novasDemandas" style={{margin: "2px"}}>
-                    <p style={dataStyle} >Demandas: {demandas.length}</p>
-                </div>
+        <div className='dashboard'>
+            <div className='notificacoes'>
+                <h2>Demandas</h2>
+                <p>Notificações</p>
+                <ul className='listagem'>
+                    {(notificacoes.length > 0) ? (notificacoes.map((notif, idx) => {
+                        return <li className='notificacao' key={idx} onClick={async () => {
+                            const demanda = await obter_demanda(hostUrl, notif.not_protocolo)
+                            setDashboardSelected(demanda)
+                            setPage({pageN: 2, pageT: "Área de Demandas"})
+                            }}>
+                            <span>★</span> {notif.not_message} | {notif.not_data + " - " + notif.not_hora}
+                            </li>
+                    }).reverse()):""}
+                </ul>
             </div>
         </div>
     )
+}
+
+Dashboard.propTypes = {
+    setPage: PropTypes.func,
+    setDashboardSelected: PropTypes.func,
+    setPaginaAreaDemandas: PropTypes.func
 }
 
 export default Dashboard;

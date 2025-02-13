@@ -11,7 +11,18 @@ async function logout(e, host, setLoggedIn, setUsuario){
     setLoggedIn(false)
 }
 
-function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario, mobile, setPaginaSecUsuario, setModalUsuariosAberto, setPaginaAreaDemandas, rapPermissao }){
+function Nav({ host, 
+    setLoggedIn, 
+    setUsuario, 
+    setPage, 
+    pageText, 
+    usuario, 
+    mobile, 
+    setPaginaSecUsuario, 
+    setModalUsuariosAberto, 
+    setPaginaAreaDemandas, 
+    rapPermissao,
+    areaDispControl }){
     const [menuOpen, setMenuOpen] = useState(false)
     const openAreas = useRef([])
 
@@ -44,7 +55,10 @@ function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario, mobile
                 <h1>SISTEC</h1>
                 <ul>
                     <li>
-                        <button onClick={() => {setPage({pageN: 0, pageT: ""}); setMenuOpen(false)}}>Inicio</button>
+                        <button onClick={() => {
+                            setPage({pageN: 0, pageT: ""}); setMenuOpen(false),
+                            setPaginaAreaDemandas(0)
+                            }}>Inicio</button>
 
                         <>
                         {(mobile)
@@ -102,6 +116,30 @@ function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario, mobile
                                     }}>Criar nova demanda</button>
                             </> : <></>}
 
+                            {(openAreas.current.find( perm => perm === 6))
+                            ? <>
+                                <button onClick={() => {
+                                    setPage({pageN: 3, pageT: "Área de Dispositivos"})
+                                    areaDispControl.setPaginaAreaDispositivos(0)
+                                    setMenuOpen(false)
+                                }}>Categorias de disp.</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 3, pageT: "Área de Dispositivos"})
+                                    areaDispControl.setPaginaAreaDispositivos(1)
+                                    setMenuOpen(false)
+                                }}>Nova categoria de disp.</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 3, pageT: "Área de Dispositivos"})
+                                    areaDispControl.setPaginaAreaDispositivos(2)
+                                    setMenuOpen(false)
+                                }}>Dispositivos</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 3, pageT: "Área de Dispositivos"})
+                                    areaDispControl.setPaginaAreaDispositivos(3)
+                                    setMenuOpen(false)
+                                }}>Novo dispositivo</button>
+                            </> : <></>}
+
                             <button onClick={() => {setPage({pageN: 3, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>
                             
                         </div>
@@ -109,7 +147,8 @@ function Nav({ host, setLoggedIn, setUsuario, setPage, pageText, usuario, mobile
                         : <>
                             {(openAreas.current.find( perm => perm === 1)) ? <button onClick={() => {setPage({pageN: 1, pageT: "Área de Usuários"}), setMenuOpen(false)}}>Usuários</button> : <></>}
                             {(openAreas.current.find( perm => perm === 6)) ? <button onClick={() => {setPage({pageN: 2, pageT: "Área de Demandas"}), setMenuOpen(false)}}>Demandas</button> : <></>}
-                            {<button onClick={() => {setPage({pageN: 3, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>}
+                            {(openAreas.current.find( perm => perm === 6)) ? <button onClick={() => {setPage({pageN: 3, pageT: "Área de Dispositivos"}), setMenuOpen(false)}}>Dispositivos</button> : <></>}
+                            {<button onClick={() => {setPage({pageN: 5, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>}
                         </>
                         }
 
@@ -135,8 +174,8 @@ Nav.propTypes = {
     setPaginaSecUsuario: PropTypes.func,
     setModalUsuariosAberto: PropTypes.func,
     setPaginaAreaDemandas: PropTypes.func,
-    rapPermissao: PropTypes.array
-
+    rapPermissao: PropTypes.array,
+    areaDispControl: PropTypes.object
 }
 
 export default Nav;

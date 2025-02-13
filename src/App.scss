@@ -14,14 +14,6 @@ body, html {
     height: 100vh;
     align-items: center;
     user-select: none;
-    
-    div.wrapper{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative;
-    }
 
     div.wrapper_login{
         width: 100%;

@@ -1,0 +1,24 @@
+section#area_de_dispositivos {
+
+    aside.menuAreaDispositivos{
+        background-color: #008080;
+        width: 100%;
+        max-width: 300px;
+        display: none;
+
+        div.btnGroup{
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media screen and (min-width: 600px) {
+            display: block;
+        }
+    }
+
+    main{
+        h1{
+            color: #008080;
+        }
+    }
+}

@@ -34,7 +34,7 @@ function carregarSecao( pg, demandas, data, tipoDeArea, ticketControl, setPagina
     }
 }
 
-function AreaDeDemandas({ data, paginaAreaDemandas, setPaginaAreaDemandas }) {
+function AreaDeDemandas({ data, paginaAreaDemandas, setPaginaAreaDemandas, dashboardSelected }) {
     const tipoDeArea = "interna"
     const { hostUrl } = useContext(HostContext)
     const [demandas, setDemandas] = useState([])
@@ -45,6 +45,13 @@ function AreaDeDemandas({ data, paginaAreaDemandas, setPaginaAreaDemandas }) {
     useEffect(() => {
         fetchData( setDemandas, hostUrl )
     }, [hostUrl])
+
+    useEffect(() => {
+        if(dashboardSelected !== undefined){
+            setSelectedTicket(dashboardSelected)
+            setPaginaAreaDemandas(4)
+        }
+    }, [dashboardSelected])
     
     return (
         <section>
@@ -65,7 +72,8 @@ function AreaDeDemandas({ data, paginaAreaDemandas, setPaginaAreaDemandas }) {
 AreaDeDemandas.propTypes = {
     data: PropTypes.object,
     paginaAreaDemandas: PropTypes.number,
-    setPaginaAreaDemandas: PropTypes.func
+    setPaginaAreaDemandas: PropTypes.func,
+    dashboardSelected: PropTypes.object
 }
 
 export default AreaDeDemandas;

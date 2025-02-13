@@ -1,0 +1,57 @@
+h2.novaCatTitulo{
+    margin: 32px 0;
+}
+
+form {
+    // background-color: red;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    div.inputBox{
+        display: flex;
+        flex-direction: column;
+        margin: 8px 0;
+        
+        label{
+            // background-color: #ccc;
+            color: #008080;
+            padding: 8px 0;
+        }
+        
+        input[type="text"]{
+            outline: none;
+            border: solid 1px #008080;
+            padding: 8px;
+        }
+        
+        textarea{
+            border: solid 1px #008080;
+            resize: none;
+            height: 128px;
+            padding: 8px;
+            outline: none;
+        }
+        
+        select{
+            border: solid 1px #008080;
+            padding: 8px;
+            cursor: pointer;
+        }
+    }
+    
+    input[type="submit"]{
+        border: solid 1px black;
+        background-color: white;
+        padding: 8px;
+        cursor: pointer;
+        
+        &:hover{
+            border: solid 1px #008080;
+            background-color: #008080;
+            color: white;
+        }
+    }
+}

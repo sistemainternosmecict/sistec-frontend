@@ -1,0 +1,84 @@
+h2.dispositivoModal_titulo{
+    margin: 32px 0;
+}
+
+div.dispositivoModal, form.inserirRegistroHistorico{
+    width: 100%;
+    max-width: 600px;
+    margin: 8px;
+}
+
+div.dispositivoModal{
+    border: solid 1px #008080;
+    padding: 16px;
+    
+    p{
+        text-align: left;
+        
+        span{
+            font-weight: bold;
+        }
+    }
+}
+
+form.inserirRegistroHistorico{
+    padding: 16px;
+    border: solid 1px #008080;
+
+    p{
+        font-weight: bold;
+        text-align: left;
+        padding: 16px;
+    }
+
+    div.inputBox{
+        display: flex;
+        flex-direction: row;
+        margin: 8px 0;
+
+        label, input[type="text"]{
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        label {
+            background-color: #008080;
+            color: black;
+        }
+
+        input[type="text"]{
+            outline: none;
+            border: solid 1px #008080;
+            flex: 300px 1 1;
+
+            &:disabled{
+                background-color: #85c7c7;
+                color: black;
+                font-weight: bold;
+
+                &::placeholder{
+                    color: #008080;
+                }
+            }
+        }
+    }
+
+    input[type="submit"]{
+        border: solid 1px #008080;
+        background-color: white;
+        width: 100%;
+        padding: 8px;
+        cursor: pointer;
+        margin-top: 8px;
+
+        &:hover{
+            background-color: #008080;
+            color: white;
+        }
+    }
+}
+
+button.registrarVinculo{
+    width: 100%;
+    max-width: 600px;
+}

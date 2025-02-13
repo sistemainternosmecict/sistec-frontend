@@ -5,13 +5,6 @@ import Home from "./components/Home"
 import CriarDemanda from './components/areaDeDemandas/CriarDemanda'
 import './App.scss';
 
-// async function obterPermissoesDaAPI(host) {
-//   const route = "/api/permissoes/listar";
-//   const result = await fetch(host + route);
-//   const retorno = await result.json();
-//   return retorno;
-// }
-
 async function obterRapDaAPI(host) {
   const route = "/api/rap/listar";
   const result = await fetch(host + route);

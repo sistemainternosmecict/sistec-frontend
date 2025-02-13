@@ -8,6 +8,8 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+    z-index: 1;
 
     div{
         display: flex;
@@ -65,20 +67,22 @@ div.slideMenu {
     transform: translateX(0);
     transition: all .4s ease-in-out;
     z-index: 1;
-
+    
     h1{
         margin: 32px 0;
         color: white;
         font-weight: 200;
     }
-
-    ul > li {
-        display: flex;
-        flex-direction: column;
-
-        button {
-            cursor: pointer;
-            width: 100%;
+    
+    ul{
+        li {
+            display: flex;
+            flex-direction: column;
+    
+            button {
+                cursor: pointer;
+                width: 100%;
+            }
         }
     }
 

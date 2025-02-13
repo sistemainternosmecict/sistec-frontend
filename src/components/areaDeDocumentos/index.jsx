@@ -30,8 +30,10 @@ async function gerarTermo(dados, hostUrl, setPg) {
             throw new Error(`Resposta não é JSON: ${errorText}`);
         }
 
+        const export_folder = (window.location.hostname !== "192.168.100.131") ? "files" : "export"
+
         const result = await response.json();
-        const url = `http://${window.location.hostname}/files/${result.number}.pdf`;
+        const url = `http://${window.location.hostname}/${export_folder}/${result.number}.pdf`;
         window.open(url, "_blank"); // Abre o PDF em uma nova aba
         return result; // Retorna { compiled_data, generated, number }
     } catch (error) {

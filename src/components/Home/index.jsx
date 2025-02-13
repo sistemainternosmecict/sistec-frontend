@@ -3,12 +3,13 @@ import { useState, useContext, useEffect } from "react";
 import { HostContext } from "../../HostContext";
 import AreaDeUsuarios from "../areaDeUsuarios";
 import AreaDeDemandas from '../areaDeDemandas';
+import AreaDeDispositivos from '../areaDeDispositivos';
 import Documentos from '../areaDeDocumentos';
 import Dashboard from './dashboard';
 import Nav from "../Nav";
 import './style.scss';
 
-function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao){
+function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao, setPage, setDashboardSelected, dashboardSelected, areaDispControl){
     switch(page_number){
         case 1:
             return <section id="main_cadastro">
@@ -16,20 +17,24 @@ function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario
                 </section>
         case 2:
             return <section id="main_cadastro">
-                <AreaDeDemandas data={data} paginaAreaDemandas={paginaAreaDemandas} setPaginaAreaDemandas={setPaginaAreaDemandas}/>
+                <AreaDeDemandas data={data} paginaAreaDemandas={paginaAreaDemandas} setPaginaAreaDemandas={setPaginaAreaDemandas} dashboardSelected={dashboardSelected}/>
                 </section>
         case 3:
             return <section id="main_cadastro">
-                <Documentos />
+                <AreaDeDispositivos areaDispControl={areaDispControl} />
                 </section>
         case 4:
             return <section id="main_cadastro">
                 {/* Inventário */}
                 </section>
+        case 5:
+            return <section id="main_cadastro">
+                <Documentos />
+                </section>
         default:
-            return <div id="btn_menu">
-                <Dashboard />
-            </div>
+            return <section id="dashboard">
+                <Dashboard setPage={setPage} setDashboardSelected={setDashboardSelected} setPaginaAreaDemandas={setPaginaAreaDemandas}/>
+            </section>
     }
 }
 
@@ -40,9 +45,12 @@ function Home({ usuario, setLoggedIn, setUsuario, rapPermissao }) {
     const [paginaSecUsuario, setPaginaSecUsuario] = useState(0)
     const [modalUsuariosAberto, setModalUsuariosAberto] = useState(false)
     const [paginaAreaDemandas, setPaginaAreaDemandas] = useState(0)
+    const [dashboardSelected, setDashboardSelected] = useState(undefined)
+    const [paginaAreaDispositivos, setPaginaAreaDispositivos] = useState(0)
+
+    const areaDispControl = {paginaAreaDispositivos, setPaginaAreaDispositivos}
 
     useEffect(() => {
-
         function resize(){
             setMobile(window.innerWidth <= 600)
         }
@@ -54,8 +62,8 @@ function Home({ usuario, setLoggedIn, setUsuario, rapPermissao }) {
   
     return (
       <>
-        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario} mobile={mobile} setPaginaSecUsuario={setPaginaSecUsuario} setModalUsuariosAberto={setModalUsuariosAberto} setPaginaAreaDemandas={setPaginaAreaDemandas} rapPermissao={rapPermissao}/>
-        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario}, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao)} 
+        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario} mobile={mobile} setPaginaSecUsuario={setPaginaSecUsuario} setModalUsuariosAberto={setModalUsuariosAberto} setPaginaAreaDemandas={setPaginaAreaDemandas} rapPermissao={rapPermissao} areaDispControl={areaDispControl}/>
+        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario}, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao, setPage, setDashboardSelected, dashboardSelected, areaDispControl)} 
       </>
     )
   }

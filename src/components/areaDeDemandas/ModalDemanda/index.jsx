@@ -339,7 +339,7 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina, usuario }){
                                 salvar(dadosParaAtualizacao, setDadosParaAtualizacao, setSalvandoAtualizacoes)
                             }}>Registrar alterações</button>
                             <button style={{display: "flex", alignItems: "center", justifyContent: "center"}} onClick={() => abrirZapEncaminharDemanda({dadosDemanda: demanda, dadosEmpresa: empresaRef.current, incidente: descricaoLegivel, usuario: usuarioSelecionado}, hostUrl, fetchData, setDemandas, setSalvandoAtualizacoes, setMsg, setPagina, usuario)}>
-                                <Icon icon="logos:whatsapp-icon" width="30" height="30" className='iconeZap'/> Zap da {(empresaRef.current != undefined) ? empresaRef.current.empresa : "empresa"}
+                                <Icon icon="logos:whatsapp-icon" width="30" height="30" className='iconeZap'/> Contato {(empresaRef.current != undefined) ? empresaRef.current.empresa : "empresa"}
                             </button>
                         </div>   
                         }
