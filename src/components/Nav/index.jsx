@@ -66,7 +66,8 @@ function Nav({ host,
                         <div className="btnGroup">
                             
                             {(openAreas.current.find( perm => perm === 1))
-                            ? <>
+                            ? <div className='btnBlock'>
+                                <p>Usuarios</p>
                                 <button onClick={() => {
                                     setPage({pageN: 1, pageT: "Área de Usuários"})
                                     setPaginaSecUsuario(0)
@@ -95,10 +96,11 @@ function Nav({ host,
                                     setPaginaSecUsuario(3)
                                     setMenuOpen(false)
                                 }}>Permissões do sistema</button>
-                            </> : <></>}
+                            </div> : <></>}
 
                             {(openAreas.current.find( perm => perm === 6))
-                            ? <>
+                            ? <div className='btnBlock'>
+                                <p>Demandas</p>
                                 <button onClick={() => {
                                     setPage({pageN: 2, pageT: "Área de Demandas"})
                                     setPaginaAreaDemandas(0)
@@ -114,10 +116,11 @@ function Nav({ host,
                                     setPaginaAreaDemandas(3)
                                     setMenuOpen(false)
                                     }}>Criar nova demanda</button>
-                            </> : <></>}
+                            </div> : <></>}
 
                             {(openAreas.current.find( perm => perm === 6))
-                            ? <>
+                            ? <div className='btnBlock'>
+                                <p>Dispositivos</p>
                                 <button onClick={() => {
                                     setPage({pageN: 3, pageT: "Área de Dispositivos"})
                                     areaDispControl.setPaginaAreaDispositivos(0)
@@ -138,7 +141,7 @@ function Nav({ host,
                                     areaDispControl.setPaginaAreaDispositivos(3)
                                     setMenuOpen(false)
                                 }}>Novo dispositivo</button>
-                            </> : <></>}
+                            </div> : <></>}
 
                             <button onClick={() => {setPage({pageN: 5, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>
                             
