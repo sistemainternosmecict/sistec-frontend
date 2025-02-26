@@ -1,0 +1,49 @@
+section#area_de_unidades{
+    aside.menuAreaUnidades{
+        background-color: #008080;
+        padding: 8px;
+        display: none;
+
+        div.btnGroup{
+            width: 100%;
+            button{
+                width: 300px;
+                width: inherit;
+                margin: 8px 0;
+            }
+        }
+
+        @media screen and (min-width: 600px) {
+            display: block;
+        }
+    }
+
+    main.mainContent{
+        div.endereco{
+            padding: 16px 0;
+
+            div.infoBox{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                justify-content: space-between;
+                background-color: #008080;
+                padding: 16px;
+
+                p{
+                    text-align: left;
+                    font-size: 14px;
+
+                    &:nth-child(even){
+                        text-align: left;
+                    }
+                }
+            }
+
+            input[type="submit"]{
+                margin-top: 8px;
+                width: 100%;
+            }
+        }
+    }
+}

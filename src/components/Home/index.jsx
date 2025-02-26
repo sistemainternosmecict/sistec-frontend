@@ -4,12 +4,13 @@ import { HostContext } from "../../HostContext";
 import AreaDeUsuarios from "../areaDeUsuarios";
 import AreaDeDemandas from '../areaDeDemandas';
 import AreaDeDispositivos from '../areaDeDispositivos';
+import AreaDeUnidades from '../areaDeUnidades';
 import Documentos from '../areaDeDocumentos';
 import Dashboard from './dashboard';
 import Nav from "../Nav";
 import './style.scss';
 
-function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao, setPage, setDashboardSelected, dashboardSelected, areaDispControl){
+function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao, setPage, setDashboardSelected, dashboardSelected, areaDispControl, areaUnidadesControl){
     switch(page_number){
         case 1:
             return <section id="main_cadastro">
@@ -25,7 +26,7 @@ function get_page(page_number, data, setModalUsuariosAberto, setPaginaSecUsuario
                 </section>
         case 4:
             return <section id="main_cadastro">
-                {/* Inventário */}
+                <AreaDeUnidades areaUnidadesControl={areaUnidadesControl}/>
                 </section>
         case 5:
             return <section id="main_cadastro">
@@ -47,8 +48,10 @@ function Home({ usuario, setLoggedIn, setUsuario, rapPermissao }) {
     const [paginaAreaDemandas, setPaginaAreaDemandas] = useState(0)
     const [dashboardSelected, setDashboardSelected] = useState(undefined)
     const [paginaAreaDispositivos, setPaginaAreaDispositivos] = useState(0)
+    const [paginaAreaUnidades, setPaginaAreaUnidades] = useState(0)
 
     const areaDispControl = {paginaAreaDispositivos, setPaginaAreaDispositivos}
+    const areaUnidadesControl = {paginaAreaUnidades, setPaginaAreaUnidades}
 
     useEffect(() => {
         function resize(){
@@ -62,8 +65,8 @@ function Home({ usuario, setLoggedIn, setUsuario, rapPermissao }) {
   
     return (
       <>
-        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario} mobile={mobile} setPaginaSecUsuario={setPaginaSecUsuario} setModalUsuariosAberto={setModalUsuariosAberto} setPaginaAreaDemandas={setPaginaAreaDemandas} rapPermissao={rapPermissao} areaDispControl={areaDispControl}/>
-        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario}, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao, setPage, setDashboardSelected, dashboardSelected, areaDispControl)} 
+        <Nav host={hostUrl} setLoggedIn={setLoggedIn} setUsuario={setUsuario} setPage={setPage} pageText={page.pageT} usuario={usuario} mobile={mobile} setPaginaSecUsuario={setPaginaSecUsuario} setModalUsuariosAberto={setModalUsuariosAberto} setPaginaAreaDemandas={setPaginaAreaDemandas} rapPermissao={rapPermissao} areaDispControl={areaDispControl} areaUnidadesControl={areaUnidadesControl}/>
+        {get_page(page.pageN, {usuario, setLoggedIn, setUsuario}, setModalUsuariosAberto, setPaginaSecUsuario, paginaSecUsuario, modalUsuariosAberto, paginaAreaDemandas, setPaginaAreaDemandas, rapPermissao, setPage, setDashboardSelected, dashboardSelected, areaDispControl, areaUnidadesControl)} 
       </>
     )
   }

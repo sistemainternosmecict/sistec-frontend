@@ -30,7 +30,7 @@ async function gerarTermo(dados, hostUrl, setPg) {
             throw new Error(`Resposta não é JSON: ${errorText}`);
         }
 
-        const export_folder = (window.location.hostname !== "192.168.100.131") ? "files" : "export"
+        const export_folder = (window.location.hostname !== "192.168.100.131") ? "files/termos_chromebooks" : "export"
 
         const result = await response.json();
         const url = `http://${window.location.hostname}/${export_folder}/${result.number}.pdf`;
@@ -65,7 +65,6 @@ function stageData(e, hostUrl, setPg) {
     }
 
     if (validarCampos(data)) {
-        console.log(typeof data, data)
         gerarTermo(data, hostUrl, setPg)
     }
 }
@@ -124,6 +123,11 @@ function Documentos(){
                 <button onClick={() => {
                     setPg(1)
                 }}>Gerar novo Termo de responsabilidade</button>
+                <button onClick={() => {
+                    const export_folder = (window.location.hostname !== "192.168.100.154") ? "files/termos_chromebooks" : "files"
+                    const url = `http://${window.location.hostname}/${export_folder}/TMBP_novo_timbrado.pdf`;
+                    window.open(url, "_blank");
+                }}>Termo de Movimentação de Bens Patrimoniais</button>
             </div>
 
             {/* <ListagemTermos /> */}

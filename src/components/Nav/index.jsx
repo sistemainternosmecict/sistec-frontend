@@ -22,7 +22,8 @@ function Nav({ host,
     setModalUsuariosAberto, 
     setPaginaAreaDemandas, 
     rapPermissao,
-    areaDispControl }){
+    areaDispControl,
+    areaUnidadesControl }){
     const [menuOpen, setMenuOpen] = useState(false)
     const openAreas = useRef([])
 
@@ -143,6 +144,21 @@ function Nav({ host,
                                 }}>Novo dispositivo</button>
                             </div> : <></>}
 
+                            {/* {(openAreas.current.find( perm => perm === 6))
+                            ? <div className='btnBlock'>
+                                <p>Unidades</p>
+                                <button onClick={() => {
+                                    setPage({pageN: 4, pageT: "Área de Unidades"})
+                                    areaUnidadesControl.setPaginaAreaUnidades(0)
+                                    setMenuOpen(false)
+                                }}>Lista de Unidades</button>
+                                <button onClick={() => {
+                                    setPage({pageN: 4, pageT: "Área de Unidades"})
+                                    areaUnidadesControl.setPaginaAreaUnidades(1)
+                                    setMenuOpen(false)
+                                }}>Registrar nova unidade</button>
+                            </div> : <></>} */}
+
                             <button onClick={() => {setPage({pageN: 5, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>
                             
                         </div>
@@ -151,6 +167,7 @@ function Nav({ host,
                             {(openAreas.current.find( perm => perm === 1)) ? <button onClick={() => {setPage({pageN: 1, pageT: "Área de Usuários"}), setMenuOpen(false)}}>Usuários</button> : <></>}
                             {(openAreas.current.find( perm => perm === 6)) ? <button onClick={() => {setPage({pageN: 2, pageT: "Área de Demandas"}), setMenuOpen(false)}}>Demandas</button> : <></>}
                             {(openAreas.current.find( perm => perm === 6)) ? <button onClick={() => {setPage({pageN: 3, pageT: "Área de Dispositivos"}), setMenuOpen(false)}}>Dispositivos</button> : <></>}
+                            {/* {(openAreas.current.find( perm => perm === 1)) ? <button onClick={() => {setPage({pageN: 4, pageT: "Área de Unidades"}), setMenuOpen(false)}}>Unidades</button> : <></>} */}
                             {<button onClick={() => {setPage({pageN: 5, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>}
                         </>
                         }
@@ -178,7 +195,8 @@ Nav.propTypes = {
     setModalUsuariosAberto: PropTypes.func,
     setPaginaAreaDemandas: PropTypes.func,
     rapPermissao: PropTypes.array,
-    areaDispControl: PropTypes.object
+    areaDispControl: PropTypes.object,
+    areaUnidadesControl: PropTypes.object
 }
 
 export default Nav;

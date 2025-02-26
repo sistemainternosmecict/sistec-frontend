@@ -1,0 +1,102 @@
+h2{
+    margin: 32px;
+    font-size: 20px;
+
+    @media screen and (min-width: 380px) {
+        font-size: 24px;
+    }
+}
+
+h3.subtitle{
+    text-align: center;
+    color: #008080;
+}
+
+div.unidade{
+    div.infoBox{
+        padding: 16px;
+        // background-color: #008080;
+        border: solid 1px #008080;
+        margin: 16px 0;
+
+        p{
+            text-align: left;
+            margin: 8px 0;
+            span{
+                // color: white;
+            }
+        }
+
+        p.tituloSegmentos{
+            font-size: 18px;
+        }
+
+        ul{
+            list-style: none;
+            li{
+                margin: 2px 0;
+            }
+        }
+    }
+}
+
+form.editForm, form.salasForm{
+    select{
+        border: solid 1px #008080;
+        padding: 8px;
+        width: 100%;
+        cursor: pointer;
+        margin: 4px 0 4px;
+    }
+
+    fieldset{
+        border: solid 1px #008080;
+        margin: 8px 0;
+        padding: 8px;
+
+        div.checkBox{
+            margin: 8px 0;
+
+            input{
+                width: 24px;
+                height: 24px;
+                accent-color: #008080;
+            }
+
+            input, label{
+                cursor: pointer;
+                margin-left: 8px;
+            }
+
+            label:hover{
+                color: #008080;
+            }
+        }
+    }
+
+    input[type="text"]{
+        border: solid 1px #008080;
+        padding: 8px;
+        margin: 4px 0;
+
+    }
+
+    input[type=submit]{
+        margin: 4px 0;
+    }
+}
+
+div.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.btnBox{
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width:380px) {
+        flex-direction: row;
+    }
+}
