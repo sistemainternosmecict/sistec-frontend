@@ -34,6 +34,7 @@ function obterDistrito( distrito ){
 function ModalUnidade({ unidade, setPaginaAreaUnidades }){
     const [editing, setEditing]= useState(false)
     const [gerenciandorSalas, setGerenciandorSalas] = useState(false)
+
     return (
         <>
             <h2>{unidade.uni_designador_categoria + " " + unidade.uni_nome}</h2>
@@ -71,13 +72,13 @@ function ModalUnidade({ unidade, setPaginaAreaUnidades }){
             </div>) : 
             <>
                 <h3 className='subtitle'>Editor de unidade</h3>
-                <ModalUnidadeEditor unidade={unidade} setPaginaAreaUnidades={setPaginaAreaUnidades}/> 
+                <ModalUnidadeEditor unidade={unidade} setPaginaAreaUnidades={setPaginaAreaUnidades} setEditing={setEditing} setGerenciandorSalas={setGerenciandorSalas}/> 
             
             </>
             : 
             <>
                 <h3 className='subtitle'>Gerenciador de salas</h3>
-                <GerenciadorDeSala unidade={unidade} />
+                <GerenciadorDeSala unidade={unidade} setEditing={setEditing} setGerenciandorSalas={setGerenciandorSalas}/>
             </>}
 
             <div className="btnBox">
@@ -87,10 +88,7 @@ function ModalUnidade({ unidade, setPaginaAreaUnidades }){
                 <button onClick={() => setGerenciandorSalas(true)}>Gerenciador de salas</button>
                 </>) :
                 (<>
-                <button onClick={() => {
-                    setEditing(false)
-                    setGerenciandorSalas(false)}
-                    }>Cancelar</button></>)}
+                </>)}
             </div>
         </>
     )

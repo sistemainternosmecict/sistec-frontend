@@ -57,7 +57,7 @@ function stageData(e, hostUrl, setPaginaAreaUnidades){
     atualizarUnidade( hostUrl, data, setPaginaAreaUnidades )
 }
 
-function ModalUnidadeEditor({ unidade, setPaginaAreaUnidades }){
+function ModalUnidadeEditor({ unidade, setPaginaAreaUnidades, setEditing, setGerenciandorSalas }){
     const { hostUrl } = useContext(HostContext)
     const [segmentos, setSegmentos] = useState([])
 
@@ -121,13 +121,20 @@ function ModalUnidadeEditor({ unidade, setPaginaAreaUnidades }){
 
                 <input type="submit" value="Registrar alterações" />
             </form>
+
+            <button onClick={() => {
+                    setEditing(false)
+                    setGerenciandorSalas(false)}
+                    }>Cancelar</button>
         </>
     )
 }
 
 ModalUnidadeEditor.propTypes = {
     unidade: PropTypes.object,
-    setPaginaAreaUnidades: PropTypes.func
+    setPaginaAreaUnidades: PropTypes.func,
+    setEditing: PropTypes.func, 
+    setGerenciandorSalas: PropTypes.func
 }
 
 export default ModalUnidadeEditor;

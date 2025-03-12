@@ -144,7 +144,7 @@ function Nav({ host,
                                 }}>Novo dispositivo</button>
                             </div> : <></>}
 
-                            {/* {(openAreas.current.find( perm => perm === 6))
+                            {(openAreas.current.find( perm => perm === 6))
                             ? <div className='btnBlock'>
                                 <p>Unidades</p>
                                 <button onClick={() => {
@@ -157,7 +157,7 @@ function Nav({ host,
                                     areaUnidadesControl.setPaginaAreaUnidades(1)
                                     setMenuOpen(false)
                                 }}>Registrar nova unidade</button>
-                            </div> : <></>} */}
+                            </div> : <></>}
 
                             <button onClick={() => {setPage({pageN: 5, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>
                             
@@ -167,7 +167,7 @@ function Nav({ host,
                             {(openAreas.current.find( perm => perm === 1)) ? <button onClick={() => {setPage({pageN: 1, pageT: "Área de Usuários"}), setMenuOpen(false)}}>Usuários</button> : <></>}
                             {(openAreas.current.find( perm => perm === 6)) ? <button onClick={() => {setPage({pageN: 2, pageT: "Área de Demandas"}), setMenuOpen(false)}}>Demandas</button> : <></>}
                             {(openAreas.current.find( perm => perm === 6)) ? <button onClick={() => {setPage({pageN: 3, pageT: "Área de Dispositivos"}), setMenuOpen(false)}}>Dispositivos</button> : <></>}
-                            {/* {(openAreas.current.find( perm => perm === 1)) ? <button onClick={() => {setPage({pageN: 4, pageT: "Área de Unidades"}), setMenuOpen(false)}}>Unidades</button> : <></>} */}
+                            {(openAreas.current.find( perm => perm === 1)) ? <button onClick={() => {setPage({pageN: 4, pageT: "Área de Unidades"}), setMenuOpen(false)}}>Unidades</button> : <></>}
                             {<button onClick={() => {setPage({pageN: 5, pageT: "Área de Documentos"}), setMenuOpen(false)}}>Documentos</button>}
                         </>
                         }

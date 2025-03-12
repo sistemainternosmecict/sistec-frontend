@@ -3,6 +3,7 @@ import icone from '../../../assets/icone_processamento.png';
 import './style.scss'
 
 function ListagemUsuarios({ elements }){
+
     return (
         <>  
             <>
@@ -15,7 +16,7 @@ function ListagemUsuarios({ elements }){
 }
 
 ListagemUsuarios.propTypes = {
-    elements: PropTypes.array.isRequired
+    elements: PropTypes.any
 }
 
 export default ListagemUsuarios;

@@ -8,6 +8,7 @@ h2{
 }
 
 h3.subtitle{
+    margin: 0 0 16px;
     text-align: center;
     color: #008080;
 }
@@ -84,6 +85,30 @@ form.editForm, form.salasForm{
     input[type=submit]{
         margin: 4px 0;
     }
+
+    div.radiogroup{
+        border: solid 1px #008080;
+        padding: 8px;
+        margin: 4px 0;
+
+        label{
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+    
+            input[type=radio]{
+                cursor: pointer;
+                margin-right: 8px;
+                accent-color: #008080;
+            }
+    
+            &:hover{
+                background-color: #008080;
+            }
+        }
+    }
+
 }
 
 div.container{
@@ -98,5 +123,39 @@ div.btnBox{
 
     @media screen and (min-width:380px) {
         flex-direction: row;
+    }
+}
+
+div.selectedRoom{
+    width: 100%;
+    max-width: 500px;
+    border: solid 1px #008080;
+    padding: 16px;
+
+    div.subInfo{
+        margin-top: 16px;
+        border-top: solid 1px #008080;
+        padding: 16px 0;
+    }
+
+    p.innerTitle{
+        color: #008080;
+        font-weight: bold;
+    }
+
+    p{
+        font-size: 16px;
+        text-align: left;
+        margin: 4px 0;
+        display: flex;
+        flex-direction: column;
+
+        span{
+            font-weight: bold;
+        }
+
+        @media screen and (min-width: 700px) {
+            display: block;
+        }
     }
 }

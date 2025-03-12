@@ -108,9 +108,9 @@ function RegistroUnidade(){
                         <label htmlFor="uni_nome">Distrito</label>
                         <select name="uni_distrito" id="uni_distrito" defaultValue="-">
                             <option value="-">Selecione o distrito</option>
-                            <option value="D1">1º Distrito</option>
-                            <option value="D2">2º Distrito</option>
-                            <option value="D3">3º Distrito</option>
+                            <option value="D1">1º Distrito - Saquarema / Vila</option>
+                            <option value="D2">2º Distrito - Bacaxá</option>
+                            <option value="D3">3º Distrito - Sampaio Correa</option>
                         </select>
                     </div>
 

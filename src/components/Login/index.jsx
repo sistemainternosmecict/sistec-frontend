@@ -3,9 +3,10 @@ import { HostContext } from '../../HostContext';
 import CadastroUsuario from '../areaDeUsuarios/CadastroUsuario';
 import logoSistec from '../../assets/logo_sistec.png'
 import logoSub from '../../assets/preto_logoSub.png'
+import PropTypes from 'prop-types';
 import './style.scss';
 
-const login = async (e, host, setUsuario, setLoggedIn, setMessage, setTipo) => {
+const login = async (e, host, setUsuario, setLoggedIn, setMessage) => {
   e.preventDefault()
   const route = "/api/usuarios/auth/login";
   const fields = e.target.elements;
@@ -39,7 +40,7 @@ export default function Login({ setUsuario,  setLoggedIn }) {
             {/* <h2>Sistec</h2>
             <p>Sistema Interno de Suporte Tecnológico</p> */}
             <img className='logoSistec' src={logoSistec} alt="logo do sistema sistec"/>
-          <p className='ver'>versão 1.3-alpha</p>
+          <p className='ver'>versão 1.4-Alpha</p>
             <div className='caixa'>
               <input type="text" name="usuario_matricula" id="usuario_matricula" placeholder='Matrícula' autoComplete='username'/>
               <input type="password" name="usuario_senha" id="usuario_senha" autoComplete='current-password' placeholder='Senha'/>
@@ -58,5 +59,10 @@ export default function Login({ setUsuario,  setLoggedIn }) {
         : <CadastroUsuario tipoDeArea="externa" />}
       </>
     )
+  }
+
+  Login.propTypes = {
+    setUsuario: PropTypes.func,
+    setLoggedIn: PropTypes.func
   }
   
