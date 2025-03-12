@@ -124,7 +124,7 @@ function Documentos(){
                     setPg(1)
                 }}>Gerar novo Termo de responsabilidade</button>
                 <button onClick={() => {
-                    const export_folder = (window.location.hostname !== "192.168.100.154") ? "files/termos_chromebooks" : "files"
+                    const export_folder = (window.location.hostname !== "192.168.100.154") ? "files/termos_chromebooks" : "files/templates"
                     const url = `http://${window.location.hostname}/${export_folder}/TMBP_novo_timbrado.pdf`;
                     window.open(url, "_blank");
                 }}>Termo de Movimentação de Bens Patrimoniais</button>
