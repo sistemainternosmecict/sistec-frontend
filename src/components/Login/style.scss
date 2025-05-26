@@ -59,12 +59,6 @@ form#login {
         }
     
     }
-    
-    
-    p.ver{
-        color: gray;
-    }
-    
 }
 
 p{
@@ -95,6 +89,22 @@ button.cadastro{
 img.logoSub{
     margin-top: 128px;
     width: 100%;
-    max-width: calc(300px/1.5);
+    max-width: calc(280px/1.5);
     align-self: center;
+}
+
+div.versionBlock{
+    margin-top: 32px;
+    p.ver{
+        font-size: 12px;
+        color: gray;
+        letter-spacing: 0.8px;
+    }
+    
+    p.api_online{
+        color: #008080;
+    }
+    p.api_offline{
+        color: red;
+    }
 }

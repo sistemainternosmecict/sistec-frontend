@@ -1,10 +1,17 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { HostContext } from '../../HostContext';
 import CadastroUsuario from '../areaDeUsuarios/CadastroUsuario';
 import logoSistec from '../../assets/logo_sistec.png'
 import logoSub from '../../assets/preto_logoSub.png'
 import PropTypes from 'prop-types';
 import './style.scss';
+
+async function obter_info(host){
+  const route = "/info"
+  const result = await fetch(host+route);
+  const retorno = await result.json();
+  return retorno
+}
 
 const login = async (e, host, setUsuario, setLoggedIn, setMessage) => {
   e.preventDefault()
@@ -27,10 +34,20 @@ const login = async (e, host, setUsuario, setLoggedIn, setMessage) => {
   };
 }
 
+async function fetchData( host, setInfo ){
+  const info = await obter_info( host )
+  setInfo(info)
+}
+
 export default function Login({ setUsuario,  setLoggedIn }) {
     const [msg, setMessage] = useState("")
     const { hostUrl } = useContext(HostContext)
     const [cadastrado, setCadastrado] = useState(true)
+    const [info, setInfo] = useState({api_version: null, api_online: false})
+
+    useEffect(() => {
+      fetchData( hostUrl, setInfo )
+    },[])
 
     return (
       <>
@@ -40,7 +57,12 @@ export default function Login({ setUsuario,  setLoggedIn }) {
             {/* <h2>Sistec</h2>
             <p>Sistema Interno de Suporte Tecnológico</p> */}
             <img className='logoSistec' src={logoSistec} alt="logo do sistema sistec"/>
-          <p className='ver'>versão 1.4-Alpha</p>
+          <div className='versionBlock'>
+            {/* <p className='ver'>App v1.4-Alpha</p> */}
+            <p className={(info.api_online) ? "ver api_online" : "ver api_offline"}> {(info.api_online)
+            ? `App v${info.api_version}-alpha | Online` 
+            : `App ${(info.api_version) ? (info.api_version + " | ") : ""} Offline`}</p>
+          </div>
             <div className='caixa'>
               <input type="text" name="usuario_matricula" id="usuario_matricula" placeholder='Matrícula' autoComplete='username'/>
               <input type="password" name="usuario_senha" id="usuario_senha" autoComplete='current-password' placeholder='Senha'/>
@@ -55,6 +77,8 @@ export default function Login({ setUsuario,  setLoggedIn }) {
             {msg}
           </p>
           <img className='logoSub' src={logoSub} alt="logo da subsecretaria de tecnologia" />
+
+          
         </>
         : <CadastroUsuario tipoDeArea="externa" />}
       </>

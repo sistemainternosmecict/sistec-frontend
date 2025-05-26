@@ -6,6 +6,25 @@ import servicos from '../CriarDemanda/tipos_servicos.json';
 import empresas from '../CriarDemanda/empresas.json';
 import { Icon } from '@iconify-icon/react';
 
+
+
+async function obter_oficios(host, protocolo){
+    const route = "/api/demandas/oficios/listar"
+    const result = await fetch(host+route);
+    const retorno = await result.json();
+
+    retorno.arquivos.forEach( async arq => {
+        if(arq.protocolo == protocolo){
+            console.log(arq)
+            const route2 = `/api/demandas/oficio/download/${arq.filename}`
+            const result2 = await fetch(host+route2);
+            const retorno2 = await result2.json();
+
+            console.log(retorno2)
+        }
+    })
+}
+
 async function obterUsuarios(host, set){
     const route = "/api/usuarios/listar"
     const result = await fetch(host+route);
@@ -267,6 +286,14 @@ function ModalDemanda({ demanda, fetchData, setDemandas, setPagina, usuario }){
                 <p><span>Prioridade:</span> {obterPrioridade(demanda.nvl_prioridade)} </p>
                 <p><span>Status:</span> {obterEstado(demanda.status)} </p>
                 <p><span>Direcionamento:</span> {direcionamento.current.usuario_id + " - " + direcionamento.current.usuario_nome} </p>
+
+                <div>
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        {window.open(`${hostUrl}/api/demandas/oficio/download/${demanda.protocolo}`, "_blank")}
+                    }}>Abrir ofício</button>
+                </div>
+
                 
                 {(demanda.status >= 4) ? <div className='dadosFinais'>
                     <h2>Dados de finalização</h2>

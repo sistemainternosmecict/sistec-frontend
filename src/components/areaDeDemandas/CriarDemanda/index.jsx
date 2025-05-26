@@ -23,15 +23,30 @@ async function obter_usuarios(host, set){
     set(retorno.usuarios);
 }
 
-async function registrar_demanda( demanda, host, setMessage ){
+async function registrar_demanda( demanda, host, arquivo, setMessage ){
     const route = "/api/demandas/registrar"
+    const route2 = "/api/demandas/oficio/upload"
+
     const options = {
         method: "POST",
         body: JSON.stringify(demanda),
         headers: {"Content-Type":"application/json"}
       };
+
     const result = await fetch(host+route, options);
     const retorno = await result.json();
+
+    if(arquivo){
+        const renamedFile = new File([arquivo], `${retorno.protocolo}.pdf`, { type: arquivo.type });
+        const formData2 = new FormData();
+        formData2.append('arquivo', renamedFile)
+        const options2 = {
+            method: "POST",
+            body: formData2
+        };
+        await fetch(host+route2, options2);
+    }
+
     if(retorno.inserido){
         const message = retorno.protocolo
         setMessage(message)
@@ -60,7 +75,9 @@ function criarDemanda(e, host, setMessage, servicoSelecionado){
         status: (Number(servicoSelecionado.tipo) === 2) ? 4 : 1
     }
 
-    registrar_demanda(demanda, host, setMessage)
+    const arquivo = fields.arquivo.files[0]
+
+    registrar_demanda(demanda, host, arquivo,  setMessage)
 }
 
 function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
@@ -75,6 +92,7 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
     const [servicoSelecionado, setServicoSelecionado] = useState({'selecionado':false, 'servico':undefined, 'default':'-', 'tipo':undefined, 'incidente':undefined})
     const [descricao, setDescricao] = useState(false)
     const localInputRef = useRef(null)
+    const [fileInputOpen, setFileInputOpen] = useState(false)
 
     useEffect(()=> {
         obter_usuarios(hostUrl, setSolicitantes)
@@ -110,6 +128,17 @@ function CriarDemanda({ usuario, setLoggedIn, setUsuario, tipoDeArea }){
                 {(tipoDeArea == "interna") ?
                 <>
                     <h2 className='titulo'>Nova demanda</h2>
+                    <div className='container_arquivo'>
+                        <div className='container_btn'>
+                            <button onClick={(e) => {
+                                e.preventDefault()
+                                setFileInputOpen(!fileInputOpen)}}>{(fileInputOpen) ? "Cancelar" : "Registrar ofício"}</button>
+                        </div>
+                        {(fileInputOpen) ?
+                        <div className='container_campo_arquivo'>
+                            <input type="file" name="arquivo" />
+                        </div> : <></>}
+                    </div>
                     <input name="dem_local" placeholder='Local' /> 
                     <input name="dem_sala" placeholder='Sala' />
                     <select name="solicitante" id="solicitante" defaultValue="-">

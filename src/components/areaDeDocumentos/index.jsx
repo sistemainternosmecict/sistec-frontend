@@ -42,6 +42,23 @@ async function gerarTermo(dados, hostUrl, setPg) {
     }
 }
 
+async function enviarFolha(dados, hostUrl ) {
+    const BASE_URL = `${hostUrl}/upload/lista_rh`
+    try {
+        const response = await fetch(`${BASE_URL}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            body: dados,
+        });
+
+        console.log(response)
+    } catch {
+        return null
+    }
+}
+
 function validarCampos(data) {
     for (let key in data) {
         if (!data[key].trim()) {
@@ -67,6 +84,13 @@ function stageData(e, hostUrl, setPg) {
     if (validarCampos(data)) {
         gerarTermo(data, hostUrl, setPg)
     }
+}
+
+function stageDataHRList(e, rhFile){
+    e.preventDefault()
+    const formData = new FormData();
+    formData.append("file", rhFile)
+    console.log(formData, hostUrl)
 }
 
 function openForm(hostUrl, setPg){
@@ -103,16 +127,32 @@ function openForm(hostUrl, setPg){
     )
 }
 
-function setDocument(pg, hostUrl, setPg){
+function openUploadRH( hostUrl, setPg, setRhFile, rhFile ){
+    const handleFileChange = (e) => {
+        setRhFile(e.target.files[0]);
+      };
+
+    return (<form onSubmit={(e) => stageDataHRList(e, rhFile)}>
+        <input type="file" accept=".xlsx" onChange={handleFileChange} />
+        <input type="submit" value="Submeter arquivo" />
+    </form>)
+}
+
+function setDocument(pg, hostUrl, setPg, setRhFile, rhFile){
     switch(pg){
         case 1:
             return openForm(hostUrl, setPg)
+        case 2:
+            return openUploadRH(hostUrl, setPg, setRhFile, rhFile)
     }
 }
 
 function Documentos(){
+    const [rhFile, setRhFile] = useState(null)
     const { hostUrl } = useContext(HostContext)
     const [pg, setPg] = useState(0)
+
+    
 
     return (
         <section className="documentos">
@@ -128,11 +168,14 @@ function Documentos(){
                     const url = `http://${window.location.hostname}/${export_folder}/TMBP_novo_timbrado.pdf`;
                     window.open(url, "_blank");
                 }}>Termo de Movimentação de Bens Patrimoniais</button>
+                <button onClick={() => {
+                    setPg(2)
+                }}>Upload de folha de matricula do RH</button>
             </div>
 
             {/* <ListagemTermos /> */}
             
-            </>) : setDocument(pg, hostUrl, setPg)}
+            </>) : setDocument(pg, hostUrl, setPg, setRhFile, rhFile)}
         </section>
     )
 }
